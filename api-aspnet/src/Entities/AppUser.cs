@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace api_aspnet.src.Entities;
 
 public class AppUser : IdentityUser<int>{
 	public DateOnly DateOfBirth { get; set; }
 	public string DisplayName { get; set; }
-
 	public DateTime Created { get; set; } = DateTime.UtcNow;
-	public DateTime LastActive { get; set; } = DateTime.UtcNow;
+	//public DateTime LastActive { get; set; } = DateTime.UtcNow;
 	public string Gender { get; set; }
 	public string About { get; set; }
 	public string Location { get; set; }

@@ -2,22 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <RootNamespace>api_aspnet</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="src\Extensions\" />
-    <Folder Include="src\Helpers\" />
+    <Folder Include="docs\" />
     <Folder Include="src\Middleware\" />
+    <Folder Include="src\Errors\" />
     <Folder Include="tests\" />
     <Folder Include="src\Data\Interfaces\" />
     <Folder Include="src\Data\Migrations\" />
-    <Folder Include="src\Controllers\" />
-    <Folder Include="src\DTOs\" />
-    <Folder Include="src\Data\Repositories\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
