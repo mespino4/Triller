@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {}
+    "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {
+    "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
+        "projectUniqueName": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
         "projectName": "api-aspnet",
-        "projectPath": "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\obj\\",
+        "projectPath": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
+        "packagesPath": "C:\\Users\\mely\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Programs\\Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Users\\mely\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mely\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mely\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,9 +28,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://packages.stride3d.net/nuget": {},
-          "https://packages.xenko.com/nuget": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -51,9 +51,25 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.10.4, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.0-preview4.23342.2, )"
+            },
+            "Microsoft.Data.SqlClient.SNI.runtime": {
+              "target": "Package",
+              "version": "[5.2.0-preview1.23340.1, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -70,6 +86,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.0.3, )"
             }
           },
           "imports": [
