@@ -20,6 +20,7 @@ public static class ApplicationServiceExtensions {
 		services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 		services.AddScoped<ITokenService, TokenService>();
 		services.AddAutoMapper(typeof(AutoMapperProfiles));
+		services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
 		return services;
 	}
