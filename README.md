@@ -1,4 +1,4 @@
-# Triller: A Twitter Clone
+# Triller: A Microblogging Social Media Platform
 
 Triller is a social media platform that mimics the functionality of Twitter, 
 allowing users to share their thoughts, updates, and more through short posts called Trills. 
