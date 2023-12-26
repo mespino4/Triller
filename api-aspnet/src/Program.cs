@@ -20,10 +20,6 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.UseCors(builder => builder
 	.AllowAnyHeader()
 	.AllowAnyMethod()
@@ -35,6 +31,7 @@ app.UseCors(builder => builder
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
 
 using var scope = app.Services.CreateScope();
@@ -45,6 +42,8 @@ try {
 	var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 	await context.Database.MigrateAsync();
 	await Seed.SeedUsers(userManager, roleManager);
+	await Seed.SeedTrills(context);
+	Console.WriteLine("SOYYY LA PUITAAA VACAAAAA!!!!");
 } catch(Exception ex) {
 	var logger = services.GetService<ILogger<Program>>();
 	logger.LogError(ex, "An error occured during migration");

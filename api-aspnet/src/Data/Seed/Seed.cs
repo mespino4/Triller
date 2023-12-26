@@ -1,4 +1,5 @@
-﻿using api_aspnet.src.Entities;
+﻿using api_aspnet.src.DTOs;
+using api_aspnet.src.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -12,10 +13,8 @@ public class Seed {
 		if(await userManager.Users.AnyAsync()) return;
 
 		var userData = await File.ReadAllTextAsync("src/Data/Seed/UserSeedData.json");
-
 		var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-
-		var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+		var users = JsonSerializer.Deserialize<List<AppUser>>(userData, options);
 
 		var roles = new List<AppRole> {
 			new AppRole{Name = "Member" },
@@ -35,5 +34,17 @@ public class Seed {
 		var admin = new AppUser { UserName = "admin" };
 		await userManager.CreateAsync(admin, "Pa$$w0rd");
 		await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
+	}
+
+	public static async Task SeedTrills(DataContext context) {
+		if(!context.Trills.Any()) {
+			var trillData = await File.ReadAllTextAsync("src/Data/Seed/TrillSeedData.json");
+			var trills = JsonSerializer.Deserialize<List<Trill>>(trillData);
+			context.Trills.AddRange(trills);
+		}
+
+		if(context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
+
+		Console.WriteLine("CHUPALAAAAAA!!!!");
 	}
 }

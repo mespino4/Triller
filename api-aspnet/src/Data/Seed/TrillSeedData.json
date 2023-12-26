@@ -1,0 +1,48 @@
+[
+  {
+    "AuthorId": 1,
+    "Content": "Triller is now open for business !! 😎",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 3,
+    "Content": "LETS GOOOOO!!!",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 4,
+    "Content": "THIRD TRILLL EVER !!!",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 5,
+    "Content": "🥞 Pancakes for the win! 😍 Fluffy stacks of joy that soak up syrup perfectly, no need for those waffle divots. Pancakes are the OG breakfast delight – versatile, easy to make, and a canvas for creativity. Sorry waffles, but pancakes have my heart. 💙 #PancakeLove #BreakfastDebate",
+    "Photo": "https://www.wholesomeyum.com/wp-content/uploads/2018/04/wholesomeyum-Easy-Keto-Almond-Flour-Pancakes-Recipe-24.jpg"
+  },
+  {
+    "AuthorId": 6,
+    "Content": "🥤 The Pepsi-Coke debate rages on, but let's be real – Pepsi's crisp sweetness and bold flavor take the crown! 😎 No shade to Coke lovers, but Pepsi just hits different. Team Pepsi all the way, and honestly, I don't care what any of you goofies got to say. #PepsiOverCoke #UnapologeticSip",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 7,
+    "Content": "🚀 In the world of JavaScript frameworks, let's settle the debate once and for all: Angular is and will forever be the GOAT! 🐐💻 Its structure, TypeScript magic, and powerful features make it the undeniable champion. React devs, no hard feelings, but Angular is on another level. 😎 #AngularAdvocate #JavaScriptGreatness",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 8,
+    "Content": "🌵 Texas, where the sunsets paint the sky like a masterpiece and hospitality runs as deep as our Lone Star pride. From the sprawling landscapes to the BBQ that's practically an art form – Texas, you're not just a state, you're a state of mind. ❤️🤠 #TexasForever #BigHeartBigState",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 9,
+    "Content": "🏗️ Building digital landscapes with the precision of an architect. As a software architect, every line of code is a brushstroke in the canvas of functionality and efficiency. Striving for scalable, resilient systems – because in the world of software, a solid foundation is everything. 💡🚀 #SoftwareCraftsmanship #ArchitectingTheFuture",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 10,
+    "Content": "☕️ Coffee: the unsung hero of code. From the first sip that kickstarts the day to those late-night coding sessions fueled by espresso shots, it's the programmer's liquid courage. Debugging or designing, coffee is the constant companion in the language of caffeine and code. ☕️💻 #CodeAndCoffee #DevFuel",
+    "Photo": ""
+  }
+
+]
