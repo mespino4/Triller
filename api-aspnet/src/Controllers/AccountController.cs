@@ -8,12 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Controllers;
-public class AccountController(UserManager<AppUser> userManager, 
-	ITokenService tokenService, IMapper mapper) : BaseApiController {
+public class AccountController : BaseApiController {
+	private readonly UserManager<AppUser> _userManager;
+	private readonly ITokenService _tokenService;
+	private readonly IMapper _mapper;
 
-	private UserManager<AppUser> _userManager = userManager;
-	private ITokenService _tokenService = tokenService;
-	private IMapper _mapper = mapper;
+	public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper) {
+		_userManager = userManager;
+		_tokenService = tokenService;
+		_mapper = mapper;
+	}
 
 	[HttpPost("register")] //api/account/register
 	public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDto) {

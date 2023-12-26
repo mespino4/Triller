@@ -11,8 +11,6 @@
   <ItemGroup>
     <Folder Include="docs\" />
     <Folder Include="src\Data\Migrations\" />
-    <Folder Include="src\Middleware\" />
-    <Folder Include="src\Errors\" />
     <Folder Include="tests\" />
     <Folder Include="src\Data\Interfaces\" />
     <Folder Include="src\Data\Migrations\" />

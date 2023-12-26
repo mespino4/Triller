@@ -58,6 +58,12 @@ public class UserRepository : IUserRepository {
 			.ToListAsync();
 	}
 
+	public async Task<IEnumerable<AppUser>> GetAllUsersAsync() {
+		return await _context.Users
+			.Include(b => b.BannerPicture)
+			.ToListAsync();
+	}
+
 	public async Task<AppUser> GetUserByIdAsync(int id) {
 		return await _context.Users
 			.Where(u => u.Id == id)
@@ -71,12 +77,6 @@ public class UserRepository : IUserRepository {
 			.Include(p => p.ProfilePicture)
 			.Include(b => b.BannerPicture)
 			.SingleOrDefaultAsync(x => x.UserName == username);
-	}
-
-	public async Task<IEnumerable<AppUser>> GetAllUsersAsync() {
-		return await _context.Users
-			.Include(b => b.BannerPicture)
-			.ToListAsync();
 	}
 
 	public async Task<IEnumerable<Trill>> GetUserTimeline(int userId) {

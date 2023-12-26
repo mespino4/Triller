@@ -3,6 +3,7 @@ using api_aspnet.src.Data;
 using api_aspnet.src.Data.Seed;
 using api_aspnet.src.Entities;
 using api_aspnet.src.Extensions;
+using api_aspnet.src.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,8 @@ builder.Services.AddIdentityServices(builder.Configuration);
 
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();

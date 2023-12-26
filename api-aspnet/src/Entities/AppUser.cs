@@ -6,7 +6,7 @@ public class AppUser : IdentityUser<int>{
 	public DateOnly DateOfBirth { get; set; }
 	public string DisplayName { get; set; }
 	public DateTime Created { get; set; } = DateTime.UtcNow;
-	//public DateTime LastActive { get; set; } = DateTime.UtcNow;
+	public DateTime LastActive { get; set; } = DateTime.UtcNow;
 	public string Gender { get; set; }
 	public string About { get; set; }
 	public string Location { get; set; }

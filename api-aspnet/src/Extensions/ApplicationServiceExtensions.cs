@@ -16,11 +16,18 @@ public static class ApplicationServiceExtensions {
 		});
 
 		services.AddCors();
+		services.AddScoped<ITokenService, TokenService>();
 		services.AddScoped<IUserRepository, UserRepository>();
 		services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-		services.AddScoped<ITokenService, TokenService>();
 		services.AddAutoMapper(typeof(AutoMapperProfiles));
+		services.AddScoped<ITrillRepository, TrillRepository>();
+		services.AddScoped<IBookmarkRepository, BookmarkRepository>();
 		services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+		services.AddScoped<IMediaService, MediaService>();
+		services.AddScoped<IRetrillRepository, RetrillRepository>();
+		services.AddScoped<IConnectionRepository, ConnectionRepository>();
+		services.AddScoped<IBlockRepository, BlockRepository>();
+		services.AddScoped<INotificationRepository, NotificationRepository>();
 
 		return services;
 	}
