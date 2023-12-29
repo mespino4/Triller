@@ -1,0 +1,16 @@
+<div class="p-3 text-white bg-gray-800 rounded-md">
+    <h2 mat-dialog-title class="text-lg font-semibold ">{{ data.message }}</h2>
+
+    <div mat-dialog-actions 
+        class="p-5 text-xl font-semibold text-white flex justify-center">
+        <button mat-button (click)="onYesClick()"
+        class="bg-red-500 hover:bg-red-700 rounded-md p-2 mx-2"
+        style="outline: none;"
+        >Yes</button>
+        <button mat-button (click)="onNoClick()"
+        class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 mx-2"
+        style="outline: none;"
+        >No</button>
+
+    </div>
+</div>

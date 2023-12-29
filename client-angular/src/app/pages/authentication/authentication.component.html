@@ -1,0 +1,87 @@
+<body class="flex items-center justify-center" *ngIf="isLogin">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-semibold mb-4">Login</h2>
+
+        <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+            <div class="mb-4">
+                <label for="username" class="block text-xl font-medium text-gray-700">Username</label>
+                <input type="text" id="username" name="username" [(ngModel)]="model.username"
+                        class="mt-1 p-3 border rounded-md w-full"
+                        placeholder="Enter your username" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-xl font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="model.password"
+                        class="mt-1 p-3 border rounded-md w-full"
+                        placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" 
+                    class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 
+                    transition duration-300 w-full" 
+                    [routerLink]="(currentUser$ | async) ? '/home' : null" 
+                    >Log In</button>
+        </form>
+
+        <p class="mt-4 text-gray-600 text-center text-lg">
+            Don't have an account? 
+            <a class="text-blue-500 hover:underline hover:cursor-pointer"
+                (click)="registerPage()">Create Account</a>
+        </p>
+    </div>
+</body>
+
+
+<body class="flex items-center justify-center" *ngIf="!isLogin">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-semibold mb-4">Register</h2>
+        
+        <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+
+            <div class="flex items-center mb-4">
+                <label class="mr-2">I am a</label>
+                <label class="inline-flex items-center">
+                  <input type="radio" class="form-radio text-indigo-600" value="male" formControlName="gender">
+                  <p class="ml-2">Male</p>
+                </label>
+                <label class="inline-flex items-center ml-4">
+                  <input type="radio" class="form-radio text-indigo-600" value="female" formControlName="gender">
+                  <p class="ml-2">Female</p>
+                </label>
+            </div>
+
+            <app-text-input [formControl]="$any(registerForm.controls['displayName'])"
+                [label]="'Name'"></app-text-input>
+
+            <app-text-input [formControl]="$any(registerForm.controls['username'])"
+                [label]="'Username'"></app-text-input>
+
+            <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])"
+                [label]="'Date Of Birth'" [max]="maxDate"></app-date-picker>
+
+            <app-text-input [formControl]="$any(registerForm.controls['location'])"
+                [label]="'Location'"></app-text-input>
+
+            <app-text-input [formControl]="$any(registerForm.controls['password'])"
+                [label]="'Password'" [type]="'password'"></app-text-input>
+              
+            <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])"
+                [label]="'Confirm Password'" [type]="'password'"></app-text-input>
+
+            <button type="submit"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md w-full
+                    transition duration-300
+                    {{ registerForm.valid ? 'hover:bg-blue-600' : 'filter grayscale pointer-events-none' }}"
+                (click)="register()" [disabled]="!registerForm.valid"
+                routerLink="/home">Register
+            </button>
+        </form>
+
+        <p class="mt-4 text-gray-600 text-center text-lg">Already have an account? 
+        <a class="text-blue-500 hover:underline hover:cursor-pointer"
+            (click)="loginPage()">Log In</a>
+        </p>
+    </div>
+
+</body>

@@ -43,6 +43,8 @@ public class TrillRepository : ITrillRepository {
 	public async Task<PagedList<Trill>> GetTrillsAsync(int currentUserId, UserParams userParams) {
 		var query = _context.Trills
 			.Include(t => t.Replies)
+			.Include(t => t.Likes)
+			.Include(t => t.Retrills)
 			.Where(t => !t.Author.BlocksReceived
 				.Any(b => b.UserId == currentUserId) && !_context.Blocks
 				.Any(b => (b.UserId == currentUserId && b.BlockedUserId == t.AuthorId) ||

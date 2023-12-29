@@ -1,0 +1,24 @@
+<div class="mb-4">
+    <label class="block text-xl font-medium text-gray-700">{{label}}</label>
+    <input 
+        class="text-xl font-medium text-gray-700 w-full rounded-md border p-2 mt-1"
+        type={{type}}
+        [ngClass]="{'border-red-500 ring-red-700': control.touched && control.invalid}"
+        [formControl]="control"
+        placeholder="{{label}}" required>
+      
+    <p *ngIf="control.errors?.['required'] && control.touched"
+        class="text-red-500">Please enter a {{label}}</p>
+
+    <p *ngIf="control.errors?.['minlength']"
+        class="text-red-500">
+        {{label}} must be at least {{control.errors?.['minlength'].requiredLength}} characters</p>
+
+    <p *ngIf="control.errors?.['maxlength']"
+        class="text-red-500">
+        {{label}} must be at most {{control.errors?.['maxlength'].requiredLength}} characters</p>
+
+    <p *ngIf="control.errors?.['notMatching']"
+        class="text-red-500">
+        Passwords do not match
+</div>

@@ -1,5 +1,4 @@
 ﻿using api_aspnet.src.Data.Repositories.Interfaces;
-using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;

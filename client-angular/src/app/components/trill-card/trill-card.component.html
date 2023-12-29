@@ -1,0 +1,149 @@
+<!--Tweet Start-->
+<li *ngIf="trill" >
+    <article class="hover:bg-gray-800 transition duration-350 ease-in-out">
+
+        <div class="flex p-2 items-center" *ngIf="member$">
+            <a class="group block">
+                <div class="flex items-center">
+                    <img src="{{member$.profilePic}}" alt="Profile Image" 
+                        class="w-10 h-10 rounded-full mx-2 hover:cursor-pointer"
+                        routerLink="/profile/{{member$.username}}">
+                    <div>
+                        <h2 class="text-white font-semibold text-md hover:underline hover:cursor-pointer"
+                            routerLink="/profile/{{member$.username}}">
+                            {{member$.displayname}}
+                        </h2>
+                        <p class="text-gray-400 text-sm">&#64;{{member$.username}}</p>
+                    </div>
+                </div>
+            </a>
+
+            <p class="text-gray-400 text-base p-3">
+                • {{ trill.timestamp | date: 'short' : '-1200'}}
+            </p>
+        
+            <!-- Trashcan Icon -->
+            <div class="flex flex-1 justify-end" *ngIf="(user?.username == member$?.username) || hasModeratorRole()">
+                <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                        hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1">
+                    <img class="h-6 hover:cursor-pointer ml-auto" 
+                        src="assets\TrillButtons\trashcanW.png"
+                        (click)="deleteTrill(trill.id)">
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4">
+            <p class="text-base text-white py-2" routerLink="/trill/{{trill.id}}">
+                {{trill.content}}
+            </p>
+        
+            <img src="{{trill.photo}}" *ngIf="trill.photo"
+                alt="Tweet Image" class="w-full h-full rounded-lg mx-auto mt-2">
+
+            <!-- Tweet Image
+            <img src="https://i.pinimg.com/564x/5b/e8/fa/5be8fa39060ba83e116f553ca37af45b.jpg" 
+                alt="Tweet Image" class="w-full h-full rounded-lg mx-auto mt-2">
+            -->
+            
+
+            <!-- Tweet Video 
+            <video class="w-full h-auto rounded-lg mx-auto mt-2" controls>
+                <source src="https://www.youtube.com/embed/tgbNymZ7vqY" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            -->
+
+            <!-- YouTube Video 
+            <div class="w-fit h-fit mt-2">
+                <iframe width="640" height="360" class="rounded-lg"
+                    src="https://www.youtube.com/embed/tgbNymZ7vqY?si=3KYMQiU2351BBG37" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            -->
+
+            <hr class="border-gray-600 mt-2">
+
+            <!--BUTTONS-->
+            <div class="flex items-center justify-between py-2">
+
+                <!--Replies Button-->
+                <div class="flex flex-1 justify-center " >
+                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                            hover:bg-opacity-50 hover:bg-blue-400 hover:cursor-pointer p-1"
+                            routerLink="/trill/{{trill.id}}">
+                        <img class="h-6 pr-2 " src="assets\TrillButtons\commentW.png" >
+                        <p>{{trill.replies.length}}</p>
+                    </div>
+                </div>
+                
+                <!--Retrills Button-->
+                <div class="flex flex-1 justify-center " *ngIf="!isRetrilled">
+                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                            hover:bg-opacity-50 hover:bg-green-600 hover:cursor-pointer p-1"
+                        (click)="retrill(trill.id)">
+                        <img class="h-6 pr-2 " src="assets\TrillButtons\repostW.png" >
+                        <p>{{trill.retrills}}</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-1 justify-center " *ngIf="isRetrilled">
+                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                            hover:bg-opacity-50 hover:bg-green-600 hover:cursor-pointer p-1"
+                        (click)="deleteRetrill(trill.id)">
+                        <img class="h-6 pr-2 " src="assets\TrillButtons\repostFilled.png" >
+                        <p>{{trill.retrills}}</p>
+                    </div>
+                </div>
+                
+                <!--Like Button-->
+                <div class="flex flex-1 justify-center " *ngIf="!isTrillLiked">
+                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                            hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1"
+                        (click)="likeTrill(trill.id)">
+                        <img class="h-6 pr-2 " src="assets\TrillButtons\heartW.png" >
+                        <p>{{trill.likes}}</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-1 justify-center " *ngIf="isTrillLiked">
+                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                            hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1"
+                            (click)="deleteLike(trill.id)">
+                        <img class="h-6 pr-2" src="assets\TrillButtons\heartFilled.png" >
+                        <p>{{trill.likes}}</p>
+                    </div>
+                </div>
+
+                <!--Share & Bookmark Buttons-->
+                <div class="flex flex-1 justify-center ">
+                    <div class="flex text-white  rounded-full transition duration-350 ease-in-out 
+                                hover:bg-opacity-50 hover:bg-blue-500 hover:cursor-pointer p-1"
+                                (click)="shareButton()">
+                        <img class="h-6 " src="assets\TrillButtons\paperAirplaneW.png" >
+                    </div>
+
+                    <div class="mx-1"></div>
+
+                    <div class="flex text-white  rounded-full transition duration-350 ease-in-out 
+                                hover:bg-opacity-50 hover:bg-blue-500 hover:cursor-pointer p-1"
+                                *ngIf="!isBookmarked" (click)="addBookmark(trill.id)">
+                        <img class="h-6 " src="assets\TrillButtons\bookmarkW.png" >
+                    </div>
+                    
+                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                                hover:bg-opacity-50 hover:bg-blue-500 hover:cursor-pointer p-1"
+                                *ngIf="isBookmarked" (click)="deleteBookmark(trill.id)">
+                        <img class="h-6 " src="assets\TrillButtons\bookmarkFilled.png" >
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr class="border-gray-600 mt-2">
+    </article>
+</li>
+<!--Tweet End-->

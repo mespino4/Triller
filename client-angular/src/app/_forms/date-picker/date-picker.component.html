@@ -1,0 +1,20 @@
+<div class="mb-4">
+    <label class="block text-xl font-medium text-gray-700">{{label}}</label>
+    
+    <input 
+        class="text-xl font-medium text-gray-700 w-fit rounded-md border p-2 mt-1"
+        [ngClass]="{ 
+            'border-red-500 ring-red-700': 
+                control.touched && control.invalid
+        }"
+        [formControl]="control"
+        placeholder="DD/MM/YYYY"
+        [matDatepicker]="picker"
+        [max]="max"
+        >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> 
+    <mat-datepicker #picker ></mat-datepicker> 
+      
+    <p *ngIf="control.errors?.['required'] && control.touched"
+        class="text-red-500">Please enter a {{label}}</p>
+</div>

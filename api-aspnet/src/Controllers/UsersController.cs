@@ -39,9 +39,15 @@ public class UsersController : BaseApiController {
 	}
 
 
-	[HttpGet("{username}")] ///api/users/username
+	[HttpGet("username/{username}")] ///api/users/username
 	public async Task<ActionResult<MemberDTO>> GetUser(string username) {
 		var user =  await _userRepository.GetUserByUsernameAsync(username);
+		return _mapper.Map<MemberDTO>(user);
+	}
+
+	[HttpGet("id/{id}")] ///api/users/id
+	public async Task<ActionResult<MemberDTO>> GetUserById(int id) {
+		var user = await _userRepository.GetUserByIdAsync(id);
 		return _mapper.Map<MemberDTO>(user);
 	}
 
@@ -53,11 +59,10 @@ public class UsersController : BaseApiController {
 		var timeline = await _userRepository.GetUserTimeline(user.Id);
 		if(timeline == null) return BadRequest("Timeline not found");
 
-		return Ok(_mapper.Map<List<Trill>>(timeline));
-		//return Ok(timeline);
+		return Ok(_mapper.Map<IEnumerable<TrillDTO>>(timeline));
 	}
 
-	[HttpPut]
+	[HttpPut("profile")]
 	public async Task<ActionResult> UpdateUser(MemberUpdateDTO memberUpdateDto) {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return NotFound();
@@ -116,8 +121,8 @@ public class UsersController : BaseApiController {
 
 		user.ProfilePic = null;
 
-		if(await _userRepository.SaveAllAsync())
-			return Ok();
+		if(await _userRepository.SaveAllAsync()) return Ok();
+
 		return BadRequest("Failed to remove profile pic");
 	}
 

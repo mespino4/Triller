@@ -83,10 +83,13 @@ public class TrillController : BaseApiController {
 		if(user == null) return BadRequest("user not found");
 
 		var trills = await _trillRepository.GetTrillsAsync(user.Id, userParams);
-
+		
 		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
 		trills.TotalCount, trills.TotalPages));
-		return Ok(trills);
+		
+		if(trills != null) return Ok(_mapper.Map<IEnumerable<TrillDTO>>(trills));
+
+		return BadRequest("Failed to get Trills");
 	}
 
 	[HttpGet("following/")]
