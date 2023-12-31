@@ -21,7 +21,7 @@ export const routes: Routes = [
       {path: 'login', component: AuthenticationComponent},
       //{path: 'register', component: RegisterComponent},
       {path: 'home', component: HomeComponent},
-      //{path: 'profile/:username', component: ProfileComponent, resolve: {member: memberProfileResolver}},
+      {path: 'profile/:username', component: ProfileComponent},
       {path: 'notifications', component: NotificationsComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'bookmarks', component: BookmarksComponent},
