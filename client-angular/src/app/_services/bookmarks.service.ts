@@ -13,26 +13,22 @@ export class BookmarksService {
 
   constructor(private http: HttpClient) { }
 
-  getBookmarks(){
-    //return this.http.get<Bookmark[]>(this.baseUrl + 'users/bookmarks');
-    if (this.trills.length > 0) return of(this.trills);
-    return this.http.get<Trill[]>(this.baseUrl + 'users/bookmarks').pipe(
-      map(trills => {
-        this.trills = trills;
-        return trills;
-      })
-    )
+  getBookmarks(): Observable<Trill[]> {
+    return this.trills.length > 0 ? of(this.trills) :
+      this.http.get<Trill[]>(`${this.baseUrl}bookmarks`).pipe(
+        map(trills => this.trills = trills)
+      );
   }
 
   addBookmark(trillId: number) {
-    return this.http.post(this.baseUrl + 'users/bookmarks/add?trillId=' + trillId, {});
+    return this.http.post(this.baseUrl + 'bookmark/add?trillId=' + trillId, {});
   }
 
   deleteBookmark(trillId: number) {
-    return this.http.delete(this.baseUrl + 'users/bookmarks/delete?trillId=' + trillId, {});
+    return this.http.delete(this.baseUrl + 'bookmark/delete?trillId=' + trillId, {});
   }
 
   getBookmark(trillId: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}users/bookmark?trillId=${trillId}`, {});
+    return this.http.get<boolean>(this.baseUrl + 'bookmark?trillId=' + trillId, {});
   }
 }

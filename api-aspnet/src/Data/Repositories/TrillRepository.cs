@@ -45,10 +45,6 @@ public class TrillRepository : ITrillRepository {
 			.Include(t => t.Replies)
 			.Include(t => t.Likes)
 			.Include(t => t.Retrills)
-			.Where(t => !t.Author.BlocksReceived
-				.Any(b => b.UserId == currentUserId) && !_context.Blocks
-				.Any(b => (b.UserId == currentUserId && b.BlockedUserId == t.AuthorId) ||
-				(b.UserId == t.AuthorId && b.BlockedUserId == currentUserId)))
 			.OrderByDescending(trill => trill.Timestamp)
 		//.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
 			.AsNoTracking();
@@ -63,6 +59,21 @@ public class TrillRepository : ITrillRepository {
 		.OrderByDescending(trill => trill.Timestamp) // Order by Timestamp in descending order
 			//.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
 			.ToListAsync();
+	}
+
+	public async Task<PagedList<Trill>> GetForYouTrillsAsync(int currentUserId, UserParams userParams) {
+		var query = _context.Trills
+			.Include(t => t.Replies)
+			.Include(t => t.Likes)
+			.Include(t => t.Retrills)
+			.Where(t => !t.Author.BlocksReceived
+				.Any(b => b.UserId == currentUserId) && !_context.Blocks
+				.Any(b => (b.UserId == currentUserId && b.BlockedUserId == t.AuthorId) ||
+				(b.UserId == t.AuthorId && b.BlockedUserId == currentUserId)))
+			.OrderByDescending(trill => trill.Timestamp)
+			.AsNoTracking();
+
+		return await PagedList<Trill>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
 	}
 
 	public async Task<PagedList<Trill>> GetFollowingTrillsAsync(int userId, UserParams userParams) {

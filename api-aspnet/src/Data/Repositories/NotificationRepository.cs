@@ -1,21 +1,14 @@
 ﻿using api_aspnet.src.Data.Repositories.Interfaces;
-using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
 
 public class NotificationRepository : INotificationRepository {
 	private readonly DataContext _context;
-	private readonly IUserRepository _userRepository;
-	private readonly IMapper _mapper;
 
-	public NotificationRepository(DataContext context, IUserRepository userRepository,
-		IMapper mapper) {
+	public NotificationRepository(DataContext context) {
 		_context = context;
-		_userRepository = userRepository;
-		_mapper = mapper;
 	}
 
 	public void AddNotification(Notification notification) {

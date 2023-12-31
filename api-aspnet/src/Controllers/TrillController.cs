@@ -92,6 +92,22 @@ public class TrillController : BaseApiController {
 		return BadRequest("Failed to get Trills");
 	}
 
+	[HttpGet("for-you/")]
+	public async Task<ActionResult<PagedList<TrillDTO>>> GetForYouTrills([FromQuery] UserParams userParams) {
+		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		if(user == null) return BadRequest("user not found");
+
+		var trills = await _trillRepository
+			.GetForYouTrillsAsync(user.Id, userParams);
+
+		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
+		trills.TotalCount, trills.TotalPages));
+
+		if(trills != null) return Ok(_mapper.Map<IEnumerable<TrillDTO>>(trills));
+
+		return Ok(trills);
+	}
+
 	[HttpGet("following/")]
 	public async Task<ActionResult<PagedList<TrillDTO>>> GetFollowingTrills([FromQuery] UserParams userParams) {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
@@ -102,13 +118,6 @@ public class TrillController : BaseApiController {
 
 		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
 		trills.TotalCount, trills.TotalPages));
-		return Ok(trills);
-	}
-
-	[HttpGet("{userId}")] // /api/trill/2
-	public async Task<ActionResult<IEnumerable<TrillDTO>>> GetTrillsByUser(int userId) {
-		var trills = await _trillRepository.GetTrillsByUserId(userId);
-
 		return Ok(trills);
 	}
 

@@ -43,8 +43,9 @@ public class AutoMapperProfiles : Profile {
 				src.Recipient.ProfilePic.ToString()));
 
 		CreateMap<ChatCard, ChatCardDTO>();
+		*/
 
 		CreateMap<Notification, NotificationDTO>();
-		*/
+		
 	}
 }

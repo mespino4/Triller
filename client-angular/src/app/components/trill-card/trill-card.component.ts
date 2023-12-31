@@ -37,12 +37,6 @@ export class TrillCardComponent {
     public accountService: AccountService, public memberService: MemberService,
     private bookmarksService: BookmarksService, private clipboard: Clipboard,
     public dialog: MatDialog){
-      if(this.trill){
-        console.log('author id is  ' + this.trill.authorId)
-        this.memberService.getMemberById(this.trill.authorId).pipe(take(1)).subscribe({
-          next: member => this.member$ = member
-        });
-      }
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
       })
@@ -50,149 +44,101 @@ export class TrillCardComponent {
     
   ngOnInit(): void {
     if (this.trill && this.trill.id) {
-      this.getTrillLike(this.trill.id);
-      this.getRetrill(this.trill.id);
-      this.getBookmark(this.trill.id);
-      this.localTimestamp = new Date(this.trill?.timestamp).toLocaleString();
+      this.loadTrillData(this.trill.id);
+      //this.localTimestamp = new Date(this.trill?.timestamp).toLocaleString();
     }
     this.loadMember()
-
-    
-  }
-
-  likeTrill(trillId: number) {
-    this.trillService.likeTrill(trillId).subscribe({
-      next: () => {
-          this.toastr.success('Trill liked successfully')
-      },
-      error: (error) => {
-          console.error('Error liking trill', error);
-          this.toastr.error('Error liking trill')
-      }
-    });
-  }
-
-  deleteLike(trillId: number) {
-    this.trillService.deleteTrillLike(trillId).subscribe({
-      next: () => {
-        this.toastr.success('Like removed successfully');
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        this.toastr.error('Error removing like');
-      }
-    });
-  }
-
-  getTrillLike(trillId: number) {
-    this.trillService.getTrillLike(trillId).subscribe({
-      next: (result) => {
-        this.isTrillLiked = result;
-        console.log('Trill is like' + result);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }
-    });
-  }  
-
-  retrill(trillId: number) {
-    if(this.member$?.username == this.user?.username){
-      this.toastr.error('Cannot Retrill your own Trill');
-    }else{
-      this.trillService.retrill(trillId).subscribe({
-        next: () => {
-            this.toastr.success('Reposted Trill successfully')
-        },
-        error: (error) => {
-            console.error('Error reposting Trill', error);
-            this.toastr.error('Error reposting Trill')
-        }
-      });
-    }
-  }
-
-  getRetrill(trillId: number) {
-    this.trillService.getRetrill(trillId).subscribe({
-      next: (result) => {
-        this.isRetrilled = result;
-        console.log('Trill is repose, ' + result);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }
-    });
-  }
-
-  deleteRetrill(trillId: number) {
-    this.trillService.deleteRetrill(trillId).subscribe({
-      next: () => {
-        this.toastr.success('Retrill removed successfully');
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        this.toastr.error('Error removing retrill');
-      }
-    });
-  }
-  
-  shareButton() {
-    if(this.trill){
-      this.clipboard.copy(environment.clientUrl + 'trill/' + this.trill?.id);
-      this.toastr.success('Link to Trill copied')
-    }
-  }
-
-  addBookmark(trillId: number) {
-    this.bookmarksService.addBookmark(trillId).subscribe({
-      next: () => {
-          this.toastr.success('Trill bookmarked')
-      },
-      error: (error) => {
-          console.error('Error bookmarking trill', error);
-          this.toastr.error('Error bookmarking trill')
-      }
-    });
-  }
-
-  deleteBookmark(trillId: number) {
-    this.bookmarksService.deleteBookmark(trillId).subscribe({
-      next: () => {
-        this.toastr.success('Bookmark removed successfully');
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        this.toastr.error('Error removing bookmark');
-      }
-    });
-  }
-
-  getBookmark(trillId: number) {
-    this.bookmarksService.getBookmark(trillId).subscribe({
-      next: (result) => {
-        this.isBookmarked = result;
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }
-    });
-  }  
-  
-  loadMember() {
-    //var username = this.route.snapshot.paramMap.get('username');
-    //if (!username) return;
-    if(this.trill)
-      this.memberService.getMemberById(this.trill?.authorId).subscribe({
-        next: member => this.member$ = member
-      });
   }
 
   ngOnDestroy(): void {
     this.trill = undefined
   }
 
+  loadMember() {
+    if(this.trill)
+      this.memberService.getMemberById(this.trill?.authorId).subscribe({
+        next: member => this.member$ = member
+      });
+  }
+
+  loadTrillData(trillId: number): void {
+    this.getReaction(trillId);
+    this.getRetrill(trillId);
+    this.getBookmark(trillId);
+  }
+
+  //reactions
+  getReaction(trillId: number): void {
+    this.trillService.getTrillLike(trillId).subscribe({
+      next: (result) => this.isTrillLiked = result,
+      error: (error) => this.handleTrillError('Error getting trill like', error)
+    });
+  }
+
+  likeTrill(trillId: number): void {
+    this.trillService.likeTrill(trillId).subscribe({
+      next: () => this.toastr.success('Trill liked successfully'),
+      error: (error) => this.handleTrillError('Error liking trill', error)
+    });
+  }
+
+  deleteLike(trillId: number): void {
+    this.trillService.deleteTrillLike(trillId).subscribe({
+      next: () => this.toastr.success('Like removed successfully'),
+      error: (error) => this.handleTrillError('Error removing like', error)
+    });
+  }
+
+  //Retrills
+  retrill(trillId: number): void {
+    if (this.member$?.username === this.user?.username) {
+      this.toastr.error('Cannot Repost your own Trill');
+    } else {
+      this.trillService.retrill(trillId).subscribe({
+        next: () => this.toastr.success('Reposted Trill successfully'),
+        error: (error) => this.handleTrillError('Error reposting Trill', error)
+      });
+    }
+  }
+
+  getRetrill(trillId: number): void {
+    this.trillService.getRetrill(trillId).subscribe({
+      next: (result) => this.isRetrilled = result,
+      error: (error) => this.handleTrillError('Error getting retrill', error)
+    });
+  }
+
+  deleteRetrill(trillId: number): void {
+    this.trillService.deleteRetrill(trillId).subscribe({
+      next: () => this.toastr.success('Retrill removed successfully'),
+      error: (error) => this.handleTrillError('Error removing retrill', error)
+    });
+  }
+
+  //bookmarks
+  addBookmark(trillId: number): void {
+    this.bookmarksService.addBookmark(trillId).subscribe({
+      next: () => this.toastr.success('Trill bookmarked'),
+      error: (error) => this.handleTrillError('Error bookmarking trill', error)
+    });
+  }
+
+  deleteBookmark(trillId: number): void {
+    this.bookmarksService.deleteBookmark(trillId).subscribe({
+      next: () => this.toastr.success('Bookmark removed successfully'),
+      error: (error) => this.handleTrillError('Error removing bookmark', error)
+    });
+  }
+
+  getBookmark(trillId: number): void {
+    this.bookmarksService.getBookmark(trillId).subscribe({
+      next: (result) => this.isBookmarked = result,
+      error: (error) => this.handleTrillError('Error getting bookmark', error)
+    });
+  }
+
+  //delete trill
   deleteTrill(trillId: number): void {
-    console.log('from delete trill ', trillId);
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '400px',
       data: {
@@ -203,20 +149,21 @@ export class TrillCardComponent {
     });
   
     dialogRef.afterClosed().subscribe((result) => {
-      // Check the result from the confirmation modal
       if (result === true) {
-        // Proceed with deleting the trill
         this.trillService.deleteTrill(trillId).subscribe({
-          next: () => {
-            this.toastr.success('Trill removed successfully');
-          },
-          error: (error) => {
-            console.error('Error:', error);
-            this.toastr.error('Error removing trill');
-          },
+          next: () => this.toastr.success('Trill removed successfully'),
+          error: (error) => this.handleTrillError('Error removing trill', error)
         });
       }
     });
+  }
+
+  //share
+  shareButton() {
+    if(this.trill){
+      this.clipboard.copy(environment.clientUrl + 'trill/' + this.trill?.id);
+      this.toastr.success('Link to Trill copied')
+    }
   }
 
   hasModeratorRole(): boolean {
@@ -227,4 +174,8 @@ export class TrillCardComponent {
     return false;
   }
   
+  handleTrillError(message: string, error: any): void {
+    console.error(message, error);
+    this.toastr.error(message);
+  }
 }

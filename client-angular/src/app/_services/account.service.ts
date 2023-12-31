@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../_models/user';
 import { Member } from '../_models/member';
+import { Notification } from '../_models/notification';
 
 @Injectable({
   providedIn: 'root'

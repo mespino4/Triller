@@ -1,1 +1,38 @@
-<p>notifications works!</p>
+<div class="flex-auto" style="width: 990px;">
+  <section class=" border border-y-0 border-gray-800">
+    <!--Content (Center)-->
+    <!-- Nav back-->
+    <div class="flex ">
+      <div class="px-2 py-2">
+        <a  class=" text-2xl font-medium rounded-full 
+          text-blue-400 hover:bg-gray-800 hover:text-blue-300 float-right"
+            routerLink="/home">
+          <svg class="m-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <g>
+              <path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z">
+              </path>
+            </g>
+          </svg>
+        </a>
+      </div>
+
+      <div class="flex-1">
+        <h2 class="my-3 text-xl font-semibold text-white">Notifications</h2>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- component -->
+<section class="w-full border border-y-0 border-gray-800" *ngIf="notifications">
+  <!--Feed-->
+  <div class="w-full border border-y-0 border-gray-800">
+    <ul *ngFor="let notification of notifications">
+      <app-notification-card [notification]="notification"></app-notification-card>
+    </ul>
+  </div>
+</section>
+
+<section class="w-full border border-y-0 border-gray-800" *ngIf="!notifications">
+  <h6 class="text-4xl text-white font-bold w-fit">You have no notifications :'C</h6>
+</section>

@@ -56,7 +56,6 @@ public class BookmarkController : BaseApiController {
 		if(bookmark == null) return BadRequest("Bookmark not found");
 
 		_bookmarkRepository.RemoveBookmark(bookmark);
-
 		if(await _bookmarkRepository.SaveAllAsync()) return Ok();
 
 		return BadRequest("Failed to remove bookmark");
@@ -79,9 +78,6 @@ public class BookmarkController : BaseApiController {
 		if(user == null) return BadRequest("User not found");
 
 		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId);
-		if(bookmark == null) return BadRequest("Bookmark not found");
-
-		//var trillLike = trill.Likes.FirstOrDefault(t => t.UserId == user.Id);
-		return Ok(bookmark != null);
+		if(bookmark != null) return Ok(true); else return Ok(false);
 	}
 }
