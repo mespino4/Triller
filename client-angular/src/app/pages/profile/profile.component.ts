@@ -28,8 +28,8 @@ export class ProfileComponent {
   isUserBlocked: boolean | null = null;
   user: User | null = null;
 
-  constructor(private memberService: MemberService, private route: ActivatedRoute, private router: Router,
-    private accountService: AccountService, private trillService: TrillService, private blockService: BlockService) {
+  constructor(private memberService: MemberService, private route: ActivatedRoute,
+    private accountService: AccountService,  private blockService: BlockService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
     })
@@ -37,14 +37,16 @@ export class ProfileComponent {
     var username = this.route.snapshot.paramMap.get('username')
     if (!username) return;
     this.trills$ = this.memberService.getTimeline(username)
+
   }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(){
     this.route.data.subscribe(data => {
       this.member = data['member'];
     })
     this.getMemberBlockStatus(this.member)
     this.getUserBlockStatus(this.member)
+    this.trills$ = this.memberService.getTimeline(this.member.username)
   }
   
   getFollowing(){
@@ -62,6 +64,11 @@ export class ProfileComponent {
       next: response => this.isMemberBlocked = response
     })
   }
+
+  blockvars(){
+    console.log("user blocked: ", this.isUserBlocked)
+    console.log("member blocked: ", this.isMemberBlocked)
+  }
   
   getUserBlockStatus(member: Member){
     this.blockService.getUserBlockStatus(member.id).subscribe({
@@ -70,8 +77,10 @@ export class ProfileComponent {
   }
 
   ngOnDestroy(): void {
-    console.log('trills destroyed')
+    console.log("trills destroyed, ", this.trills$)
     this.trills$ = undefined;
-    this.trillService.destroyUserTrills()
+    this.isMemberBlocked = null;
+    this.isUserBlocked = null;
+    console.log("trills destroyed, ", this.trills$)
   }
 }

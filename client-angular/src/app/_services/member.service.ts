@@ -58,7 +58,7 @@ export class MemberService {
   }
 
   getTimeline(username: string): Observable<Trill[]>{
-    if (this.trills.length > 0) return of(this.trills);
+    //if (this.trills.length > 0) return of(this.trills);
     return this.http.get<Trill[]>(`${this.baseUrl}users/timeline?username=${username}`).pipe(
       map(trills => {
         this.trills = trills;

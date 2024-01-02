@@ -54,13 +54,13 @@ public class UserRepository : IUserRepository {
 
 		var trills = await _context.Trills
 			.Where(t => t.AuthorId == userId)
-			.Include(t => t.Replies)
+			//.Include(t => t.Replies)
 			.ToListAsync();
 
 		var retrills = await _context.Retrills
 			.Where(r => r.UserId == userId)
 			.Select(r => r.Trill)
-			.Include(t => t.Replies)
+			//.Include(t => t.Replies)
 			.ToListAsync();
 
 		var timeline = trills.Concat(retrills);

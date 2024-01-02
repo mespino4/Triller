@@ -9,6 +9,8 @@ import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
 import { ConnectionsComponent } from './pages/connections/connections.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { adminGuard } from './_guards/admin.guard';
+import { memberProfileResolver } from './_resolvers/member-profile.resolver';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
   {path: '', component: AuthenticationComponent},
@@ -21,12 +23,13 @@ export const routes: Routes = [
       {path: 'login', component: AuthenticationComponent},
       //{path: 'register', component: RegisterComponent},
       {path: 'home', component: HomeComponent},
-      {path: 'profile/:username', component: ProfileComponent},
+      {path: 'profile/:username', component: ProfileComponent, resolve: {member: memberProfileResolver}},
       {path: 'notifications', component: NotificationsComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'bookmarks', component: BookmarksComponent},
       {path: 'connections', component: ConnectionsComponent},
       {path: 'admin', component: AdminComponent, canActivate: [adminGuard]},
+      {path: 'settings', component: SettingsComponent}
     ]
   },
 
