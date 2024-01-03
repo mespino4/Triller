@@ -5,19 +5,19 @@ import { ReplyService } from '../../_services/reply.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-confirm',
+  selector: 'app-confirm-modal',
   standalone: true,
   imports: [],
-  templateUrl: './confirm.component.html',
-  styleUrl: './confirm.component.css'
+  templateUrl: './confirm-modal.component.html',
+  styleUrl: './confirm-modal.component.css'
 })
-export class ConfirmComponent {
+export class ConfirmModalComponent {
   id: number | undefined;
   obj2Del: string | undefined;
 
   constructor(private trillService: TrillService, private toastr: ToastrService,
     private replyService: ReplyService,
-    public dialogRef: MatDialogRef<ConfirmComponent>,
+    public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { message: string }
   ) { }
 

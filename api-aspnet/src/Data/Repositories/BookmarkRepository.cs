@@ -7,11 +7,9 @@ namespace api_aspnet.src.Data.Repositories;
 
 public class BookmarkRepository : IBookmarkRepository {
 	private readonly DataContext _context;
-	private readonly IMapper _mapper;
 
-	public BookmarkRepository(DataContext context, IMapper mapper) {
+	public BookmarkRepository(DataContext context) {
 		_context = context;
-		_mapper = mapper;
 	}
 
 	public void AddBookmark(Bookmark bookmark) {

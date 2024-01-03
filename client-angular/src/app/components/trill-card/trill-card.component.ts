@@ -7,9 +7,9 @@ import { TrillService } from '../../_services/trill.service';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../_services/account.service';
 import { take } from 'rxjs';
-import { BookmarksService } from '../../_services/bookmarks.service';
+import { BookmarkService } from '../../_services/bookmark.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../../_modals/confirm/confirm.component';
+import { ConfirmModalComponent } from '../../_modals/confirm-modal/confirm-modal.component';
 import { MemberService } from '../../_services/member.service';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
@@ -35,7 +35,7 @@ export class TrillCardComponent {
 
   constructor(private trillService: TrillService, private toastr: ToastrService,
     public accountService: AccountService, public memberService: MemberService,
-    private bookmarksService: BookmarksService, private clipboard: Clipboard,
+    private bookmarksService: BookmarkService, private clipboard: Clipboard,
     public dialog: MatDialog){
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
@@ -139,7 +139,7 @@ export class TrillCardComponent {
 
   //delete trill
   deleteTrill(trillId: number): void {
-    const dialogRef = this.dialog.open(ConfirmComponent, {
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '400px',
       data: {
         message: 'Are you sure you want to delete this trill?',

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { TrillService } from '../../_services/trill.service';
-import { HttpClient } from '@microsoft/signalr';
 import { Observable, of, take } from 'rxjs';
-import { BookmarksService } from '../../_services/bookmarks.service';
+import { BookmarkService } from '../../_services/bookmark.service';
 import { Trill } from '../../_models/trill';
 import { AccountService } from '../../_services/account.service';
 import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-bookmarks',
@@ -23,7 +23,7 @@ export class BookmarksComponent {
   trills$: Observable<Trill[]> | undefined;
 
   constructor(public trillService: TrillService, private http: HttpClient, 
-    private accountService: AccountService, private bookmarkService: BookmarksService) {
+    private accountService: AccountService, private bookmarkService: BookmarkService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
       })
@@ -44,7 +44,6 @@ export class BookmarksComponent {
     });
   }
   
-
   emptyBookmarks(){
     this.trills$?.subscribe({
       next: (trills) => {

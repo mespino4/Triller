@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmComponent } from './confirm.component';
+import { EditRolesModalComponent } from './edit-roles-modal.component';
 
-describe('ConfirmComponent', () => {
-  let component: ConfirmComponent;
-  let fixture: ComponentFixture<ConfirmComponent>;
+describe('EditRolesModalComponent', () => {
+  let component: EditRolesModalComponent;
+  let fixture: ComponentFixture<EditRolesModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfirmComponent]
+      imports: [EditRolesModalComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ConfirmComponent);
+    fixture = TestBed.createComponent(EditRolesModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

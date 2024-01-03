@@ -68,19 +68,19 @@ export class MemberService {
   }
   
   follow(userId: number){
-    return this.http.post(this.baseUrl + 'users/connections/follow?targetUserId=' + userId, {});
+    return this.http.post(this.baseUrl + 'connections/follow?targetUserId=' + userId, {});
   }
 
   unfollow(userId: number){
-    return this.http.delete(this.baseUrl + 'users/connections/unfollow?targetUserId=' + userId, {});
+    return this.http.delete(this.baseUrl + 'connections/unfollow?targetUserId=' + userId, {});
   }
 
   getConnections(predicate: string){
-    return this.http.get<Member[]>(this.baseUrl + 'users/connections/?predicate=' + predicate);
+    return this.http.get<Member[]>(this.baseUrl + 'connections/?predicate=' + predicate);
   }
 
   getUserConnection(userId: number): Observable<boolean>{
-    return this.http.get<boolean>(this.baseUrl + 'users/connections/status?targetUserId=' + userId);
+    return this.http.get<boolean>(this.baseUrl + 'connections/status?targetUserId=' + userId);
   }
 
   updateProfilePic(file: FormData): Observable<any> {

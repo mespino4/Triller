@@ -8,6 +8,7 @@ import { TrillService } from '../../_services/trill.service';
 import { Pagination } from '../../_models/pagination';
 import { FormsModule } from '@angular/forms';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
+import { BookmarkService } from '../../_services/bookmark.service';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,7 @@ export class HomeComponent {
   trillImage: File | null = null;
   trillImageThumbnail: string | null = null;
 
-  constructor(public accountService: AccountService, //private bookmarkService: BookmarksService, 
+  constructor(public accountService: AccountService, private bookmarkService: BookmarkService, 
     private trillService: TrillService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => this.user = user

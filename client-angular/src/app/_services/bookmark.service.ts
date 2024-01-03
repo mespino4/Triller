@@ -7,7 +7,7 @@ import { Observable, map, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BookmarksService {
+export class BookmarkService {
   baseUrl = environment.apiUrl; //'api/'
   trills: Trill[] = []
 
@@ -15,7 +15,7 @@ export class BookmarksService {
 
   getBookmarks(): Observable<Trill[]> {
     return this.trills.length > 0 ? of(this.trills) :
-      this.http.get<Trill[]>(`${this.baseUrl}bookmarks`).pipe(
+      this.http.get<Trill[]>(`${this.baseUrl}bookmark/user`).pipe(
         map(trills => this.trills = trills)
       );
   }

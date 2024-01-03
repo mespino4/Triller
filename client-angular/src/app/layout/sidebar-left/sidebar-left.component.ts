@@ -32,7 +32,6 @@ export class SidebarLeftComponent implements OnInit{
     this.loadMember();
   }
 
-
   loadMember(){
     if(!this.user) return;
     this.memberService.getMember(this.user.username).subscribe({
