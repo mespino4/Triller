@@ -1,1 +1,19 @@
-<p>chat-card works!</p>
+<div class="p-4 hover:bg-gray-700 cursor-pointer" 
+  *ngIf="member && chat" >
+    <div class="flex items-center">
+      
+      <div class="relative inline-block mr-4">
+          <img class="w-12 h-12 rounded-full "
+          src="{{member.profilePic}}" />
+        <span class="w-4 h-4 rounded-full bg-green-500 
+              border-2 border-gray-900 absolute bottom-0 right-0"
+              *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">
+        </span>
+      </div>
+      
+      <div>
+        <h2 class="text-lg font-semibold">{{member.displayname}}</h2>
+        <p> {{ getTruncatedMessage(chat.recentMessage , 14) }}</p>
+      </div>
+    </div>
+</div>

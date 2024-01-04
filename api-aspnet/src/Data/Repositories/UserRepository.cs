@@ -1,4 +1,5 @@
 ﻿using api_aspnet.src.Data.Repositories.Interfaces;
+using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +8,11 @@ namespace api_aspnet.src.Data.Repositories;
 
 public class UserRepository : IUserRepository {
 	private readonly DataContext _context;
+	private readonly IMapper _mapper;
 
 	public UserRepository(DataContext context, IMapper mapper) {
 		_context = context;
+		_mapper = mapper;
 	}
 
 	//This retrieves all users
@@ -44,31 +47,29 @@ public class UserRepository : IUserRepository {
 			.SingleOrDefaultAsync(x => x.UserName == username);
 	}
 
-	public async Task<IEnumerable<Trill>> GetUserTimeline(int userId) {
+	public async Task<IEnumerable<TrillDTO>> GetUserTimeline(int userId) {
 		var user = await _context.Users
 			.Include(u => u.Trills)
 			.Include(u => u.Retrills)
 			.SingleOrDefaultAsync(u => u.Id == userId);
 
-		if(user == null) return Enumerable.Empty<Trill>();
+		if(user == null) return Enumerable.Empty<TrillDTO>();
 
-		var trills = await _context.Trills
-			.Where(t => t.AuthorId == userId)
-			//.Include(t => t.Replies)
-			.ToListAsync();
+		var trillDtos = (await _context.Trills
+				.Where(t => t.AuthorId == userId)
+				.Select(t => new { Trill = t, Timestamp = t.Timestamp })
+				.ToListAsync()) // Materialize the results into a list
+			.Concat(await _context.Retrills
+				.Where(r => r.UserId == userId)
+				.Select(r => new { Trill = r.Trill, Timestamp = r.CreatedAt })
+				.ToListAsync()) // Materialize the results into a list
+			.OrderByDescending(item => item.Timestamp)
+			.ToList(); // Materialize the results into a list
 
-		var retrills = await _context.Retrills
-			.Where(r => r.UserId == userId)
-			.Select(r => r.Trill)
-			//.Include(t => t.Replies)
-			.ToListAsync();
-
-		var timeline = trills.Concat(retrills);
-
-		return timeline
-			.OrderByDescending(trill => trill.Timestamp)
-			.ToList();
+		return trillDtos.Select(item => _mapper.Map<TrillDTO>(item.Trill));
 	}
+
+
 
 	public void Update(AppUser user) {
 		_context.Entry(user).State = EntityState.Modified;

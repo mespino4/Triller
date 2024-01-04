@@ -7,11 +7,12 @@ import { Message } from '../../../_models/message';
 import { User } from '../../../_models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../../../_modals/confirm-modal/confirm-modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chat-bubble',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './chat-bubble.component.html',
   styleUrl: './chat-bubble.component.css'
 })

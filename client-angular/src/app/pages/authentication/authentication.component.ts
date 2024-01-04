@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../../_models/user';
 import { AccountService } from '../../_services/account.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup,  FormsModule,  ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../../_forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../_forms/date-picker/date-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -14,7 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   selector: 'app-authentication',
   standalone: true,
   imports: [CommonModule, FormsModule,  RouterModule, ReactiveFormsModule,
-    TextInputComponent, DatePickerComponent, MatNativeDateModule],
+    TextInputComponent, DatePickerComponent, MatNativeDateModule, ToastrModule],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })
@@ -24,10 +24,10 @@ export class AuthenticationComponent {
   model: any = {}; // An object to store form input data.
   currentUser$: Observable<User | null> = of(null); // An observable to store the current user.
 
-  
+  //toastr = inject(ToastrService)
 
-  constructor(private accountService: AccountService, private router: Router, 
-    private fb: FormBuilder, private toastr: ToastrService) { }
+  constructor(private accountService: AccountService, private router: Router, private toast: ToastrService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;

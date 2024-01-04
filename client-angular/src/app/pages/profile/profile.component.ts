@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Member } from '../../_models/member';
-import { Observable, take } from 'rxjs';
+import { Observable, of, switchMap, take } from 'rxjs';
 import { Trill } from '../../_models/trill';
 import { User } from '../../_models/user';
 import { MemberService } from '../../_services/member.service';
 import { AccountService } from '../../_services/account.service';
 import { TrillService } from '../../_services/trill.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BlockService } from '../../_services/block.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +27,7 @@ export class ProfileComponent {
   isMemberBlocked: boolean | null = null;
   isUserBlocked: boolean | null = null;
   user: User | null = null;
+  username: string = '';
 
   constructor(private memberService: MemberService, private route: ActivatedRoute,
     private accountService: AccountService,  private blockService: BlockService) {
@@ -37,7 +38,6 @@ export class ProfileComponent {
     var username = this.route.snapshot.paramMap.get('username')
     if (!username) return;
     this.trills$ = this.memberService.getTimeline(username)
-
   }
 
   async ngOnInit(){

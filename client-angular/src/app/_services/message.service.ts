@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
+//import { environment } from '../../environments/environment.development';
 import { BehaviorSubject, take } from 'rxjs';
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { Message } from '../_models/message';
 import { User } from '../_models/user';
 import { getPaginatedResult, getPaginationHeaders } from '../helpers/pagination';
@@ -37,6 +38,8 @@ export class MessageService {
       this.messageThreadSource.next(messages);
     })
 
+
+
     
     this.hubConnection.on('NewMessage', message => {
       this.messageThread$.pipe(take(1)).subscribe(messages => {
@@ -59,7 +62,7 @@ export class MessageService {
     return getPaginatedResult<Message[]>(this.baseUrl + 'messages', params, this.http);
   }
 
-  getMessageThread(username: string){
+  async getMessageThread(username: string){
     return this.http.get<Message[]>(this.baseUrl + 'messages/thread/'+ username)
   }
 

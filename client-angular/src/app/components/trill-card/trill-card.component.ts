@@ -18,7 +18,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-trill-card',
   standalone: true,
-  imports: [CommonModule, RouterModule,],
+  imports: [CommonModule, RouterModule, ],
   templateUrl: './trill-card.component.html',
   styleUrl: './trill-card.component.css'
 })

@@ -5,6 +5,7 @@ using api_aspnet.src.Helpers;
 using api_aspnet.src.Services.Interfaces;
 using api_aspnet.src.Services;
 using Microsoft.EntityFrameworkCore;
+using api_aspnet.src.SignalR;
 
 namespace api_aspnet.src.Extensions;
 
@@ -24,10 +25,14 @@ public static class ApplicationServiceExtensions {
 		services.AddScoped<IBookmarkRepository, BookmarkRepository>();
 		services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 		services.AddScoped<IMediaService, MediaService>();
+		services.AddScoped<IMessageRepository, MessageRepository>();
+		services.AddScoped<IChatCardRepository, ChatCardRepository>();
 		services.AddScoped<IRetrillRepository, RetrillRepository>();
 		services.AddScoped<IConnectionRepository, ConnectionRepository>();
 		services.AddScoped<IBlockRepository, BlockRepository>();
 		services.AddScoped<INotificationRepository, NotificationRepository>();
+		services.AddSingleton<PresenceTracker>();
+		services.AddSignalR();
 
 		return services;
 	}

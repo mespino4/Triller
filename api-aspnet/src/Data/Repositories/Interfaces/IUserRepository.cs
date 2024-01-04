@@ -11,7 +11,7 @@ public interface IUserRepository {
 	Task<AppUser> GetUserByUsernameAsync(string username);
 	Task<IEnumerable<AppUser>> GetUsersAsync(int currentUserId);
 	//Task<MemberDTO> GetMemberAsync(string username);
-	Task<IEnumerable<Trill>> GetUserTimeline(int userId);
+	Task<IEnumerable<TrillDTO>> GetUserTimeline(int userId);
 
 	public void DeleteProfilePicture(AppUser user);
 	public void DeleteBannerPicture(AppUser user);

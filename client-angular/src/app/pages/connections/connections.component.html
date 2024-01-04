@@ -24,10 +24,10 @@
 
     <!-- Navigation Bar -->
     <div class="flex justify-center w-full text-center hover:cursor-pointer">
-        <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white "
+        <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:bg-gray-800"
             [class.border-b-4]="isFollowing"
             (click)="followingToggle()">Following</h2>
-        <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white"
+        <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:bg-gray-800"
             [class.border-b-4]="!isFollowing"
             (click)="followersToggle()">Followers</h2>
     </div>

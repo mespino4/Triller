@@ -79,10 +79,10 @@ public class ConnectionsController : BaseApiController{
 
 		return BadRequest("Failed to unfollow user");
 	}
-	[HttpGet] ////api/
-	public async Task<ActionResult<List<MemberDTO>>> GetUserFollows(string predicate) {
-		var users = await _connectionRepository.GetConnections(predicate, User.GetUserId());
 
+	[HttpGet] ////api/
+	public async Task<ActionResult<List<MemberDTO>>> GetUserConnections(string predicate) {
+		var users = await _connectionRepository.GetConnections(predicate, User.GetUserId());
 		return Ok(users);
 	}
 

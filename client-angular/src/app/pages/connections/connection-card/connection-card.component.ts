@@ -16,13 +16,16 @@ import { RouterLink } from '@angular/router';
 })
 export class ConnectionCardComponent {
   @Input() member: Member | undefined
-  @Input() user: User | null = null;
+  //@Input() user: User | null = null;
 
+  /*
   followers: Member[] = []; // Define an array to store followers
   following: Member[] = []; // Define an array to store following
 
+  
   isFollow: boolean = true
 
+  
   constructor( private memberService: MemberService,
     private toastr: ToastrService, public accountService: AccountService) {}
     
@@ -33,7 +36,7 @@ export class ConnectionCardComponent {
   }
 
   getUserConection(member: Member){
-    this.memberService.getUserConnection(member.id).subscribe({
+    this.memberService.getConnectionStatus(member.id).subscribe({
       next: response => this.isFollow = response
     })
   }
@@ -65,4 +68,5 @@ export class ConnectionCardComponent {
       }
     })
   }
+  */
 }

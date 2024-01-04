@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
-import { Pagination } from '../../_models/pagination';
-import { RecentChat } from '../../_models/recentChat';
-import { User } from '../../_models/user';
-import { Member } from '../../_models/member';
-import { MessageService } from '../../_services/message.service';
-import { AccountService } from '../../_services/account.service';
-import { MemberService } from '../../_services/member.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { take } from 'rxjs';
+import { Pagination, RecentChat, User, Member } from '../../shared/models.index';
+import { MessageService, AccountService, MemberService, PresenceService } from '../../shared/services.index';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
+import { of, switchMap, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatCardComponent } from './chat-card/chat-card.component';
@@ -29,15 +24,15 @@ export class MessagesComponent {
   chats?: RecentChat[];
   currentUser?: User | null = null;
   member?: Member | null = null;
+  username: string = '';
 
   messageContent: string = '';
 
   constructor(public messageService: MessageService, private accountService: AccountService,
-    private route: ActivatedRoute, private memberService: MemberService) { 
+    private route: ActivatedRoute, private memberService: MemberService, public presenceService: PresenceService) { 
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.currentUser = user
       })
-      this.loadMember()
       this.loadChats();
   }
 
@@ -46,16 +41,9 @@ export class MessagesComponent {
     this.messageContent = ""
   }
 
-
-  ngOnInit(): void {
-    //this.loadMessages();
+  ngOnInit() {
     this.loadChats();
-    this.loadMember();
-
-    var username = this.route.snapshot.paramMap.get('username')
-    if (!username) return;
-    this.getMessageThread(username)
-    console.log("thse are the cvhats ", this.chats)
+    this.setupRouteListener();
   }
 
   ngOnChange(){}
@@ -65,26 +53,24 @@ export class MessagesComponent {
   }
   
   loadMessages() {
-    this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe({
-      next: response => {
-        console.log(response)
-        this.messages = response.result;
-        this.pagination = response.pagination;
-        //console.log(this.messages)
-      }
-    })
+    this.messageService
+      .getMessages(this.pageNumber, this.pageSize, this.container)
+      .subscribe({
+        next: response => {
+          this.messages = response.result;
+          this.pagination = response.pagination;
+        }
+      });
   }
   
-  getMessageThread(username: string){
-    this.loadMember();
-    if(!this.currentUser) return
-    this.messageService.createHubConnection(this.currentUser, username)
+  getMessageThread(username: string) {
+    if (!this.currentUser) return;
+    this.messageService.createHubConnection(this.currentUser, username);
   }
 
   loadChats() {
     this.messageService.getChats().subscribe({
       next: response => {
-        console.log('thse are the chats uihi' , response)
         this.chats = response;
       }
     })
@@ -93,15 +79,26 @@ export class MessagesComponent {
   pageChanged(event: any) {
     if (this.pageNumber !== event.page) {
       this.pageNumber = event.page;
-      //this.loadMessages();
     }
   }
 
   loadMember() {
-    var username = this.route.snapshot.paramMap.get('username');
-    if (!username) return;
-    this.memberService.getMember(username).subscribe({
-      next: member => this.member = member
+    if (!this.username || !this.currentUser) return;
+
+    this.memberService.getMember(this.username).subscribe({
+      next: member => (this.member = member)
     });
+  }
+
+  private setupRouteListener() {
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          this.username = params.get('username') || '';
+          this.loadMember();
+          this.getMessageThread(this.username);
+          return of(null);
+        })
+      ).subscribe();
   }
 }

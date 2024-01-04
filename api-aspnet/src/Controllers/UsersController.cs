@@ -59,7 +59,7 @@ public class UsersController : BaseApiController {
 		var timeline = await _userRepository.GetUserTimeline(user.Id);
 		if(timeline == null) return BadRequest("Timeline not found");
 
-		return Ok(_mapper.Map<IEnumerable<TrillDTO>>(timeline));
+		return Ok(timeline);
 	}
 
 	[HttpPut("profile")]

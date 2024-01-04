@@ -4,6 +4,7 @@ using api_aspnet.src.Data.Seed;
 using api_aspnet.src.Entities;
 using api_aspnet.src.Extensions;
 using api_aspnet.src.Middleware;
+using api_aspnet.src.SignalR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,8 +32,9 @@ app.UseCors(builder => builder
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
@@ -43,7 +45,6 @@ try {
 	await context.Database.MigrateAsync();
 	await Seed.SeedUsers(userManager, roleManager);
 	await Seed.SeedTrills(context);
-	Console.WriteLine("SOYYY LA PUITAAA VACAAAAA!!!!");
 } catch(Exception ex) {
 	var logger = services.GetService<ILogger<Program>>();
 	logger.LogError(ex, "An error occured during migration");

@@ -38,7 +38,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     if(this.member){
-      //this.getUserConection(this.member);
+      this.conectionStatus(this.member);
       this.online(this.member)
     }
 
@@ -57,21 +57,22 @@ export class HeaderComponent {
     console.log("is online 1", this.isOnline)
     this.presenceService.onlineUsers$.subscribe({
       next: response => console.log("users", response) //this.isOnline = response.includes(member.userName),
-      
+      //next: response => this.isOnline = response.includes(member.username),
     })
+    
     console.log("is online 2", this.isOnline)
     
   }
 
-  
   chatButton(username: string) {
     this.messageService.openInbox(username).subscribe({
       next: response => console.log("inbox opened")
     })
   }
 
-  getUserConection(member: Member){
-    this.memberService.getUserConnection(member.id).subscribe({
+  //connections
+  conectionStatus(member: Member){
+    this.memberService.getConnectionStatus(member.id).subscribe({
       next: response => this.isFollow = response
     })
   }
@@ -88,6 +89,7 @@ export class HeaderComponent {
     })
   }
 
+  //block
   block(member: Member){
     this.blockService.block(member.id).subscribe({
       next: () => this.toastr.success('You have blocked' + member.displayname)

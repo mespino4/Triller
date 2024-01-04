@@ -67,6 +67,7 @@ export class MemberService {
     )
   }
   
+  //connections
   follow(userId: number){
     return this.http.post(this.baseUrl + 'connections/follow?targetUserId=' + userId, {});
   }
@@ -79,10 +80,11 @@ export class MemberService {
     return this.http.get<Member[]>(this.baseUrl + 'connections/?predicate=' + predicate);
   }
 
-  getUserConnection(userId: number): Observable<boolean>{
+  getConnectionStatus(userId: number): Observable<boolean>{
     return this.http.get<boolean>(this.baseUrl + 'connections/status?targetUserId=' + userId);
   }
 
+  //profile
   updateProfilePic(file: FormData): Observable<any> {
     return this.http.put(`${this.baseUrl}users/profile-pic/update`, file);
   }

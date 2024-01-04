@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
+//import { environment } from '../../environments/environment';
 import { BehaviorSubject, take } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,13 +11,10 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
   providedIn: 'root'
 })
 export class PresenceService {
-
   hubUrl = environment.hubUrl;
   private hubConnection?: HubConnection;
   private onlineUsersSource = new BehaviorSubject<string[]>([]);
   onlineUsers$ = this.onlineUsersSource.asObservable();
-
-  constructor(private toastr: ToastrService, private router: Router) { }
 
   createHubConnection(user: User) {
     this.hubConnection = new HubConnectionBuilder()

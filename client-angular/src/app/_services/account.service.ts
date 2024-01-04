@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../_models/user';
 import { Member } from '../_models/member';
 import { Notification } from '../_models/notification';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,7 @@ export class AccountService {
   private notificationSource = new BehaviorSubject<Notification[]>([]);
   notification$ = this.notificationSource.asObservable();
 
-  constructor(private http: HttpClient, //private presenceService: PresenceService
-    ) { }
+  constructor(private http: HttpClient, private presenceService: PresenceService) { }
 
   // Function to send a login request to the server.
   login(model: any) {
@@ -72,7 +72,7 @@ export class AccountService {
     const roles = this.getDecodedToken(user.token).role;
     Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     this.currentUserSource.next(user);
-    //this.presenceService.createHubConnection(user);
+    this.presenceService.createHubConnection(user);
   }
 
   // Function to log the user out.
@@ -80,7 +80,7 @@ export class AccountService {
     // Remove the user data from local storage and update the currentUserSource to null.
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
-    //this.presenceService.stopHubConnection();
+    this.presenceService.stopHubConnection();
   }
 
   follow(username: string){

@@ -26,6 +26,7 @@ export const routes: Routes = [
       {path: 'profile/:username', component: ProfileComponent, resolve: {member: memberProfileResolver}},
       {path: 'notifications', component: NotificationsComponent},
       {path: 'messages', component: MessagesComponent},
+      {path: 'messages/:username', component: MessagesComponent},
       {path: 'bookmarks', component: BookmarksComponent},
       {path: 'connections', component: ConnectionsComponent},
       {path: 'admin', component: AdminComponent, canActivate: [adminGuard]},

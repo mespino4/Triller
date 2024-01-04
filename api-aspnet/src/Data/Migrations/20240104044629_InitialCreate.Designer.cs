@@ -12,7 +12,7 @@ using api_aspnet.src.Data;
 namespace api_aspnet.src.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231223070212_InitialCreate")]
+    [Migration("20240104044629_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

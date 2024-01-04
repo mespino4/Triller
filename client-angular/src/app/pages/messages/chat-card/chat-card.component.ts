@@ -4,11 +4,12 @@ import { MemberService } from '../../../_services/member.service';
 import { Router } from '@angular/router';
 import { Member } from '../../../_models/member';
 import { PresenceService } from '../../../_services/presence.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chat-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './chat-card.component.html',
   styleUrl: './chat-card.component.css'
 })

@@ -33,8 +33,7 @@ public class AutoMapperProfiles : Profile {
 			.ForMember(dest => dest.Timestamp, opt => opt
 				.MapFrom(src => src.Timestamp));
 
-		/*
-		CreateMap<Bookmark, BookmarkDTO>();
+		//CreateMap<Bookmark, BookmarkDTO>();
 
 		CreateMap<Message, MessageDTO>()
 			.ForMember(dest => dest.SenderPhotoUrl, opt => opt.MapFrom(src =>
@@ -43,7 +42,6 @@ public class AutoMapperProfiles : Profile {
 				src.Recipient.ProfilePic.ToString()));
 
 		CreateMap<ChatCard, ChatCardDTO>();
-		*/
 
 		CreateMap<Notification, NotificationDTO>();
 		

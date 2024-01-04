@@ -1,1 +1,33 @@
-<p>chat-bubble works!</p>
+<div *ngIf="message">
+    <div class="mb-4 flex " *ngIf="!isSender">
+        <div >
+            <div class="flex mb-1">
+                <img src="{{message.senderPhotoUrl}}" alt="recipient" class="w-10 h-10 rounded-full mr-2">
+                <div class="bg-gray-300 text-xl p-2 rounded-md max-w-xs">
+                    {{message.content}}
+                </div>
+            </div>
+            <p class="text-gray-500 text-sm flex ml-12">{{message.timestamp | date:'short' }}</p>
+        </div>
+    </div>
+    
+    <div class="flex-1 justify-end mb-4" *ngIf="isSender">
+        <div class="mb-1 flex justify-end" >
+            <div class="flex" (mouseenter)="toggleHover(true)" (mouseleave)="toggleHover(false)">
+                <!-- Trashcan -->
+                <div class="flex-1 flex items-center mr-2 p-1 hover:bg-opacity-50 hover:bg-red-600 rounded-full">
+                    <img class="h-6 hover:cursor-pointer" *ngIf="isHovered" src="assets\icons\TrillButtons\trashcanW.png"
+                        (click)="deleteMessage(message.id)">
+                </div>
+
+                <!-- Chat Bubble -->
+                <div class="bg-blue-500 text-xl text-white p-2 rounded-md max-w-xs hover:cursor-default">
+                    {{message.content}}
+                </div>
+                <img src="{{message.senderPhotoUrl}}" alt="sender" class="w-10 h-10 rounded-full ml-2">
+            </div>
+        </div>
+        <p class="text-gray-500 text-sm flex justify-end mr-12">{{message.timestamp | date:'short' }}</p>
+    </div>
+
+</div>
