@@ -1,22 +1,18 @@
 import { Component } from '@angular/core';
-import { Member } from '../../_models/member';
 import { Observable, of, switchMap, take } from 'rxjs';
 import { Trill } from '../../_models/trill';
-import { User } from '../../_models/user';
-import { MemberService } from '../../_services/member.service';
-import { AccountService } from '../../_services/account.service';
-import { TrillService } from '../../_services/trill.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BlockService } from '../../_services/block.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
-import { HeaderComponent } from './header/header.component';
+import { ProfileHeaderComponent } from './header/profile-header.component';
+import { AccountService, MemberService, BlockService } from '../../shared/services.index';
+import { User, Member } from '../../shared/models.index';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, TrillCardComponent, HeaderComponent],
+  imports: [CommonModule, FormsModule, TrillCardComponent, ProfileHeaderComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -47,6 +43,8 @@ export class ProfileComponent {
     this.getMemberBlockStatus(this.member)
     this.getUserBlockStatus(this.member)
     this.trills$ = this.memberService.getTimeline(this.member.username)
+
+    console.log("ng oninit from profile called")
   }
   
   getFollowing(){
@@ -83,4 +81,5 @@ export class ProfileComponent {
     this.isUserBlocked = null;
     console.log("trills destroyed, ", this.trills$)
   }
+
 }

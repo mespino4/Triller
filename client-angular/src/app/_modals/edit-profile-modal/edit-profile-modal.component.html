@@ -1,0 +1,73 @@
+<div class="p-3 bg-gray-800 rounded-md" *ngIf="member">
+  <h2  class="text-lg font-semibold mb-2 text-white">Edit Profile</h2>
+
+    <div class="relative mb-6 ">
+
+      <!-- Banner Picture -->
+      <div class="relative">
+
+        <img *ngIf="bannerPreview" [src]="bannerPreview" alt="Thumbnail" class="w-full h-40 rounded object-cover">
+
+        <img *ngIf="!bannerPreview"
+          src="{{member.bannerPic}}"
+          alt="Banner Picture"
+          class="w-full h-40 rounded object-cover"/>
+
+        <label
+          class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-500 border-2 border-gray-900 absolute -bottom-0 right-0"
+          (click)="openFileInput('uploadBannerPic')">
+          <img src="assets/buttons/addPhoto.png" />
+          <input class="hidden" id="uploadBannerPic" type="file" accept="image/*" (change)="fileSelected($event, 'banner')" />
+        </label>
+      </div>
+
+      <!-- Profile Picture -->
+      <div class="relative">
+
+        <img *ngIf="profilePreview" [src]="profilePreview" alt="Thumbnail" 
+        class="w-32 h-32 rounded-full absolute -bottom-10 left-4 border-4 border-gray-800">
+
+        <img *ngIf="!profilePreview"
+          id="profilePic"
+          src="{{member.profilePic}}"
+          alt="Profile Picture"
+          class="w-32 h-32 rounded-full absolute -bottom-10 left-4 border-4 border-gray-800"/>
+
+        <label
+          class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-500 border-2 border-gray-900 absolute -bottom-8 left-28"
+          (click)="openFileInput('uploadProfilePic')">
+          <img src="assets/buttons/addPhoto.png" />
+          <input class="hidden" id="uploadProfilePic" type="file" accept="image/*" (change)="fileSelected($event, 'profile')" />
+        </label>
+      </div>
+    </div>
+
+    <form #editForm="ngForm" id="editForm">
+      <div class="mb-4">
+        <label for="fullName" class="block text-white font-medium mb-1">Name</label>
+        <input type="text" id="fullName" name="displayname" class="w-full border rounded-md p-2 text-black" 
+              [(ngModel)]="member.displayname">
+      </div>
+
+      <div class="mb-4">
+        <label for="about" class="block text-white font-medium mb-1">About</label>
+        <textarea id="about" name="about" class="w-full border rounded-md p-2 text-black" rows="5"
+                  [(ngModel)]="member.about"></textarea>
+      </div>
+      
+
+      <div class="mb-4">
+        <label for="bio" class="block text-white font-medium mb-1">Location</label>
+        <input type="text" id="fullName" name="location" class="w-full border rounded-md p-2 text-black"
+              [(ngModel)]="member.location">
+      </div>
+
+      <div class="justify-between flex">
+        <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                (click)="updateProfile()" form="editForm">Save Changes</button>
+
+        <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" 
+                (click)="close()">Cancel</button>
+      </div>
+    </form>
+  </div>

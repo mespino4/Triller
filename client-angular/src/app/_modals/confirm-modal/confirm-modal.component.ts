@@ -15,11 +15,8 @@ export class ConfirmModalComponent {
   id: number | undefined;
   obj2Del: string | undefined;
 
-  constructor(private trillService: TrillService, private toastr: ToastrService,
-    private replyService: ReplyService,
-    public dialogRef: MatDialogRef<ConfirmModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { message: string }
-  ) { }
+  constructor(private trillService: TrillService, private toastr: ToastrService, private replyService: ReplyService,
+    public dialogRef: MatDialogRef<ConfirmModalComponent>, @Inject(MAT_DIALOG_DATA) public data: { message: string }) { }
 
   onNoClick(): void {
     this.dialogRef.close(false);

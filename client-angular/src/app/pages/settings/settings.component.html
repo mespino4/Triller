@@ -23,13 +23,13 @@
         </div>
     </div>
 
-    <div class="ml-5">
+    <div class="ml-5" *ngIf="member">
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
             <a class="text-2xl text-white">Profile</a>
             
-            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2
-                text-white">Edit Profile</button>
+            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
+                (click)="editProfile(member)">Edit Profile</button>
         </div>
 
         <hr class="border-gray-800">

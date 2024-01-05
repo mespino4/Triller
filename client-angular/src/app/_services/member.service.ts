@@ -49,7 +49,7 @@ export class MemberService {
   }
 
   updateMember(member: Member){
-    return this.http.put(this.baseUrl + 'users', member).pipe(
+    return this.http.put(this.baseUrl + 'users/profile', member).pipe(
       map(() => {
         const index = this.members.indexOf(member);
         this.members[index] = {...this.members[index], ...member}

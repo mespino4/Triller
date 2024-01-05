@@ -4,9 +4,9 @@
     <div class="w-full bg-cover bg-no-repeat bg-center" style="height: 200px; background-image: url({{member.bannerPic}});">
         <img class="opacity-0 w-full h-full" src="{{member.bannerPic}}" alt="">
     </div>
+    
     <div class="p-4">
         <div class="relative flex w-full">
-
             <!-- Profile Pic -->
             <div class="flex flex-1">
                 <div style="margin-top: -6rem;">
@@ -20,7 +20,6 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -50,11 +49,11 @@
                 </button>
             </div>
 
-            <!-- Follow Button -->
+            <!-- Edit Button -->
             <div class="flex flex-col text-right">
                 <button class="border bg-transparent border-blue-500 text-white
                     hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
-                    routerLink="/edit-profile" *ngIf="isUser">
+                    *ngIf="isUser" (click)="editProfile(member)">
                     Edit Profile
                 </button>
 

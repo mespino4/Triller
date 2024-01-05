@@ -10,9 +10,10 @@ public class AutoMapperProfiles : Profile {
 			.ForMember(dest => dest.TrillCount, opt => opt.MapFrom(src => src.Trills.Count))
 			.ForMember(dest => dest.FollowerCount, opt => opt.MapFrom(src => src.Followers.Count))
 			.ForMember(dest => dest.FollowingCount, opt => opt.MapFrom(src => src.Following.Count));
+		
+		CreateMap<MemberUpdateDTO, AppUser>();
 
 		/*
-		CreateMap<MemberUpdateDto, AppUser>();
 		CreateMap<RegisterDto, AppUser>();
 		*/
 

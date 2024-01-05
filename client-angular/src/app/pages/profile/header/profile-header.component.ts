@@ -1,24 +1,22 @@
 import { Component, Input } from '@angular/core';
-import { Member } from '../../../_models/member';
-import { MemberService } from '../../../_services/member.service';
-import { BlockService } from '../../../_services/block.service';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../../../_services/account.service';
 import { take } from 'rxjs';
-import { PresenceService } from '../../../_services/presence.service';
-import { User } from '../../../_models/user';
-import { MessageService } from '../../../_services/message.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProfileModalComponent } from '../../../_modals/edit-profile-modal/edit-profile-modal.component';
+import { User, Member } from '../../../shared/models.index';
+import { MessageService, AccountService, MemberService, PresenceService, BlockService } from '../../../shared/services.index';
+
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-profile-header',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  templateUrl: './profile-header.component.html',
+  styleUrl: './profile-header.component.css'
 })
-export class HeaderComponent {
+export class ProfileHeaderComponent {
   @Input() member: Member | undefined
   isFollow: boolean = true
   isUser: boolean | undefined
@@ -30,7 +28,7 @@ export class HeaderComponent {
 
   constructor( private memberService: MemberService, private messageService: MessageService,  
     private blockService: BlockService, private toastr: ToastrService, public accountService: AccountService,
-    public presenceService: PresenceService) {
+    public presenceService: PresenceService, public dialog: MatDialog) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
     })
@@ -47,6 +45,18 @@ export class HeaderComponent {
     }else{
       this.isUser = false
     }
+  }
+
+  editProfile(member: Member) {
+    const dialogRef = this.dialog.open(EditProfileModalComponent, {
+      width: '400px',
+      data: { member: member } // Pass the member data here
+    });
+  
+    // Call the showModal method when the dialog is opened
+    dialogRef.afterOpened().subscribe(() => {
+      dialogRef.componentInstance;
+    });
   }
 
   ngOnChanges() {

@@ -69,7 +69,7 @@ public class UsersController : BaseApiController {
 
 		_mapper.Map(memberUpdateDto, user);
 
-		if(await _userRepository.SaveAllAsync()) return NoContent();
+		if(await _userRepository.SaveAllAsync()) return Ok();
 		return BadRequest("Failed to update user");
 	}
 

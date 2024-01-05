@@ -22,8 +22,13 @@
 
       <div>
         <h2 class="text-lg font-semibold text-white">{{member.displayname}}</h2>
-        <p class="text-white" *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">Online</p>
-        <p class="text-white" *ngIf="!(presenceService.onlineUsers$ | async)?.includes(member.username)">Offline</p>
+        <p class="text-white flex items-center" *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">
+          <span class="h-3 w-3 bg-green-500 rounded-full mr-2"></span> Online
+        </p>
+
+        <p class="text-white flex items-center" *ngIf="!(presenceService.onlineUsers$ | async)?.includes(member.username)">
+          <span class="h-3 w-3 bg-red-500 rounded-full mr-2"></span> Offline
+        </p>
       </div>          
     </div>
 
