@@ -49,12 +49,14 @@ export class EditProfileModalComponent {
     }
   }
 
-  uploadFile(file: File | null): void {
+  uploadFile(file: File | null, fileType: string): void {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-
-      this.memberService.updateProfilePic(formData).subscribe({
+  
+      const updateMethod = fileType === 'profile' ? 'updateProfilePic' : 'updateBannerPic';
+  
+      this.memberService[updateMethod](formData).subscribe({
         next: (data) => console.log('Success:', data),
         error: (error) => console.error('Error:', error),
       });
@@ -62,8 +64,8 @@ export class EditProfileModalComponent {
   }
 
   uploadFiles(): void {
-    this.uploadFile(this.profilePic);
-    this.uploadFile(this.bannerPic);
+    this.uploadFile(this.profilePic, 'profile');
+    this.uploadFile(this.bannerPic, 'banner');
   }
 
   updateProfile() {
@@ -71,10 +73,12 @@ export class EditProfileModalComponent {
       next: (_) => {
         this.toastr.success('Profile updated successfully');
         this.editForm?.reset(this.member);
+        this.uploadFiles();
       },
-      complete: () => {this.uploadFiles();},
+      complete: () => {
+        this.dialogRef.close();
+      },
     });
-    this.dialogRef.close();
   }
 
   generatePreview(file: File | null, callback: (result: string) => void): void {

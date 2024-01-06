@@ -5,12 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data;
 
-public class DataContext : IdentityDbContext<AppUser, AppRole, int,
+public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, AppRole, int,
 		IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
-		IdentityRoleClaim<int>, IdentityUserToken<int>> {
-
-	public DataContext(DbContextOptions options) : base(options) { }
-
+		IdentityRoleClaim<int>, IdentityUserToken<int>>(options) {
 	public DbSet<Connection> Connections { get; set; }
 	public DbSet<Trill> Trills { get; set; }
 	public DbSet<Bookmark> Bookmarks { get; set; }

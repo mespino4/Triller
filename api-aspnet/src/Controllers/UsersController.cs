@@ -70,7 +70,7 @@ public class UsersController : BaseApiController {
 		_mapper.Map(memberUpdateDto, user);
 
 		if(await _userRepository.SaveAllAsync()) return Ok();
-		return BadRequest("Failed to update user");
+		return NoContent();
 	}
 
 	//Profile Pic
@@ -104,6 +104,7 @@ public class UsersController : BaseApiController {
 		return BadRequest("Failed to update profile pic");
 	}
 
+	
 	[HttpDelete("profile-pic/delete")] // /api/users/profile-pic
 	public async Task<ActionResult> DeleteUserProfilePic() {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
@@ -125,6 +126,7 @@ public class UsersController : BaseApiController {
 
 		return BadRequest("Failed to remove profile pic");
 	}
+	
 
 	[HttpPut("banner-pic/update")] // /api/users/profile-pic
 	public async Task<ActionResult> UpdateUserBannerPic(IFormFile file) {

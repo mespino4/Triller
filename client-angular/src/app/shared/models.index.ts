@@ -3,7 +3,6 @@ export * from '../_models/member';
 export * from '../_models/message';
 export * from '../_models/notification';
 export * from '../_models/pagination';
-export * from '../_models/photo';
 export * from '../_models/recentChat';
 export * from '../_models/reply';
 export * from '../_models/trill';

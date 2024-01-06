@@ -5,7 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
-import { ProfileHeaderComponent } from './header/profile-header.component';
+import { ProfileHeaderComponent } from './profile-header/profile-header.component';
 import { AccountService, MemberService, BlockService } from '../../shared/services.index';
 import { User, Member } from '../../shared/models.index';
 

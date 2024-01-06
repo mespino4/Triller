@@ -1,1 +1,20 @@
-<p>edit-roles works!</p>
+<div class="p-3">
+  <h2 mat-dialog-title class="text-xl font-bold">Edit Roles for {{username}}</h2>
+
+  <div mat-dialog-content class="p-5 text-lg">
+    <div *ngFor="let role of availableRoles" class="mb-3">
+      <mat-checkbox
+        [checked]="selectedRoles.includes(role)"
+        (change)="updateChecked(role)"
+        [disabled]="role === 'Admin' && username === 'admin'">
+        {{ role }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="flex justify-end">
+    <button class="bg-red-500 hover:bg-red-700 p-2 
+      text-white text-lg font-semibold rounded-lg" 
+      mat-button (click)="close()">Close</button>
+  </div>
+</div>

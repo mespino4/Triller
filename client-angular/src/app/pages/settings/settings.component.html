@@ -4,22 +4,22 @@
     <!-- Nav back-->
     <div>
         <div class="flex ">
-        <div class="px-2 py-2">
-            <a  class=" text-2xl font-medium rounded-full 
-            text-blue-400 hover:bg-gray-800 hover:text-blue-300 float-right"
-            routerLink="/home">
-            <svg class="m-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                <g>
-                <path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z">
-                </path>
-                </g>
-            </svg>
-            </a>
-        </div>
+            <div class="px-2 py-2">
+                <a  class=" text-2xl font-medium rounded-full 
+                text-blue-400 hover:bg-gray-800 hover:text-blue-300 float-right"
+                routerLink="/home">
+                <svg class="m-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <g>
+                    <path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z">
+                    </path>
+                    </g>
+                </svg>
+                </a>
+            </div>
 
-        <div class="flex-1">
-            <h2 class="my-3 text-xl font-semibold w-full text-white">Settings</h2>
-        </div>
+            <div class="flex-1">
+                <h2 class="my-3 text-xl font-semibold w-full text-white">Settings</h2>
+            </div>
         </div>
     </div>
 
@@ -37,6 +37,9 @@
             <a class="text-2xl text-white">Language</a>
             
             <div class="inline-flex items-center ">
+                <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
+                    >Change Language</button>
+                <!--
                 <label class="inline-flex items-center mr-3">
                 <input type="radio" [(ngModel)]="selectedLanguage" value="english" class="form-radio text-blue-500">
                 <span class="ml-2 text-white">English</span>
@@ -46,6 +49,7 @@
                 <input type="radio" [(ngModel)]="selectedLanguage" value="spanish" class="form-radio text-blue-500">
                 <span class="ml-2 text-white">Spanish</span>
                 </label>
+                -->
             </div>
         </div>
                     
@@ -53,32 +57,33 @@
         <div class="p-4 flex justify-between">
             <a class="text-2xl text-white">Password</a>
             
-            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2
-                text-white">Change Password</button>
+            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
+                (click)="notice('Changing your password will be available in a future update')"
+                >Change Password</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
             <a class="text-2xl text-white">Blocked Users</a>
             
-            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2
-                text-white">View Blocked Users</button>
+            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
+            (click)="viewBlockedUsers()">View Blocked Users</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
             <a class="text-2xl text-white">Privacy</a>
             
-            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2
-                text-white">Make Account Private</button>
+            <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
+            (click)="notice('Making your account private will be available in a future update')">Make Account Private</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
             <a class="text-2xl text-white">Delete Account</a>
             
-            <button class="bg-red-500 hover:bg-red-700 rounded-md p-2
-                text-white">Delete Account</button>
+            <button class="bg-red-500 hover:bg-red-700 rounded-md p-2 text-white">
+                Delete Account</button>
         </div>
 
     </div>

@@ -7,11 +7,14 @@ import { User } from '../../_models/user';
 import { MemberService } from '../../_services/member.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HasRoleDirective } from '../../_directives/has-role.directive';
+import { TrillModalComponent } from '../../_modals/trill-modal/trill-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidebar-left',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, HasRoleDirective],
   templateUrl: './sidebar-left.component.html',
   styleUrl: './sidebar-left.component.css'
 })
@@ -22,7 +25,7 @@ export class SidebarLeftComponent implements OnInit{
   user: User | null = null;
 
   constructor(public accountService: AccountService, private router: Router, 
-    private memberService: MemberService) {
+    private memberService: MemberService, public dialog: MatDialog) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
     })
@@ -52,5 +55,11 @@ export class SidebarLeftComponent implements OnInit{
   logout() {
     this.accountService.logout(); // Call the logout function from the AccountService.
     this.router.navigateByUrl('/')
+  }
+
+  trill() {
+    const dialogRef = this.dialog.open(TrillModalComponent, {
+      width: '400px',
+    });
   }
 }

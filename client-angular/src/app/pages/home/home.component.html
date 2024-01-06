@@ -47,11 +47,12 @@
             </a>
           </div>
 
-          <button class="bg-blue-400 hover:bg-blue-500 mt-5 mb-5 text-white font-bold py-2 px-8 rounded-full mr-8 float-right"
-            [disabled]="!trillForm.valid || (!trillContent && !trillImage)"
-            [ngStyle]="{'background-color': trillForm.valid ? '#007BFF' : 'gray'}"
-            type="submit">
-            <img src="assets\trill.png" class="h-5">
+          <button class="text-white font-bold py-2 px-8 rounded-full ml-4 float-left"
+                  [ngClass]="{'bg-blue-400 hover:bg-blue-500 hover:brightness-90': trillForm.valid,
+                              'bg-gray-400': !trillForm.valid || (!trillContent && !trillImage)}"
+                  [disabled]="!trillForm.valid || (!trillContent && !trillImage)"
+                  type="submit">
+              <img src="assets\trill.png" class="h-5">
           </button>
         </div>
       </form>

@@ -7,7 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { Member, User } from '../../shared/models.index';
 import { EditProfileModalComponent } from '../../_modals/edit-profile-modal/edit-profile-modal.component';
-
+import { NoticeModalComponent } from '../../_modals/notice-modal/notice-modal.component';
+import { ViewBlockedUsersComponent } from '../../_modals/view-blocked-users/view-blocked-users.component';
 
 @Component({
   selector: 'app-settings',
@@ -19,15 +20,17 @@ import { EditProfileModalComponent } from '../../_modals/edit-profile-modal/edit
 export class SettingsComponent {
   user: User | null = null;
   member: Member | null = null;
+  blockedMembers: Member[] | undefined;
 
   selectedLanguage: 'english' | 'spanish' = 'english';
 
-  constructor( private memberService: MemberService, 
-    private blockService: BlockService, private toastr: ToastrService, public accountService: AccountService,
+  constructor( private memberService: MemberService, private blockService: BlockService,
+    private toastr: ToastrService, public accountService: AccountService,
      public dialog: MatDialog) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
-    })
+      })
+      //this.getBlockedUsers()
   }
 
   ngOnInit(){
@@ -46,6 +49,30 @@ export class SettingsComponent {
     // Call the showModal method when the dialog is opened
     dialogRef.afterOpened().subscribe(() => {
       dialogRef.componentInstance;
+    });
+  }
+
+  viewBlockedUsers() {
+    this.blockService.getBlockedUsers().subscribe({
+      next: (blockedMembers: Member[]) => {
+        this.blockedMembers = blockedMembers;
+      },
+      error: (error) => {
+        console.error('Error fetching blocked members:', error);
+      },
+      complete: () => {
+        const dialogRef = this.dialog.open(ViewBlockedUsersComponent, {
+          width: '400px',
+          data: { members: this.blockedMembers } // Pass the member data here
+        });
+      }
+    });
+  }
+
+  notice(msg: string) {
+    const dialogRef = this.dialog.open(NoticeModalComponent, {
+      width: '400px',
+      data: { message: msg }
     });
   }
 

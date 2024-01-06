@@ -1,5 +1,4 @@
 import { Bookmark } from "./bookmark"
-import { Photo } from "./photo"
 import { Trill } from "./trill"
 
 export interface Member {
@@ -14,10 +13,9 @@ export interface Member {
   location: string
   profilePic: string
   bannerPic: string
-  trills: Trill[]
-  bookmarks: Bookmark[]
-  photos: Photo[]
-  roles: string[]
+  //trills: Trill[]
+  //bookmarks: Bookmark[]
+  //roles: string[]
   trillCount: number
   followerCount: number
   followingCount: number
