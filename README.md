@@ -16,7 +16,7 @@ the platform supports user-to-user connections with a follow system.
 
 ## Tech Stack
 
-- **Backend**: ASP.NET 8 & Microsoft SQL SERVER
+- **Backend**: ASP.NET 8 & Microsoft SQL Server
 
 - **Frontend**: Angular 17, Angular Material & Tailwind CSS
 
