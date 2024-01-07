@@ -16,6 +16,8 @@ the platform supports user-to-user connections with a follow system.
 
 ## Tech Stack
 
-- **Backend**: Built using the latest ASP.NET 8.
+- **Backend**: ASP.NET 8 & Microsoft SQL SERVER
 
-- **Frontend**: Developed with Angular 17.
+- **Frontend**: Angular 17, Angular Material & Tailwind CSS
+
+- **Containerization**: Docker
