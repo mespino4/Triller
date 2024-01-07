@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { Pagination, RecentChat, User, Member } from '../../shared/models.index';
-import { MessageService, AccountService, MemberService, PresenceService } from '../../shared/services.index';
 import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { of, switchMap, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatCardComponent } from './chat-card/chat-card.component';
 import { ChatBubbleComponent } from './chat-bubble/chat-bubble.component';
+import { Pagination, RecentChat, User, Member } from '../../shared/models.index';
+import { MessageService, AccountService, MemberService, PresenceService } from '../../shared/services.index';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ChatCardComponent, ChatBubbleComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ChatCardComponent, ChatBubbleComponent, TranslateModule],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.css'
 })

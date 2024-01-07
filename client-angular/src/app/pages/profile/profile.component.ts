@@ -63,11 +63,6 @@ export class ProfileComponent {
     })
   }
 
-  blockvars(){
-    console.log("user blocked: ", this.isUserBlocked)
-    console.log("member blocked: ", this.isMemberBlocked)
-  }
-  
   getUserBlockStatus(member: Member){
     this.blockService.getUserBlockStatus(member.id).subscribe({
       next: response => this.isUserBlocked = response

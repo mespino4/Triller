@@ -1,0 +1,79 @@
+{
+    "sidebar-left": {
+      "home": "Home",
+      "profile": "Profile",
+      "notifications": "Notifications",
+      "messages": "Messages",
+      "bookmarks": "Bookmarks",
+      "settings": "Settings",
+      "connections": "Connections",
+      "admin": "Admin",
+      "logout": "Logout"
+    },
+    "home": {
+      "label": "Home",
+      "trill": "What's happening?",
+      "photo": "Photo",
+      "emoji": "Emoji",
+      "for_you": "For You",
+      "following": "Following"
+    },
+    "profile": {
+        "label": "Profile",
+        "joined": "Joined",
+        "edit_profile": "Edit Profile",
+        "delete_user": "Delete User?",
+        "block": "Block",
+        "unblock": "Unblock",
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "following": "Following",
+        "followers": "Followers"
+    },
+    "notifications":{
+        "label": "Notifications",
+        "reply": "replied to your trill",
+        "repost": "reposted your trill",
+        "like": "liked your trill",
+        "follow": "followed you"
+    },
+    "messages":{
+        "label": "Messages",
+        "online": "Online",
+        "offline": "Offline"
+    },
+    "bookmarks":{
+        "label": "Bookmarks"
+    },
+    "settings":{
+        "label": "Settings",
+        "profile": "Profile",
+        "edit_profile": "Edit Profile",
+        "language": "Language",
+        "change_language": "Change Language",
+        "password": "Password",
+        "change_password": "Change Password",
+        "blocked_users": "Blocked Users",
+        "view_blocked_users": "View Blocked Users",
+        "privacy": "Privacy",
+        "make_account_private": "Make Account Private",
+        "account": "Account",
+        "delete_account": "Delete Account"
+    },
+    "connections":{
+        "label": "Connections",
+        "following": "Following",
+        "followers": "Followers"
+    },
+    "admin":{
+        "label": "Admin",
+        "user": "User",
+        "roles": "Roles",
+        "edit_roles": "Edit Roles",
+        "admin": "Admin",
+        "moderator": "Moderator",
+        "member": "Member",
+        "modal_text": "Edit roles for"
+    }
+    
+}

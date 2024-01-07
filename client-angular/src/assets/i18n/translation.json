@@ -1,0 +1,343 @@
+{
+    "Language": {
+        "en": {
+            "navBar": {
+                "home": "Home",
+                "menu": "Menu",
+                "contact": "Contact"
+            },
+            "footerBar": {
+                "contactUsTitle": "Contact Us",
+                "contactInstructions": "For reservations or any inquiries, please feel free to contact us:",
+                "contactNumber": "Phone: 123-456-7890",
+                "ContactEmail": "Email: customer.service@mexicankitchen.com",
+                "LetConnectTitle": "Let's Connect",
+                "legalTitle": "Legal",
+                "privacyPolicy": "Privacy Policy",
+                "accessibility": "Accessibility Statement"
+            },"homePage": [
+              {
+                "specialsTitle": "Specials",
+                "specialsInfo": "Buy 1 and get 1 free",
+                "specialEnds": "Offer ends 08/01/2023",
+                "specialItems": [
+                  "Shrimp Cocktail",
+                  "Fajita Quesadilla",
+                  "Chicken Jalapeño Nachos"
+                ],
+                "specialItemsInfo": [
+                  "Succulent shrimp, crisp lettuce, and tangy sauce.",
+                  "Cheesy and loaded, the big fajita quesadilla is a flavor-packed sensation.",
+                  "Nacho chips toped with grilled chicken, melted fiesta blend cheese, and jalapenos"
+                ]
+              }
+            ],"menu": {
+                "categories": [
+                  "Appetizers",
+                  "Soups and Salads",
+                  "Tacos",
+                  "Enchiladas",
+                  "Desserts",
+                  "Beverages"
+                ],
+                "appetizers": [
+                  {
+                    "Name": "Guacamole and Chips",
+                    "description": "Delight in creamy guacamole paired with crispy tortilla chips for a satisfying appetizer",
+                    "price": "$2.99"
+                  },
+                  {
+                    "Name": "Queso Fundido",
+                    "description": "Hot melted cheese and spicy chorizo that is often served flambé",
+                    "price": "$5.99"
+                  },
+                  {
+                    "Name": "Ceviche",
+                    "description": "Marinated shrimp in citrus juices, combined with herbs and vegetables for a refreshing seafood experience",
+                    "price": "$6.99"
+                  },
+                  {
+                    "Name": "Taquitos",
+                    "description": "Savory shredded chicken wrapped in crispy tortillas",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Shrimp Cocktail",
+                    "description": "Succulent shrimp, crisp lettuce, and tangy sauce.",
+                    "price": "$6.99"
+                  },
+                  {
+                    "Name": "Fajita Quesadilla",
+                    "description": "Cheesy and loaded, the big fajita quesadilla is a flavor-packed sensation.",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Chicken Jalapeño Nachos",
+                    "description": "Nacho chips toped with grilled chicken, melted fiesta blend cheese, and jalapenos",
+                    "price": "$5.99"
+                  }
+                ],
+                "soupsAndSalads": [
+                  {
+                    "Name": "Tortilla Soup",
+                    "description": "Savory shredded chicken wrapped in crispy tortillas",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Chicken Mexican Salad",
+                    "description": "Grilled chicken, crisp lettuce, vibrant veggies, zesty dressing",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Pozole",
+                    "description": "Savor the flavors of Pozole: a hearty Mexican soup with tender pork, hominy, and aromatic spices",
+                    "price": "$5.99"
+                  }
+                ],
+                "tacos": [
+                  {
+                    "Name": "Carne Asada Tacos",
+                    "description": "Grilled steak in warm tortillas with fresh toppings",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Al Pastor Tacos",
+                    "description": "Marinated pork, warm tortillas, vibrant toppings",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Baja Fish Tacos",
+                    "description": "Crispy fish fillets, nestled in warm tortillas, topped with fresh ingredients",
+                    "price": "$5.99"
+                  },
+                  {
+                    "Name": "Vegetarian Tacos",
+                    "description": "Fresh veggies, savory beans, zesty toppings in warm tortillas",
+                    "price": "$3.99"
+                  }
+                ],
+                "enchiladas": [
+                  {
+                    "Name": "Chicken Enchiladas",
+                    "description": "Tender chicken wrapped in tortillas, smothered with flavorful sauce and melted cheese",
+                    "price": "$8.99"
+                  },
+                  {
+                    "Name": "Cheese and Spinach Enchiladas",
+                    "description": "Creamy cheese, flavorful spinach, tortillas, savory sauce",
+                    "price": "$6.99"
+                  },
+                  {
+                    "Name": "Enchiladas Suizas",
+                    "description": "Rolled tortillas filled with savory chicken, smothered in creamy Swiss cheese sauce",
+                    "price": "$7.99"
+                  }
+                ],
+                "desserts": [
+                  {
+                    "Name": "Flan",
+                    "description": "Creamy caramel-infused custard dessert",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Churros",
+                    "description": "Crispy fried dough pastry, dusted with cinnamon sugar",
+                    "price": "$4.99"
+                  },
+                  {
+                    "Name": "Tres Leches Cake",
+                    "description": "Ultra light cake soaked in a sweet milk mixture",
+                    "price": "$5.99"
+                  }
+                ],
+                "beverages": [
+                    {
+                    "Name": "Margaritas",
+                    "description": "A refreshing blend of tequila, lime juice, and a touch of sweetness, served with a salted rim for a perfect balance of flavors",
+                    "price": "$5.99"
+                  },{
+                    "Name": "Agua Frescas",
+                    "description": "Refreshing and fruity beverages made with fresh ingredients like watermelon, cucumber, or hibiscus, offering a cool and revitalizing sip",
+                    "price": "$2.99"
+                  },{
+                    "Name": "Mexican Beer",
+                    "description": "Crisp and flavorful brews with a touch of zest and a hint of tradition",
+                    "price": "$3.99"
+                  }
+                ]
+            },
+            "contactPage": {
+                "aboutTitle": "About",
+                "aboutText": "Welcome to Mexican Kitchen, your destination for authentic Mexican cuisine and a vibrant dining experience. Located in the heart of Houston, our restaurant is dedicated to bringing the rich flavors, vibrant colors, and warm hospitality of Mexico to your table. At Mexican Kitchen, we believe in the power of food to create connections and celebrate culture. Our team of talented chefs combines traditional Mexican recipes with innovative techniques to present you with a truly memorable culinary experience. From street tacos to enchiladas, our menu is a carefully curated selection of iconic dishes from various regions of Mexico, each prepared with love and attention to detail. Step inside our restaurant, and you'll be transported to a lively and welcoming atmosphere that captures the essence of Mexican hospitality. Our vibrant decor, inspired by the vibrant streets of Mexico, creates an inviting ambiance for you to enjoy your dining experience with family and friends. Whether you're celebrating a special occasion or simply craving a delicious meal, our team is here to ensure that every visit to Mexican Kitchen is an unforgettable one. We take pride in sourcing the finest ingredients, ensuring that each dish is made with fresh, high-quality produce, authentic spices, and traditional cooking techniques. From savoring the flavors of our sizzling fajitas to indulging in our homemade guacamole, every bite will transport you to the heart of Mexico, awakening your taste buds and leaving you craving for more. At Mexican Kitchen, we strive to provide exceptional service, treating every guest like family. Our friendly and knowledgeable staff is always ready to assist you in selecting the perfect dish or suggesting a refreshing margarita to complement your meal. We are dedicated to creating an atmosphere where laughter, joy, and unforgettable moments are shared, making every visit a cherished memory. Whether you're a Mexican cuisine aficionado or looking to embark on a culinary adventure, we invite you to join us at Mexican Kitchen. Experience the passion, the flavors, and the spirit of Mexico as we take you on a gastronomic journey like no other. Come and be part of our extended family as we celebrate the rich tapestry of Mexican culture, one delicious plate at a time. ¡Bienvenidos a Mexican Kitchen! We can't wait to serve you and share the vibrant flavors of Mexico with you. ¡Buen provecho! (Enjoy your meal!)",
+                "addressTitle": "Address",
+                "hoursTitle": "Hours",
+                "hoursM": "Monday 7:00 AM - 12:00 AM",
+                "hoursT": "Tuesday 7:00 AM - 12:00 AM",
+                "hoursW": "Wednesday 7:00 AM - 12:00 AM",
+                "hoursR": "Thursday 7:00 AM - 12:00 AM",
+                "hoursF": "Friday 7:00 AM - 2:00 AM",
+                "hoursSat": "Saturday 7:00 AM - 2:00 AM",
+                "hoursSun": "Sunday 7:00 AM - 12:00 AM"
+            }
+        },
+        "es": {
+            "navBar": {
+                  "home": "Inicio",
+                  "menu": "Menú",
+                  "contact": "Contacto"
+            },
+            "footerBar": {
+                "contactUsTitle": "Contáctenos",
+                "contactInstructions": "Para reservas o cualquier consulta, no dude en ponerse en contacto con nosotros:",
+                "contactNumber": "Teléfono: 123-456-7890",
+                "ContactEmail": "Correo electrónico: customer.service@mexicankitchen.com",
+                "LetConnectTitle": "vamos a conectar",
+                "legalTitle": "Legal",
+                "privacyPolicy": "política de privacidad",
+                "accessibility": "Declaración de accesibilidad"
+            },"homePage": [
+              {
+                "specialsTitle": "Especiales",
+                "specialsInfo": "Compre 1 y obtenga 1 gratis",
+                "specialEnds": "La oferta finaliza el 01/08/2023",
+                "specialItems": [
+                  "Cóctel de camarón",
+                  "Fajita Quesadilla",
+                  "Nachos De Pollo Y Jalapeño"
+                ],
+                "specialItemsInfo": [
+                  "Camarones suculentos, lechuga crujiente y salsa picante.",
+                  "Cursi y cargada, la gran quesadilla de fajita es una sensación llena de sabor.",
+                  "Chips de nacho cubiertos con pollo a la parrilla, mezcla de queso derretido para fiestas y jalapeños"
+                ]
+              }
+            ],"menu": {
+                "categories": [
+                  "Aperitivos",
+                  "Sopas y ensaladas",
+                  "Tacos",
+                  "Enchiladas",
+                  "Postres",
+                  "Bebidas"
+                ],"appetizers": [
+                  {
+                    "Name": "Guacamole y papas fritas",
+                    "description": "Deléitese con el guacamole cremoso combinado con chips de tortilla crujientes para un aperitivo satisfactorio"
+                  },
+                  {
+                    "Name": "Queso Fundido",
+                    "description": "Queso derretido caliente y chorizo ​​picante que a menudo se sirve flambeado"
+                  },
+                  {
+                    "Name": "Ceviche",
+                    "description": "Camarones marinados en jugos de cítricos, combinados con hierbas y vegetales para una experiencia refrescante de mariscos"
+                  },
+                  {
+                    "Name": "Taquitos",
+                    "description": "Pollo desmenuzado sabroso envuelto en tortillas crujientes"
+                  },
+                  {
+                    "Name": "Cóctel de camarón",
+                    "description": "Camarones suculentos, lechuga crujiente y salsa picante."
+                  },
+                  {
+                    "Name": "Fajita Quesadilla",
+                    "description": "Cursi y cargada, la gran quesadilla de fajita es una sensación llena de sabor."
+                  },
+                  {
+                    "Name": "Nachos De Pollo Y Jalapeño",
+                    "description": "Chips de nacho cubiertos con pollo a la parrilla, mezcla de queso derretido para fiestas y jalapeños"
+                  }
+                ],
+                "soupsAndSalads": [
+                  {
+                    "Name": "Sopa de tortilla",
+                    "description": "Pollo desmenuzado sabroso envuelto en tortillas crujientes"
+                  },
+                  {
+                    "Name": "Ensalada Mexicana De Pollo",
+                    "description": "Pollo a la parrilla, lechuga crujiente, vegetales vibrantes, aderezo picante"
+                  },
+                  {
+                    "Name": "Pozole",
+                    "description": "Saboree los sabores del pozole: una abundante sopa mexicana con carne de cerdo tierna, maíz y especias aromáticas"
+                  }
+                ],
+                "tacos": [
+                  {
+                    "Name": "tacos de carne asada",
+                    "description": "Bistec a la parrilla en tortillas calientes con aderezos frescos"
+                  },
+                  {
+                    "Name": "Al Pastor Tacos",
+                    "description": "Cerdo marinado, tortillas calientes, aderezos vibrantes"
+                  },
+                  {
+                    "Name": "Baja Tacos de pescado",
+                    "description": "Filetes de pescado crujientes, envueltos en tortillas calientes, cubiertos con ingredientes frescos"
+                  },
+                  {
+                    "Name": "Tacos Vegetarianos",
+                    "description": "Verduras frescas, frijoles salados, coberturas sabrosas en tortillas calientes"
+                  }
+                ],
+                "enchiladas": [
+                  {
+                    "Name": "Enchiladas de pollo",
+                    "description": "Pollo tierno envuelto en tortillas, cubierto con salsa sabrosa y queso derretido"
+                  },
+                  {
+                    "Name": "Enchiladas De Queso Y Espinacas",
+                    "description": "Queso cremoso, espinacas sabrosas, tortillas, salsa salada"
+                  },
+                  {
+                    "Name": "Enchiladas suizas",
+                    "description": "Tortillas enrolladas rellenas de sabroso pollo, bañadas en salsa cremosa de queso suizo"
+                  }
+                ],
+                "desserts": [
+                  {
+                    "Name": "Flan",
+                    "description": "Postre cremoso de crema pastelera con infusión de caramelo"
+                  },
+                  {
+                    "Name": "Churros",
+                    "description": "Hojaldre de masa frita crujiente, espolvoreado con azúcar de canela"
+                  },
+                  {
+                    "Name": "Pastel Tres Leches",
+                    "description": "Pastel ultraligero empapado en una mezcla dulce de leche"
+                  }
+                ],
+                "beverages": [
+                  {
+                    "Name": "Margaritas",
+                    "description": "Una refrescante mezcla de tequila, jugo de lima y un toque de dulzura, servida con un borde salado para un equilibrio perfecto de sabores."
+                  },
+                  {
+                    "Name": "Agua Frescas",
+                    "description": "Bebidas refrescantes y afrutadas elaboradas con ingredientes frescos como sandía, pepino o hibisco, que ofrecen un sorbo fresco y revitalizante."
+                  },
+                  {
+                    "Name": "Cerveza Mexicana",
+                    "description": "Cervezas crujientes y sabrosas con un toque de entusiasmo y un toque de tradición."
+                  }
+                ]
+              },
+            "contactPage":{
+                "aboutTitle": "Acerca de",
+                "aboutText": "Bienvenido a Mexican Kitchen, su destino para la auténtica cocina mexicana y una vibrante experiencia gastronómica. Ubicado en el corazón de Houston, nuestro restaurante está dedicado a llevar a su mesa los ricos sabores, los colores vibrantes y la cálida hospitalidad de México. En Mexican Kitchen, creemos en el poder de la comida para crear conexiones y celebrar la cultura. Nuestro equipo de chefs talentosos combina recetas mexicanas tradicionales con técnicas innovadoras para presentarle una experiencia culinaria verdaderamente memorable. Desde tacos callejeros hasta enchiladas, nuestro menú es una selección cuidadosamente seleccionada de platillos icónicos de varias regiones de México, cada uno preparado con amor y atención al detalle. Ingrese a nuestro restaurante y será transportado a un ambiente animado y acogedor que captura la esencia de la hospitalidad mexicana. Nuestra decoración vibrante, inspirado en las vibrantes calles de México, crea un ambiente acogedor para que disfrute de su experiencia gastronómica con familiares y amigos. Ya sea que esté celebrando una ocasión especial o simplemente deseando una deliciosa comida, nuestro equipo está aquí para garantizar que cada visita a Mexican Kitchen sea inolvidable. Nos enorgullecemos de obtener los mejores ingredientes, asegurándonos de que cada plato esté elaborado con productos frescos de alta calidad, especias auténticas y técnicas de cocina tradicionales. Desde saborear los sabores de nuestras fajitas chisporroteantes hasta deleitarse con nuestro guacamole casero, cada bocado lo transportará al corazón de México, despertando sus papilas gustativas y dejándolo con ganas de más. En Mexican Kitchen, nos esforzamos por brindar un servicio excepcional, tratando a cada huésped como a una familia. Nuestro amable y experto personal está siempre listo para ayudarlo a seleccionar el plato perfecto o sugerirle una refrescante margarita para complementar su comida. Nos dedicamos a crear un ambiente donde se compartan risas, alegría y momentos inolvidables, haciendo de cada visita un recuerdo preciado. Ya sea que sea un aficionado a la cocina mexicana o esté buscando embarcarse en una aventura culinaria, lo invitamos a unirse a nosotros en Mexican Kitchen. Experimente la pasión, los sabores y el espíritu de México mientras lo llevamos a un viaje gastronómico como ningún otro. Ven y sé parte de nuestra gran familia mientras celebramos el rico tapiz de la cultura mexicana, un plato delicioso a la vez. ¡Bienvenidos a Cocina Mexicana! Estamos ansiosos por servirle y compartir los vibrantes sabores de México con usted. ¡Buen provecho! (¡Disfrute de su comida!) alegría y se comparten momentos inolvidables, haciendo de cada visita un recuerdo entrañable. Ya sea que sea un aficionado a la cocina mexicana o esté buscando embarcarse en una aventura culinaria, lo invitamos a unirse a nosotros en Mexican Kitchen. Experimente la pasión, los sabores y el espíritu de México mientras lo llevamos a un viaje gastronómico como ningún otro. Ven y sé parte de nuestra gran familia mientras celebramos el rico tapiz de la cultura mexicana, un plato delicioso a la vez. ¡Bienvenidos a Cocina Mexicana! Estamos ansiosos por servirle y compartir los vibrantes sabores de México con usted. ¡Buen provecho! (¡Disfrute de su comida!) alegría y se comparten momentos inolvidables, haciendo de cada visita un recuerdo entrañable. Ya sea que sea un aficionado a la cocina mexicana o esté buscando embarcarse en una aventura culinaria, lo invitamos a unirse a nosotros en Mexican Kitchen. Experimente la pasión, los sabores y el espíritu de México mientras lo llevamos a un viaje gastronómico como ningún otro. Ven y sé parte de nuestra gran familia mientras celebramos el rico tapiz de la cultura mexicana, un plato delicioso a la vez. ¡Bienvenidos a Cocina Mexicana! Estamos ansiosos por servirle y compartir los vibrantes sabores de México con usted. ¡Buen provecho! (¡Disfrute de su comida!) los sabores y el espíritu de México mientras lo llevamos en un viaje gastronómico como ningún otro. Ven y sé parte de nuestra gran familia mientras celebramos el rico tapiz de la cultura mexicana, un plato delicioso a la vez. ¡Bienvenidos a Cocina Mexicana! Estamos ansiosos por servirle y compartir los vibrantes sabores de México con usted. ¡Buen provecho! (¡Disfrute de su comida!) los sabores y el espíritu de México mientras lo llevamos en un viaje gastronómico como ningún otro. Ven y sé parte de nuestra gran familia mientras celebramos el rico tapiz de la cultura mexicana, un plato delicioso a la vez. ¡Bienvenidos a Cocina Mexicana! Estamos ansiosos por servirle y compartir los vibrantes sabores de México con usted. ¡Buen provecho! (¡Disfrute de su comida!)",
+                "addressTitle": "DIRECCIÓN",
+                "hoursTitle": "Horas",
+                "hoursM": "Lunes 7:00 AM - 12:00 AM",
+                "hoursT": "Martes 7:00 AM - 12:00 AM",
+                "hoursW": "Miércoles 7:00 AM - 12:00 AM",
+                "hoursR": "Jueves 7:00 AM - 12:00 AM",
+                "hoursF": "viernes 7:00 AM - 2:00 AM",
+                "hoursSat": "sábado 7:00 AM - 2:00 AM",
+                "hoursSun": "Domingo 7:00 AM - 12:00 AM"
+            }
+        }
+    }
+}
+  

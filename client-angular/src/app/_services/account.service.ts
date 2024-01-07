@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../_models/user';
-import { Member } from '../_models/member';
 import { Notification } from '../_models/notification';
-import { PresenceService } from './presence.service';
+import { User, Member } from '../shared/models.index';
+import { LanguageService, PresenceService } from '../shared/services.index';
 
 @Injectable({
   providedIn: 'root'
@@ -28,16 +27,19 @@ export class AccountService {
   private notificationSource = new BehaviorSubject<Notification[]>([]);
   notification$ = this.notificationSource.asObservable();
 
-  constructor(private http: HttpClient, private presenceService: PresenceService) { }
+  constructor(private http: HttpClient, private presenceService: PresenceService, 
+     private languageService: LanguageService)  { }
 
   // Function to send a login request to the server.
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
-        const user = response;    // Extract the user data from the response.
-        // If a user is received from the server, store it in local storage and update the currentUserSource.
+        const user = response;
+
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
+
+          //this.languageService.setInitialLanguage(user.language); // Set user's language in LanguageService
           this.currentUserSource.next(user);
         }
       })

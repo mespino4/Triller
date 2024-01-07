@@ -3,5 +3,6 @@ export interface User{
     token: string;
     profilePic: string;
     displayName: string;
+    language: string;
     roles: string[];
 }

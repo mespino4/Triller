@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
-import { TrillService, AccountService, BookmarkService } from '../../shared/services.index';
+import { TrillService, AccountService, BookmarkService, LanguageService } from '../../shared/services.index';
 import { Pagination, User, Trill} from '../../shared/models.index';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, TrillCardComponent],
+  imports: [CommonModule, FormsModule, TrillCardComponent, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -29,7 +30,8 @@ export class HomeComponent {
   trillImageThumbnail: string | null = null;
 
   constructor(public accountService: AccountService, private bookmarkService: BookmarkService, 
-    private trillService: TrillService) {
+    private languageService: LanguageService,
+    private trillService: TrillService, private cdr: ChangeDetectorRef) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => this.user = user
     })
@@ -38,6 +40,17 @@ export class HomeComponent {
   ngOnInit(): void {
     this.loadTrills();
   }
+
+  /*
+  initializeUser(): void {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => {
+        this.user = user;
+        this.languageService.initializeTranslation(user);
+      }
+    });
+  }
+  */
 
   loadTrills() {
     this.trillService.getTrills(this.pageNumber, this.pageSize).subscribe({

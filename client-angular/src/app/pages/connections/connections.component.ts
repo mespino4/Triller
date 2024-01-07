@@ -5,11 +5,12 @@ import { MemberService } from '../../_services/member.service';
 import { AccountService } from '../../_services/account.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-connections',
   standalone: true,
-  imports: [ConnectionCardComponent, CommonModule, RouterModule],
+  imports: [ConnectionCardComponent, CommonModule, RouterModule, TranslateModule],
   templateUrl: './connections.component.html',
   styleUrl: './connections.component.css'
 })

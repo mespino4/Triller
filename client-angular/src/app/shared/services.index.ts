@@ -9,3 +9,4 @@ export * from '../_services/presence.service';
 export * from '../_services/reply.service';
 export * from '../_services/trill.service';
 export * from '../_services/admin.service';
+export * from '../_services/language.service';

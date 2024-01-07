@@ -5,7 +5,7 @@ public class MemberDTO {
 	public string Username { get; set; }
 	public string Displayname { get; set; }
 	//public DateTime LastActive { get; set; }
-	public string Gender { get; set; }
+	public string Language { get; set; }
 	public string About { get; set; }
 	public string Location { get; set; }
 	public string ProfilePic { get; set; }

@@ -5,11 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountService, AdminService } from '../../../shared/services.index';
 import { EditRolesModalComponent } from '../../../_modals/edit-roles-modal/edit-roles-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-management-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './user-management-card.component.html',
   styleUrl: './user-management-card.component.css'
 })
@@ -40,7 +41,6 @@ export class UserManagementCardComponent {
     });
   
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
       if (result) {
         const selectedRoles = result.selectedRoles;
         if (!this.objectEqual(selectedRoles, user.roles)) {

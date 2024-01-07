@@ -3,11 +3,12 @@ import { Member } from '../../../_models/member';
 import { MemberService } from '../../../_services/member.service';
 import { Notification } from '../../../_models/notification';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './notification-card.component.html',
   styleUrl: './notification-card.component.css'
 })

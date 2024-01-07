@@ -3,7 +3,7 @@
   <!-- Chat List -->
   <div class="w-1/4 border-r overflow-y-auto text-white"  >
     <div class="p-4 border-b border-gray-500">
-      <h1 class="text-2xl font-semibold">Chats</h1>
+      <h1 class="text-2xl font-semibold">{{ 'messages.label' | translate }}</h1>
     </div>
 
     <div *ngFor="let chat of chats">
@@ -23,11 +23,11 @@
       <div>
         <h2 class="text-lg font-semibold text-white">{{member.displayname}}</h2>
         <p class="text-white flex items-center" *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">
-          <span class="h-3 w-3 bg-green-500 rounded-full mr-2"></span> Online
+          <span class="h-3 w-3 bg-green-500 rounded-full mr-2"></span> {{ 'messages.online' | translate }}
         </p>
 
         <p class="text-white flex items-center" *ngIf="!(presenceService.onlineUsers$ | async)?.includes(member.username)">
-          <span class="h-3 w-3 bg-red-500 rounded-full mr-2"></span> Offline
+          <span class="h-3 w-3 bg-red-500 rounded-full mr-2"></span> {{ 'messages.offline' | translate }}
         </p>
       </div>          
     </div>

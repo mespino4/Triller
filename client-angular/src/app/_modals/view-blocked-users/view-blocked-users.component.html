@@ -1,5 +1,5 @@
-<div class="p-3 text-white bg-gray-800 flex flex-col items-center">
-    <h2 mat-dialog-title class="text-lg font-semibold mb-4">Blocked Users</h2>
+<div class="p-3 text-white bg-gray-800 flex flex-col ">
+    <h2 mat-dialog-title class="text-lg font-semibold mb-4 text-center">Blocked Users</h2>
 
     <div *ngFor="let member of members" class="flex hover:bg-gray-600 transition ease-in-out duration-150">
         <div class="flex-1 cursor-pointer" [routerLink]="'/profile/' + member.username">

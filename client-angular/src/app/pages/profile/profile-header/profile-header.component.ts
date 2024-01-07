@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileModalComponent } from '../../../_modals/edit-profile-modal/edit-profile-modal.component';
 import { User, Member } from '../../../shared/models.index';
-import { MessageService, AccountService, MemberService, PresenceService, BlockService } from '../../../shared/services.index';
+import { MessageService, AccountService, MemberService, 
+        PresenceService, BlockService, LanguageService } from '../../../shared/services.index';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-profile-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './profile-header.component.html',
   styleUrl: './profile-header.component.css'
 })
@@ -31,6 +33,7 @@ export class ProfileHeaderComponent {
     public presenceService: PresenceService, public dialog: MatDialog) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
+        
     })
   }
 
@@ -99,7 +102,7 @@ export class ProfileHeaderComponent {
     })
   }
 
-  //block
+  //block & unblock
   block(member: Member){
     this.blockService.block(member.id).subscribe({
       next: () => this.toastr.success('You have blocked' + member.displayname)
@@ -112,7 +115,6 @@ export class ProfileHeaderComponent {
       next: () => this.toastr.success('You have unblocked' + member.displayname)
     })
   }
-
 
   hasAdminRole(): boolean {
     const user = this.user;

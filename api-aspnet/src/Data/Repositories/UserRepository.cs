@@ -69,8 +69,6 @@ public class UserRepository : IUserRepository {
 		return trillDtos.Select(item => _mapper.Map<TrillDTO>(item.Trill));
 	}
 
-
-
 	public void Update(AppUser user) {
 		_context.Entry(user).State = EntityState.Modified;
 	}

@@ -5,11 +5,12 @@ import { take } from 'rxjs';
 import { NotificationCardComponent } from './notification-card/notification-card.component';
 import { CommonModule } from '@angular/common';
 import { Notification } from '../../_models/notification';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, NotificationCardComponent],
+  imports: [CommonModule, NotificationCardComponent, TranslateModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css'
 })
@@ -33,4 +34,6 @@ export class NotificationsComponent {
       next: notifications => this.notifications = notifications
     })
   }
+
+  
 }

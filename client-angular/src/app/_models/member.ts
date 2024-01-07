@@ -7,8 +7,8 @@ export interface Member {
   photoUrl: string
   age: number
   displayname: string
-  lastActive: string
-  gender: string
+  //lastActive: string
+  language: string;
   about: string
   location: string
   profilePic: string

@@ -9,11 +9,12 @@ import { Member, User } from '../../shared/models.index';
 import { EditProfileModalComponent } from '../../_modals/edit-profile-modal/edit-profile-modal.component';
 import { NoticeModalComponent } from '../../_modals/notice-modal/notice-modal.component';
 import { ViewBlockedUsersComponent } from '../../_modals/view-blocked-users/view-blocked-users.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
 })

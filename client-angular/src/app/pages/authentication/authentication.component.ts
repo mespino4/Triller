@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 import { User } from '../../_models/user';
 import { AccountService } from '../../_services/account.service';
 import { Router, RouterModule } from '@angular/router';
@@ -9,6 +9,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../../_forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../_forms/date-picker/date-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { LanguageService } from '../../_services/language.service';
 
 @Component({
   selector: 'app-authentication',
@@ -27,22 +28,28 @@ export class AuthenticationComponent {
   //toastr = inject(ToastrService)
 
   constructor(private accountService: AccountService, private router: Router, private toast: ToastrService,
+    private languageService: LanguageService,
     private fb: FormBuilder) { }
 
-  ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
-
-    this.initializeForm();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
-  }
+    ngOnInit(): void {
+      this.currentUser$ = this.accountService.currentUser$;
+  
+      this.initializeForm();
+      this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+  
+      // Set up language based on the current user
+      this.currentUser$.pipe(take(1)).subscribe(user => {
+        this.languageService.setInitialLanguage(user);
+      });
+    }
 
   login() {
     this.accountService.login(this.model).subscribe({
       next: _ => {
         this.router.navigateByUrl('/home');
-        this.model = {}
-      }
-    })
+        this.model = {};
+      },
+    });
   }
 
   registerPage() {

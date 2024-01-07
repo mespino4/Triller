@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { UserManagementCardComponent } from './user-management-card/user-management-card.component';
 import { AdminService } from '../../_services/admin.service';
 import { User } from '../../_models/user';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, UserManagementCardComponent],
+  imports: [CommonModule, FormsModule, UserManagementCardComponent, TranslateModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })

@@ -11,20 +11,13 @@ export class BlockService {
   baseUrl = environment.apiUrl;
   
   constructor(private http: HttpClient) { }
-
-
-  /*
-  unblock(blockUserId: number){
-    return this.http.delete(this.baseUrl + 'users/unblock?blockUserId=' + blockUserId, {});
-  }
-  */
-
+  
   block(blockUserId: number){
-    return this.http.delete<boolean>(this.baseUrl + 'users/block?blockUserId=' + blockUserId);
+    return this.http.post<boolean>(this.baseUrl + 'users/block?blockUserId=' + blockUserId, {});
   }
 
   unblock(blockUserId: number){
-    return this.http.delete<boolean>(this.baseUrl + 'users/unblock?blockUserId=' + blockUserId);
+    return this.http.delete<boolean>(this.baseUrl + 'users/unblock?blockUserId=' + blockUserId, {});
   }
 
   getBlockedUsers(){

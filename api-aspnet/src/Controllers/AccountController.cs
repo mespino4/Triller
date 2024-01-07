@@ -1,5 +1,7 @@
-﻿using api_aspnet.src.DTOs;
+﻿using api_aspnet.src.Data.Repositories.Interfaces;
+using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
+using api_aspnet.src.Extensions;
 using api_aspnet.src.Services.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -11,17 +13,19 @@ namespace api_aspnet.src.Controllers;
 public class AccountController : BaseApiController {
 	private readonly UserManager<AppUser> _userManager;
 	private readonly ITokenService _tokenService;
+	private readonly IUserRepository _userRepository;
 	private readonly IMapper _mapper;
 
-	public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper) {
+	public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, 
+		IUserRepository userRepository, IMapper mapper) {
 		_userManager = userManager;
 		_tokenService = tokenService;
+		_userRepository = userRepository;
 		_mapper = mapper;
 	}
 
 	[HttpPost("register")] //api/account/register
 	public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDto) {
-
 		if(await UserExists(registerDto.Username)) return BadRequest("Username already exists");
 
 		var user = _mapper.Map<AppUser>(registerDto);
@@ -58,13 +62,26 @@ public class AccountController : BaseApiController {
 		return new UserDTO {
 			Username = user.UserName,
 			Token = await _tokenService.CreateToken(user),
+			Language = user.Language,
 			DisplayName = user.DisplayName,
 			ProfilePic = user.ProfilePic,
 		};
+	}
+
+	[HttpGet("language")]
+	public async Task<IActionResult> ToggleLanguage(bool isEnglish) {
+		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		if(user == null) return NotFound("User not found");
+
+		user.Language = isEnglish ? "en" : "es";
+
+		if(await _userRepository.SaveAllAsync()) return Ok();
+		return StatusCode(500, "Internal server error");
 	}
 
 	//This method checks to see if the username already exists in the database
 	private async Task<bool> UserExists(string username) {
 		return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
 	}
+
 }

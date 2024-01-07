@@ -16,7 +16,7 @@
         </div>
 
         <div class="flex-1">
-            <h2 class="my-3 text-xl font-semibold text-white">Connections</h2>
+            <h2 class="my-3 text-xl font-semibold text-white">{{ 'connections.label' | translate }}</h2>
         </div>
     </div>
 
@@ -26,10 +26,10 @@
     <div class="flex justify-center w-full text-center hover:cursor-pointer">
         <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:bg-gray-800"
             [class.border-b-4]="isFollowing"
-            (click)="followingToggle()">Following</h2>
+            (click)="followingToggle()">{{ 'connections.following' | translate }}</h2>
         <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:bg-gray-800"
             [class.border-b-4]="!isFollowing"
-            (click)="followersToggle()">Followers</h2>
+            (click)="followersToggle()">{{ 'connections.followers' | translate }}</h2>
     </div>
     
     <div *ngFor="let member of members" class="mb-2">

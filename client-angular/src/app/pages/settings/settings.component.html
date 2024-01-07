@@ -18,7 +18,7 @@
             </div>
 
             <div class="flex-1">
-                <h2 class="my-3 text-xl font-semibold w-full text-white">Settings</h2>
+                <h2 class="my-3 text-xl font-semibold w-full text-white">{{ 'settings.label' | translate }}</h2>
             </div>
         </div>
     </div>
@@ -26,19 +26,19 @@
     <div class="ml-5" *ngIf="member">
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
-            <a class="text-2xl text-white">Profile</a>
+            <a class="text-2xl text-white">{{ 'settings.profile' | translate }}</a>
             
             <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
-                (click)="editProfile(member)">Edit Profile</button>
+                (click)="editProfile(member)">{{ 'settings.edit_profile' | translate }}</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
-            <a class="text-2xl text-white">Language</a>
+            <a class="text-2xl text-white">{{ 'settings.language' | translate }}</a>
             
             <div class="inline-flex items-center ">
                 <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
-                    >Change Language</button>
+                    >{{ 'settings.change_language' | translate }}</button>
                 <!--
                 <label class="inline-flex items-center mr-3">
                 <input type="radio" [(ngModel)]="selectedLanguage" value="english" class="form-radio text-blue-500">
@@ -55,35 +55,36 @@
                     
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
-            <a class="text-2xl text-white">Password</a>
+            <a class="text-2xl text-white">{{ 'settings.password' | translate }}</a>
             
             <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
                 (click)="notice('Changing your password will be available in a future update')"
-                >Change Password</button>
+                >{{ 'settings.change_password' | translate }}</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
-            <a class="text-2xl text-white">Blocked Users</a>
+            <a class="text-2xl text-white">{{ 'settings.blocked_users' | translate }}</a>
             
             <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
-            (click)="viewBlockedUsers()">View Blocked Users</button>
+            (click)="viewBlockedUsers()">{{ 'settings.view_blocked_users' | translate }}</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
-            <a class="text-2xl text-white">Privacy</a>
+            <a class="text-2xl text-white">{{ 'settings.privacy' | translate }}</a>
             
             <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
-            (click)="notice('Making your account private will be available in a future update')">Make Account Private</button>
+            (click)="notice('Making your account private will be available in a future update')">
+            {{ 'settings.make_account_private' | translate }}</button>
         </div>
 
         <hr class="border-gray-800">
         <div class="p-4 flex justify-between">
-            <a class="text-2xl text-white">Delete Account</a>
+            <a class="text-2xl text-white">{{ 'settings.account' | translate }}</a>
             
             <button class="bg-red-500 hover:bg-red-700 rounded-md p-2 text-white">
-                Delete Account</button>
+                {{ 'settings.delete_account' | translate }}</button>
         </div>
 
     </div>

@@ -8,11 +8,12 @@ import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
 import { HttpClient } from '@angular/common/http';
+import { TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bookmarks',
   standalone: true,
-  imports: [CommonModule, TrillCardComponent],
+  imports: [CommonModule, TrillCardComponent, TranslateModule],
   templateUrl: './bookmarks.component.html',
   styleUrl: './bookmarks.component.css'
 })
