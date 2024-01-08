@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { Notification } from '../_models/notification';
 import { User, Member } from '../shared/models.index';
 import { LanguageService, PresenceService } from '../shared/services.index';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

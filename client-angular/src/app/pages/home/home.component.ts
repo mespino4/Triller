@@ -17,7 +17,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export class HomeComponent {
   user: User | null = null;
-  //trills$: Observable<Trill[]> | undefined;
   trills: Trill[] =  [];
 
   pagination: Pagination | undefined

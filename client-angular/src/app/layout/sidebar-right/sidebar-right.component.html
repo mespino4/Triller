@@ -1,1 +1,66 @@
-<p>sidebar-right works!</p>
+<div class="mx-2">
+    <div class="profile-card p-6 rounded-lg shadow-md" 
+        style="background-color: #15202b" *ngIf="member">
+
+        <div class="relative w-full bg-cover bg-no-repeat bg-center" 
+        style="height: 150px; background-image: url({{member.bannerPic}});">
+        </div>
+
+        <div class="image relative h-40 w-40 mx-auto bg-cover bg-center rounded-full -mt-32">
+            <img src="{{member.profilePic}}" 
+                class="profile-pic w-full h-full object-cover rounded-full">
+        </div>
+
+        <div class="data text-center mt-2 cursor-pointer " 
+            >
+            <h2 class="text-2xl font-semibold hover:underline" 
+                routerLink="/profile/{{member.username}}"
+                >{{member.displayname}}</h2>
+            <span class="text-lg hover:underline" routerLink="/profile/{{member.username}}"
+                >&#64;{{member.username}}</span>
+        </div>
+        <div class="row flex justify-center mt-6">
+            <div class="info text-center px-4">
+                <h3 class="text-lg font-semibold">Following</h3>
+                <span class="text-xl">{{member.followingCount}}</span>
+            </div>
+            <div class="info text-center px-4">
+                <h3 class="text-lg font-semibold">Followers</h3>
+                <span class="text-xl">{{member.followerCount}}</span>
+            </div>
+            <div class="info text-center px-4">
+                <h3 class="text-lg font-semibold">Trills</h3>
+                <span class="text-xl">{{member.trillCount}}</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="my-5"></div>
+
+    <div class="max-w-sm rounded-lg overflow-hidden" style="background-color: #15202b" >
+        <h2 class="px-4 py-2 text-xl font-semibold text-white">Explore Users</h2>
+        <hr class="border-gray-800">
+    
+        <!-- User Card -->
+        <div class="flex items-center justify-between w-full" *ngFor="let member of exploreMembers">
+            <div class="flex items-center">
+                <img class="inline-block h-10 w-10 rounded-full ml-4 mt-2" src="{{member.profilePic}}" alt="">
+                <div class="ml-3 mt-3">
+                    <p class="text-base leading-6 font-medium text-white">{{member.displayname}}</p>
+                    <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                        &#64;{{member.username}}</p>
+                </div>
+            </div>
+            <hr class="border-gray-800">
+        </div>
+        
+    
+        <!-- Show more -->
+        <div class="flex p-4">
+            <h2 class="ml-2 font-bold text-blue-400">Show more</h2>
+        </div>
+    </div>
+    
+
+</div>

@@ -46,6 +46,7 @@ public class UserRepository : IUserRepository {
 			.Include(f => f.Following)
 			.Include(p => p.ProfilePicture)
 			.Include(b => b.BannerPicture)
+			.Include(t => t.Trills)
 			.SingleOrDefaultAsync(x => x.UserName == username);
 	}
 
@@ -98,6 +99,15 @@ public class UserRepository : IUserRepository {
 		}
 	}
 
+	public async Task<IEnumerable<AppUser>> ExploreUsers(int userId, int numberOfUsers) {
+		var randomUsers = await _context.Users
+			.Where(u => u.Id != userId)
+			.OrderBy(r => Guid.NewGuid()) // Order by a random GUID to get random order
+			.Take(numberOfUsers)
+			.ToListAsync();
+
+		return randomUsers;
+	}
 
 
 	public async Task<bool> SaveAllAsync() {

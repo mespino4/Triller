@@ -97,7 +97,7 @@ export class MessagesComponent {
         switchMap((params: ParamMap) => {
           this.username = params.get('username') || '';
           this.loadMember();
-          this.getMessageThread(this.username);
+          //this.getMessageThread(this.username);
           return of(null);
         })
       ).subscribe();

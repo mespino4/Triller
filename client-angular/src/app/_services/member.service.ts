@@ -57,6 +57,10 @@ export class MemberService {
     )
   }
 
+  exploreUsers(numOfUsers: number){
+    return this.http.get<Member[]>(this.baseUrl + 'users/exploreUsers/' + numOfUsers);
+  }
+
   getTimeline(username: string): Observable<Trill[]>{
     //if (this.trills.length > 0) return of(this.trills);
     return this.http.get<Trill[]>(`${this.baseUrl}users/timeline?username=${username}`).pipe(

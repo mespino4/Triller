@@ -12,7 +12,7 @@ public interface IUserRepository {
 	Task<IEnumerable<AppUser>> GetUsersAsync(int currentUserId);
 	//Task<MemberDTO> GetMemberAsync(string username);
 	Task<IEnumerable<TrillDTO>> GetUserTimeline(int userId);
-	//public void DeleteUserAsync(int userId);
+	public Task<IEnumerable<AppUser>> ExploreUsers(int userId, int numberOfUsers);
 	public void DeleteProfilePicture(AppUser user);
 	public void DeleteBannerPicture(AppUser user);
 	Task<bool> SaveAllAsync();

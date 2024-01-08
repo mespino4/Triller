@@ -13,7 +13,7 @@
       <img *ngIf="user" [src]="user.profilePic" alt="" class="inline-block h-10 w-10 rounded-full">
     </div>
     <div class="flex-1 px-2 pt-2 mt-2">
-      <form #trillForm="ngForm" (ngSubmit)="createTrill()" autocomplete="off">
+      <form #trillForm="ngForm" autocomplete="off">
         <textarea name="trillContent" [(ngModel)]="trillContent" type="text" rows="2" cols="50"
           class="bg-transparent text-gray-300 font-medium text-lg w-full"
           placeholder="{{ 'home.trill' | translate }}" [required]="!trillImage"></textarea>
@@ -51,7 +51,7 @@
                   [ngClass]="{'bg-blue-400 hover:bg-blue-500 hover:brightness-90': trillForm.valid,
                               'bg-gray-400': !trillForm.valid || (!trillContent && !trillImage)}"
                   [disabled]="!trillForm.valid || (!trillContent && !trillImage)"
-                  type="submit">
+                  type="submit" (click)="createTrill()">
               <img src="assets\images\trill.png" class="h-5">
           </button>
         </div>

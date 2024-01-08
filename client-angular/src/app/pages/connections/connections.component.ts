@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ConnectionCardComponent } from './connection-card/connection-card.component';
 import { Member } from '../../_models/member';
 import { MemberService } from '../../_services/member.service';
 import { AccountService } from '../../_services/account.service';
@@ -10,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-connections',
   standalone: true,
-  imports: [ConnectionCardComponent, CommonModule, RouterModule, TranslateModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './connections.component.html',
   styleUrl: './connections.component.css'
 })

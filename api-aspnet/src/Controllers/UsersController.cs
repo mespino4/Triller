@@ -237,4 +237,13 @@ public class UsersController : BaseApiController {
 		return blockedMembersDTO ?? new List<MemberDTO>();
 	}
 
+	[HttpGet("exploreUsers/{numberOfUsers}")]
+	public async Task<ActionResult<IEnumerable<MemberDTO>>> GetRandomUsers(int numberOfUsers) {
+		var currentUserId = User.GetUserId();
+
+		var users = await _userRepository.ExploreUsers(currentUserId, numberOfUsers);
+
+		return Ok(_mapper.Map<IEnumerable<MemberDTO>>(users));
+	}
+
 }
