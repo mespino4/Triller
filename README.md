@@ -1,3 +1,4 @@
+![Logo](client-angular/src/assets/logo.png)
 # Triller: A Microblogging Social Media Platform
 
 Triller is a social media platform that mimics the functionality of Twitter, 
@@ -15,6 +16,8 @@ the platform supports user-to-user connections with a follow system.
 
 ## Tech Stack
 
-- **Backend**: Built using the latest ASP.NET 8.
+- **Backend**: ASP.NET 8 & Microsoft SQL Server
 
-- **Frontend**: Developed with Angular 17.
+- **Frontend**: Angular 17, Angular Material & Tailwind CSS
+
+- **Containerization**: Docker
