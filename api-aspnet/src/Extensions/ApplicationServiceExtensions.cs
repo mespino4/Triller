@@ -31,6 +31,7 @@ public static class ApplicationServiceExtensions {
 		services.AddScoped<IConnectionRepository, ConnectionRepository>();
 		services.AddScoped<IBlockRepository, BlockRepository>();
 		services.AddScoped<INotificationRepository, NotificationRepository>();
+		services.AddScoped<ITrillReplyRepository, TrillReplyRepository>();
 		services.AddSingleton<PresenceTracker>();
 		services.AddSignalR();
 

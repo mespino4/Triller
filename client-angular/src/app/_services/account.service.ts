@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Notification } from '../_models/notification';
 import { User, Member } from '../shared/models.index';
 import { LanguageService, PresenceService } from '../shared/services.index';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +22,12 @@ export class AccountService {
   following: any;
 
   bookmarks: number[] = [];
-
   notifications: Notification[] = [];
 
   private notificationSource = new BehaviorSubject<Notification[]>([]);
   notification$ = this.notificationSource.asObservable();
 
-  constructor(private http: HttpClient, private presenceService: PresenceService, 
-     private languageService: LanguageService)  { }
+  constructor(private http: HttpClient, private presenceService: PresenceService)  { }
 
   // Function to send a login request to the server.
   login(model: any) {
@@ -38,8 +37,6 @@ export class AccountService {
 
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
-
-          //this.languageService.setInitialLanguage(user.language); // Set user's language in LanguageService
           this.currentUserSource.next(user);
         }
       })
@@ -83,6 +80,27 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.presenceService.stopHubConnection();
+  }
+
+  setLanguage(isEnglish: boolean): Observable<any> {
+    return this.http.put(`${this.baseUrl}account/language/set?isEnglish=${isEnglish}`, {})
+      .pipe(
+        catchError(() => {
+          console.error('Error toggling language');
+          return throwError(() => new Error('Error toggling language'));
+        })
+    );
+  }
+
+  deleteAccount(userId: number) {
+    return this.http.delete(this.baseUrl + 'account/delete?userId=' + userId, {});
+  }
+
+  getLanguage(): Observable<string> {
+    return this.http.get(`${this.baseUrl}account/language/get`, { responseType: 'text' })
+      .pipe(
+        catchError(() => throwError('Error fetching language'))
+      );
   }
 
   follow(username: string){

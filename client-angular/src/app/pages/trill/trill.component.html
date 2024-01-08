@@ -1,1 +1,91 @@
-<p>trill works!</p>
+<!-- component -->
+<section class="w-full border border-y-0 border-gray-800" 
+  *ngIf="(trill$ | async) as trill">
+    
+    <!--Content (Center)-->
+    <aside style="background-color: #15202b">
+        <div class="flex">
+            <div class="flex-1 mx-2">
+                <h2 class="px-4 py-2 text-xl font-semibold text-white">Home</h2>
+            </div>
+        </div>
+  
+        <hr class="border-gray-800">
+    
+        <!--Trill -->
+        <app-trill-card [trill]="trill"></app-trill-card>
+
+        <!--Post Reply-->
+        <hr class="border-gray-800 border-4">
+        <div class="flex" >
+            <div class="m-2 w-10 py-1">
+                <img class="inline-block h-10 w-10 rounded-full" 
+                    *ngIf="user" src="{{user.profilePic}}" alt="">
+            </div>
+            <div class="flex-1 px-2 pt-2 mt-2">
+                <form #replyForm="ngForm" (ngSubmit)="createReply(trill.id)" autocomplete="off">
+                    <textarea
+                        name="replyContent"
+                        required
+                        [(ngModel)]="replyContent"
+                        type="text"
+                        rows="2" cols="50"
+                        class=" bg-transparent text-gray-300 font-medium text-lg w-full "
+                        placeholder="Post your reply">
+                    </textarea>
+        
+                    <div *ngIf="replyImageThumbnail" class="flex items-center">
+                        <img [src]="replyImageThumbnail" alt="Thumbnail" class="max-w-md max-h-20">
+                        <button class="bg-red-500 hover:bg-red-700 rounded-md text-white w-8 h-8 ml-2"
+                                (click)="removeImage()">
+                            x
+                        </button>
+                    </div>
+                    
+                    <!-- Input for optional image -->
+                    <input type="file" name="replyImage" id="selectImage" class="hidden"
+                        accept="image/*" (change)="onImageSelected($event)" />
+        
+                    <div class="flex items-center">
+                        <button class="flex-1 text-center px-1 py-1 m-2" (click)="openImage()">
+                            <a class="mt-1 group flex items-center text-blue-400 
+                                    px-2 py-2 text-base leading-6 font-medium rounded-full 
+                                    hover:bg-gray-800 hover:text-blue-300">
+                                <svg class="text-center h-7 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" >
+                                    <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <p class="ml-2">Photo</p>
+                            </a>
+                        </button>
+            
+                        <div class="flex-1 text-center py-2 m-2">
+                            <a  class="mt-1 group flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300">
+                                <svg class="text-center h-7 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                                <p class="ml-2">Emoji</p>
+                            </a>
+                        </div>
+                        
+                        <button class="text-white font-bold py-2 px-8 rounded-full ml-4 float-left"
+                                [ngClass]="{'bg-blue-400 hover:bg-blue-500 hover:brightness-90': replyForm.valid,
+                                            'bg-gray-400': !replyForm.valid || (!replyContent && !replyImage)}"
+                                [disabled]="!replyForm.valid || (!replyContent && !replyImage)"
+                                type="submit">
+                            <img src="assets\images\trill.png" class="h-5">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr class="border-gray-800 border-4">
+
+        <!--Replies -->
+        <ul class="list-none space-y-4" *ngFor="let reply of (replies$ | async)">
+            <app-reply-card [reply]="reply"></app-reply-card>
+        </ul>
+    </aside>
+</section>

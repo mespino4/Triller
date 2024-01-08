@@ -41,17 +41,6 @@ export class HomeComponent {
     this.loadTrills();
   }
 
-  /*
-  initializeUser(): void {
-    this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        this.user = user;
-        this.languageService.initializeTranslation(user);
-      }
-    });
-  }
-  */
-
   loadTrills() {
     this.trillService.getTrills(this.pageNumber, this.pageSize).subscribe({
       next: response => {

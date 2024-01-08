@@ -68,20 +68,61 @@ public class AccountController : BaseApiController {
 		};
 	}
 
-	[HttpGet("language")]
-	public async Task<IActionResult> ToggleLanguage(bool isEnglish) {
+	[HttpPut("language/set")]
+	public async Task<IActionResult> SetLanguage(bool isEnglish) {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return NotFound("User not found");
 
 		user.Language = isEnglish ? "en" : "es";
 
-		if(await _userRepository.SaveAllAsync()) return Ok();
-		return StatusCode(500, "Internal server error");
+		await _userRepository.SaveAllAsync();
+		return Ok();
+		//return StatusCode(500, "Internal server error");
 	}
+
+	[HttpGet("language/get")]
+	public async Task<string> GetLanguage() {
+		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+		return user.Language;
+	}
+
+
+	[HttpDelete("delete")]
+	public async Task<IActionResult> DeleteUser(string userId) {
+		var user = await _userManager.FindByIdAsync(userId);
+		if(user == null) return NotFound("User not found");
+
+		var result = await _userManager.DeleteAsync(user);
+
+		if(!result.Succeeded) return BadRequest("Failed delete user");
+		return Ok();
+	}
+
+	public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles) {
+		if(string.IsNullOrEmpty(roles)) return BadRequest("You must select at least one role");
+
+		var selectedRoles = roles.Split(",").ToArray();
+
+		var user = await _userManager.FindByNameAsync(username);
+		if(user == null) return NotFound();
+
+		var userRoles = await _userManager.GetRolesAsync(user);
+		var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
+
+		if(!result.Succeeded) return BadRequest("Failed to add to roles");
+		result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
+
+		if(!result.Succeeded) return BadRequest("Failed to remove from roles");
+		return Ok(await _userManager.GetRolesAsync(user));
+
+	}
+
 
 	//This method checks to see if the username already exists in the database
 	private async Task<bool> UserExists(string username) {
-		return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
+		return await _userManager.Users
+			.AnyAsync(x => x.UserName == username.ToLower());
 	}
 
 }

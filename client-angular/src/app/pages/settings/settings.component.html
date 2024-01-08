@@ -37,19 +37,20 @@
             <a class="text-2xl text-white">{{ 'settings.language' | translate }}</a>
             
             <div class="inline-flex items-center ">
+                <!--
                 <button class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white"
                     >{{ 'settings.change_language' | translate }}</button>
-                <!--
-                <label class="inline-flex items-center mr-3">
-                <input type="radio" [(ngModel)]="selectedLanguage" value="english" class="form-radio text-blue-500">
-                <span class="ml-2 text-white">English</span>
+                -->
+                
+                <label class="inline-flex items-center mr-3" (click)="toggleLanguage(true, 'en')">
+                    <input type="radio" [(ngModel)]="selectedLanguage" value="en" class="form-radio text-blue-500">
+                    <span class="ml-2 text-white">English</span>
                 </label>
             
-                <label class="inline-flex items-center ml-6">
-                <input type="radio" [(ngModel)]="selectedLanguage" value="spanish" class="form-radio text-blue-500">
-                <span class="ml-2 text-white">Spanish</span>
+                <label class="inline-flex items-center ml-6" (click)="toggleLanguage(false, 'es')">
+                    <input type="radio" [(ngModel)]="selectedLanguage" value="es" class="form-radio text-blue-500">
+                    <span class="ml-2 text-white">Español</span>
                 </label>
-                -->
             </div>
         </div>
                     
@@ -83,7 +84,8 @@
         <div class="p-4 flex justify-between">
             <a class="text-2xl text-white">{{ 'settings.account' | translate }}</a>
             
-            <button class="bg-red-500 hover:bg-red-700 rounded-md p-2 text-white">
+            <button class="bg-red-500 hover:bg-red-700 rounded-md p-2 text-white" 
+            (click)="deleteAccount(member.id)">
                 {{ 'settings.delete_account' | translate }}</button>
         </div>
 

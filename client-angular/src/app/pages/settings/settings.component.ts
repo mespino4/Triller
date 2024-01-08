@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AccountService, MemberService, BlockService } from '../../shared/services.index';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
@@ -10,6 +9,8 @@ import { EditProfileModalComponent } from '../../_modals/edit-profile-modal/edit
 import { NoticeModalComponent } from '../../_modals/notice-modal/notice-modal.component';
 import { ViewBlockedUsersComponent } from '../../_modals/view-blocked-users/view-blocked-users.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccountService, MemberService, BlockService, LanguageService } from '../../shared/services.index';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -23,15 +24,14 @@ export class SettingsComponent {
   member: Member | null = null;
   blockedMembers: Member[] | undefined;
 
-  selectedLanguage: 'english' | 'spanish' = 'english';
+  selectedLanguage: string = this.languageService.getCurrentLanguage();
 
-  constructor( private memberService: MemberService, private blockService: BlockService,
-    private toastr: ToastrService, public accountService: AccountService,
+  constructor( private memberService: MemberService, private blockService: BlockService, private router: Router,
+    private toastr: ToastrService, public accountService: AccountService, private languageService: LanguageService,
      public dialog: MatDialog) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
       })
-      //this.getBlockedUsers()
   }
 
   ngOnInit(){
@@ -50,6 +50,16 @@ export class SettingsComponent {
     // Call the showModal method when the dialog is opened
     dialogRef.afterOpened().subscribe(() => {
       dialogRef.componentInstance;
+    });
+  }
+
+  toggleLanguage(isEnglish: boolean, language: string) {
+    this.accountService.setLanguage(isEnglish).subscribe({
+      next: (response: any) => {
+        console.log('Language toggled successfully', response);
+        this.languageService.initializeTranslation(language);
+      },
+      error: (error: any) => {console.error('Error toggling language', error);}
     });
   }
 
@@ -74,6 +84,17 @@ export class SettingsComponent {
     const dialogRef = this.dialog.open(NoticeModalComponent, {
       width: '400px',
       data: { message: msg }
+    });
+  }
+
+  deleteAccount(userId: number) {
+    this.accountService.deleteAccount(userId).subscribe({
+      next: () => {console.log('Account deleted successfully.');},
+      error: (error) => {console.error('Error deleting account:', error);},
+      complete: () => {
+        console.log('Deletion process completed.');
+        this.router.navigateByUrl('/login');
+      },
     });
   }
 

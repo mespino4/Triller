@@ -1,0 +1,92 @@
+<!--Tweet Start-->
+<li *ngIf="reply" >
+    <article class="hover:bg-gray-800 transition duration-350 ease-in-out">
+        <div class="flex p-2 items-center">
+            <a class=" group block">
+                <div class="flex items-center">
+                    <img src="{{member$?.profilePic}}" alt="Profile Image" 
+                        class="w-10 h-10 rounded-full mx-2 hover:cursor-pointer"
+                        routerLink="/profile/{{member$?.username}}">
+                    <div>
+                      <h2 class="text-white font-semibold text-md hover:underline hover:cursor-pointer"
+                        routerLink="/profile/{{member$?.username}}">{{member$?.displayname}}</h2>
+                      <p class="text-gray-500 text-sm">&#64;{{member$?.username}}</p>
+                    </div>
+                </div>
+            </a>
+            <p class="text-gray-500 text-base p-3">
+                {{ reply.timestamp | date: 'short' : '-1200'}}
+            </p>
+
+            <!-- Trashcan Icon -->
+            <div class="flex flex-1 justify-end" *ngIf="(user?.username == member$?.username) || hasModeratorRole()">
+                <div class="flex text-white rounded-full transition duration-350 ease-in-out 
+                        hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1">
+                    <img class="h-6 hover:cursor-pointer ml-auto" 
+                        src="assets\images\icons\shared\trashcanW.png"
+                        (click)="deleteReply(reply.id)">
+                </div>
+            </div>
+        </div>
+    
+        <div class="px-4">
+            <p class="text-base font-medium text-white ">
+                {{reply.content}}
+            </p>
+        
+            <img src="{{reply.photo}}" *ngIf="reply.photo"
+                alt="Reply Image" class="w-full h-full rounded-lg mx-auto mt-2">
+
+            <!-- Reply Image
+            <img src="https://i.pinimg.com/564x/5b/e8/fa/5be8fa39060ba83e116f553ca37af45b.jpg" 
+                alt="Reply Image" class="w-full h-full rounded-lg mx-auto mt-2">
+            -->
+
+            <!-- Reply Video 
+            <video class="w-full h-auto rounded-lg mx-auto mt-2" controls>
+                <source src="https://www.youtube.com/embed/tgbNymZ7vqY" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            -->
+
+            <!-- YouTube Video 
+            <div class="w-fit h-fit mt-2">
+                <iframe width="640" height="360" class="rounded-lg"
+                    src="https://www.youtube.com/embed/tgbNymZ7vqY?si=3KYMQiU2351BBG37" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            -->
+        
+        </div>
+        <hr class="border-gray-600 mt-2">
+
+        <!--BUTTONS-->
+        <div class="flex items-center justify-center py-2">
+            <div class="flex-1 flex items-center justify-center
+                text-white text-xs hover:text-green-600 transition duration-350 ease-in-out">
+                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumpsUpW.png"
+                    *ngIf="!isLike" (click)="like(reply.id)">
+
+                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumpsUpFilled.png"
+                    *ngIf="isLike" (click)="like(reply.id)">
+                {{reply.likes}}
+            </div>
+
+            <div class="flex-1 flex items-center justify-center 
+            text-white text-xs hover:text-red-600 transition duration-350 ease-in-out">
+                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumbsDownW.png"
+                *ngIf="!isDislike" (click)="dislike(reply.id)">
+
+                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumbsDownFilled.png"
+                *ngIf="isDislike" (click)="dislike(reply.id)">
+                {{reply.dislikes}}
+            </div>
+        </div>
+
+        <hr class="border-gray-600 mt-2">
+    </article>
+</li>
+<!--Reply End-->

@@ -1,16 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
-import { AuthenticationComponent } from './pages/authentication/authentication.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
-import { MessagesComponent } from './pages/messages/messages.component';
-import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
-import { ConnectionsComponent } from './pages/connections/connections.component';
-import { AdminComponent } from './pages/admin/admin.component';
 import { adminGuard } from './_guards/admin.guard';
 import { memberProfileResolver } from './_resolvers/member-profile.resolver';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { HomeComponent, AuthenticationComponent, ProfileComponent, 
+        NotificationsComponent, MessagesComponent, BookmarksComponent, 
+        ConnectionsComponent, AdminComponent, SettingsComponent, TrillComponent } 
+        from './shared/pages.index';
 
 export const routes: Routes = [
   {path: '', component: AuthenticationComponent},
@@ -30,7 +25,8 @@ export const routes: Routes = [
       {path: 'bookmarks', component: BookmarksComponent},
       {path: 'connections', component: ConnectionsComponent},
       {path: 'admin', component: AdminComponent, canActivate: [adminGuard]},
-      {path: 'settings', component: SettingsComponent}
+      {path: 'settings', component: SettingsComponent},
+      {path: 'trill/:trillId', component: TrillComponent},
     ]
   },
 

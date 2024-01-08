@@ -39,7 +39,8 @@ export class AuthenticationComponent {
   
       // Set up language based on the current user
       this.currentUser$.pipe(take(1)).subscribe(user => {
-        this.languageService.setInitialLanguage(user);
+        //this.languageService.setInitialLanguage(user);
+        console.log(":D")
       });
     }
 

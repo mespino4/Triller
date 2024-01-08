@@ -115,13 +115,13 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.HasOne(react => react.User)
 			.WithMany()
 			.HasForeignKey(react => react.UserId)
-			.OnDelete(DeleteBehavior.Restrict);
+			.OnDelete(DeleteBehavior.Cascade);
 
 		builder.Entity<UserReaction>()
 			.HasOne(react => react.TrillReply)
 			.WithMany(tr => tr.Reactions)
 			.HasForeignKey(react => react.TrillReplyId)
-			.OnDelete(DeleteBehavior.Restrict);
+			.OnDelete(DeleteBehavior.NoAction);
 
 		//enum values for reactions
 		builder.Entity<UserReaction>()
@@ -136,12 +136,12 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 		builder.Entity<Message>()
 			.HasOne(u => u.Recipient)
 			.WithMany(m => m.MessagesReceived)
-			.OnDelete(DeleteBehavior.Restrict);
+			.OnDelete(DeleteBehavior.Cascade);
 
 		builder.Entity<Message>()
 			.HasOne(u => u.Sender)
 			.WithMany(m => m.MessagesSent)
-			.OnDelete(DeleteBehavior.Restrict);
+			.OnDelete(DeleteBehavior.NoAction);
 
 		//ChatCards
 		builder.Entity<ChatCard>()
@@ -158,19 +158,19 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.WithMany(u => u.BlocksInitiated)
 			.HasForeignKey(b => b.UserId)
 			.IsRequired()
-		    .OnDelete(DeleteBehavior.NoAction);
+		    .OnDelete(DeleteBehavior.Cascade);
 
 		//notifications
 		builder.Entity<Notification>()
 			.HasOne(n => n.User)
 			.WithMany(u => u.Notifications)
 			.HasForeignKey(n => n.UserId)
-			.OnDelete(DeleteBehavior.Restrict); // Choose the appropriate delete behavior
+			.OnDelete(DeleteBehavior.Cascade); // Choose the appropriate delete behavior
 
 		builder.Entity<Notification>()
 			.HasOne(n => n.Member)
 			.WithMany()
 			.HasForeignKey(n => n.MemberId)
-			.OnDelete(DeleteBehavior.Restrict);
+			.OnDelete(DeleteBehavior.NoAction);
 	}
 }

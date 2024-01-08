@@ -37,7 +37,6 @@ export class SidebarLeftComponent implements OnInit{
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         this.user = user;
-        this.languageService.initializeTranslation(user);
       }
     });
   }

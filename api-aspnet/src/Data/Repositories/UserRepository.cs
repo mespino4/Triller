@@ -2,6 +2,8 @@
 using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
@@ -84,6 +86,7 @@ public class UserRepository : IUserRepository {
 		}
 	}
 
+
 	public void DeleteProfilePicture(AppUser user) {
 		if(user.ProfilePicture != null) {
 			var profilePicture = _context.UserPhotos.Find(user.ProfilePicture.Id);
@@ -94,6 +97,8 @@ public class UserRepository : IUserRepository {
 			}
 		}
 	}
+
+
 
 	public async Task<bool> SaveAllAsync() {
 		return await _context.SaveChangesAsync() > 0;
