@@ -17,8 +17,9 @@ the platform supports user-to-user connections with a follow system.
 ## Tech Stack
 
 <div>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="images/angular17.png" alt="Angular Logo" width="150"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="images/aspnet8.png" alt="ASP.NET Logo" width="150"/>
 </div>
 
