@@ -118,6 +118,9 @@ public class TrillController : BaseApiController {
 
 		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
 		trills.TotalCount, trills.TotalPages));
+
+		if(trills != null) return Ok(_mapper.Map<IEnumerable<TrillDTO>>(trills));
+
 		return Ok(trills);
 	}
 
@@ -269,44 +272,41 @@ public class TrillController : BaseApiController {
 	}
 
 	//Trill Likes
-	[HttpPost("like/add")] // /api/trill/like/add
+	[HttpPost("like/add")]
 	public async Task<ActionResult> AddLike(int trillId) {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-		if(user == null) return BadRequest("user not found");
+		if(user == null) return BadRequest("User not found");
 
 		var trill = await _trillRepository.GetTrillById(trillId);
-		if(trill == null) return BadRequest("trill not found");
+		if(trill == null) return BadRequest("Trill not found");
 
-		var trillLike = new TrillLike {
-			User = user,
-			UserId = user.Id,
-			Trill = trill,
-			TrillId = trillId
-		};
+		// Check if the user already liked the trill
+		var existingLike = trill.Likes.FirstOrDefault(tl => tl.UserId == user.Id);
 
-		if(user.Id != trill.AuthorId) {
-			var notification = new Notification {
-				//User = user,
-				UserId = trill.AuthorId,
-				//Member, = null,
-				MemberId = user.Id,
-				Type = "Like",
-				TrillId = trillId,
-				Timestamp = DateTime.Now
-			};
+		if(existingLike == null) {
+			_trillRepository.AddLike(trill, user);
 
-			_notificationRepository.AddNotification(notification);
-			await _notificationRepository.SaveAllAsync();
+			if(user.Id != trill.AuthorId) {
+				var notification = new Notification {
+					UserId = trill.AuthorId,
+					MemberId = user.Id,
+					Type = "Like",
+					TrillId = trillId,
+					Timestamp = DateTime.Now
+				};
+
+				_notificationRepository.AddNotification(notification);
+				await _trillRepository.SaveAllAsync(); // Save trill and like changes
+
+				await _notificationRepository.SaveAllAsync(); // Save notification changes separately
+
+				return Ok();
+			}
+			return await _trillRepository.SaveAllAsync() ? Ok() : BadRequest("Failed to add like");
 		}
-
-		trill.Likes.Add(trillLike);
-		//user.TrillsLiked.Add(trillLike);
-
-		if(await _trillRepository.SaveAllAsync())
-			return Ok();//_mapper.Map<TrillDto>(trill);
-
-		return BadRequest("Failed to add bookmark");
+		return BadRequest("User already liked this trill");
 	}
+
 
 	[HttpDelete("like/delete")] // /api/trill/like/delete
 	public async Task<ActionResult> DeleteLike(int trillId) {
@@ -314,16 +314,11 @@ public class TrillController : BaseApiController {
 		if(user == null) return BadRequest("User not found");
 
 		var trill = await _trillRepository.GetTrillById(trillId);
-		if(trill == null) return BadRequest("trill not found");
+		if(trill == null) return BadRequest("Trill not found");
 
-		var trillLike = trill.Likes.FirstOrDefault(t => t.TrillId == trillId);
-		if(trillLike == null) return BadRequest("trillLike not found");
+		_trillRepository.RemoveLike(trill, user);
 
-		trill.Likes.Remove(trillLike);
-
-		if(await _userRepository.SaveAllAsync()) return Ok();
-
-		return BadRequest("Failed to remove like");
+		return await _trillRepository.SaveAllAsync() ? Ok() : BadRequest("Failed to remove like");
 	}
 
 	[HttpGet("like")] // /api/trill/like

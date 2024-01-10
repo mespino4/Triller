@@ -64,21 +64,20 @@ public class ConnectionsController : BaseApiController{
 	[HttpDelete("unfollow")] //api/connections/unfollow
 	public async Task<ActionResult<MemberDTO>> UnfollowUser(int targetUserId) {
 		var sourceUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-		if(sourceUser == null) return BadRequest("user not found");
+		if(sourceUser == null) return BadRequest("User not found");
 
 		var targetUser = await _userRepository.GetUserByIdAsync(targetUserId);
-		if(targetUser == null) return BadRequest("target user not found");
-
+		if(targetUser == null) return BadRequest("Target user not found");
+		
 		var unfollow = await _connectionRepository.GetUserConnection(sourceUser.Id, targetUserId);
-		if(unfollow == null) return BadRequest("connection not found");
-
+		if(unfollow == null) return BadRequest("Connection not found");
+		
 		_connectionRepository.RemoveConnection(unfollow);
 
-		if(await _connectionRepository.SaveAllAsync())
-			return _mapper.Map<MemberDTO>(targetUser);
-
+		if(await _connectionRepository.SaveAllAsync()) return _mapper.Map<MemberDTO>(targetUser);
 		return BadRequest("Failed to unfollow user");
 	}
+
 
 	[HttpGet] ////api/
 	public async Task<ActionResult<List<MemberDTO>>> GetUserConnections(string predicate) {
@@ -94,9 +93,10 @@ public class ConnectionsController : BaseApiController{
 		var targetUser = await _userRepository.GetUserByIdAsync(targetUserId);
 		if(targetUser == null) return BadRequest("Target user not found");
 
-		var connection = await _connectionRepository.GetUserConnection(sourceUser.Id, targetUserId);
+		var connection = await _connectionRepository
+			.GetConnectionStatus(sourceUser.Id, targetUser.Id);
 
-		// Return true if connection exists, false otherwise
-		return Ok(connection != null);
+		return connection;
 	}
+
 }

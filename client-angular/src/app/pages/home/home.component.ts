@@ -17,19 +17,24 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export class HomeComponent {
   user: User | null = null;
-  trills: Trill[] =  [];
+
+  foryouTrills: Trill[] =  [];
+  followingTrills: Trill[] =  [];
+  //trills: Trill[] =  [];
+  isForYou: boolean | undefined = undefined;
 
   pagination: Pagination | undefined
-  pageNumber = 1;
+  foryouPageNumber = 1;
+  followingPageNumber = 1;
   pageSize = 10;
-  totalPages = 0;
+  foryouTotalPages = 0;
+  followingTotalPages = 0;
 
   trillContent = '';
   trillImage: File | null = null;
   trillImageThumbnail: string | null = null;
 
   constructor(public accountService: AccountService, private bookmarkService: BookmarkService, 
-    private languageService: LanguageService,
     private trillService: TrillService, private cdr: ChangeDetectorRef) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => this.user = user
@@ -37,9 +42,13 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.loadTrills();
+    this.loadForYouTrills()
+    //this.loadFollowingTrills()
+    //this.isForYou = true
+    //this.loadTrills();
   }
 
+  /*
   loadTrills() {
     this.trillService.getTrills(this.pageNumber, this.pageSize).subscribe({
       next: response => {
@@ -53,10 +62,54 @@ export class HomeComponent {
       }
     });
   }
+  */
+
+  loadForYouTrills() {
+    this.followingTrills = [];
+
+    console.log("for you clicked for you");
+    this.trillService.getForYouTrills(this.foryouPageNumber, this.pageSize).subscribe({
+      next: (response) => {
+        if (response.result && response.pagination) {
+          this.foryouTrills = this.foryouTrills.concat(response.result);
+          this.pagination = response.pagination;
+          this.foryouTotalPages = response.pagination.totalPages;
+        }
+      },
+    });
+    this.isForYou = true;
+  }
+
+  loadFollowingTrills() {
+    this.foryouTrills = [];
+
+    console.log("following clicked following");
+    this.trillService.getFollowingTrills(this.followingPageNumber, this.pageSize).subscribe({
+      next: (response) => {
+        if (response.result && response.pagination) {
+          this.followingTrills = [...this.followingTrills, ...response.result]; //this is a more modern aproach
+          this.pagination = response.pagination;
+          this.followingTotalPages = response.pagination.totalPages;
+        }
+      },
+    });
+    this.isForYou = false;
+  }
+
+
   
   loadMoreTrills() {
-    this.pageNumber++;
-    this.loadTrills()
+    //this.pageNumber++;
+    if(this.isForYou) {
+      this.foryouPageNumber++
+      this.loadForYouTrills()
+    }else if(!this.isForYou){
+      this.followingPageNumber++
+      this.loadFollowingTrills()
+    }
+
+    //this.loadForYouTrills()
+    //this.loadTrills()
   }
 
   ngOnDestroy(): void {
@@ -81,7 +134,7 @@ export class HomeComponent {
         this.trillImageThumbnail = null;
   
         // Reload trills after creation
-        this.loadTrills();
+        this.loadForYouTrills();
       });
     }
   }
@@ -115,3 +168,4 @@ export class HomeComponent {
     document.getElementById('selectImage')?.click();
   }
 }
+

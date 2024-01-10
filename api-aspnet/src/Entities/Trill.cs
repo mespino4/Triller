@@ -8,9 +8,9 @@ public class Trill {
 	public string Photo { get; set; }
 	public TrillMedia Media { get; set; }
 	public List<Retrill> Retrills { get; set; }
-	public List<TrillLike> Likes { get; set; } = new();
+	public List<TrillLike> Likes { get; set; } //= new();
 	public DateTime Timestamp { get; set; } = DateTime.Now;
-	public List<Bookmark> BookmarkedByUsers { get; set; } = new();
+	public List<Bookmark> BookmarkedByUsers { get; set; } //= new();
 
-	public List<TrillReply> Replies { get; set; } = new();
+	public List<TrillReply> Replies { get; set; } //= new();
 }

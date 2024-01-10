@@ -47,10 +47,20 @@ public class ConnectionRepository : IConnectionRepository{
 	public async Task<Connection> GetUserConnection(int sourceUserId, int targetUserId) {
 		var connection = await _context.Connections
 			.SingleOrDefaultAsync(c =>
-				(c.SourceUserId == sourceUserId && c.TargetUserId == targetUserId) ||
-				(c.SourceUserId == targetUserId && c.TargetUserId == sourceUserId));
+				c.SourceUserId == sourceUserId && c.TargetUserId == targetUserId);
 
 		return connection;
+	}
+
+
+
+
+	public async Task<bool> GetConnectionStatus(int sourceUserId, int targetUserId) {
+		var connection = await _context.Connections
+			.SingleOrDefaultAsync(c =>
+				c.SourceUserId == sourceUserId && c.TargetUserId == targetUserId);
+
+		return connection != null; // Returns true if the connection exists, false otherwise
 	}
 
 	public async Task<bool> SaveAllAsync() {

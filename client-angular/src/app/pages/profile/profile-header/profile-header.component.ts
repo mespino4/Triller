@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -16,15 +16,17 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './profile-header.component.html',
-  styleUrl: './profile-header.component.css'
+  styleUrl: './profile-header.component.css',
 })
 export class ProfileHeaderComponent {
   @Input() member: Member | undefined
-  isFollow: boolean = true
+  isFollow: boolean | null = null;
   isUser: boolean | undefined
   user: User | null = null;
   @Input() isMemberBlocked: boolean | null = null;
   @Input() isUserBlocked: boolean | null = null;
+  
+  //@Output() blockStatusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   isOnline: boolean | undefined
 
@@ -32,22 +34,19 @@ export class ProfileHeaderComponent {
     private blockService: BlockService, private toastr: ToastrService, public accountService: AccountService,
     public presenceService: PresenceService, public dialog: MatDialog) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
-        next: user => this.user = user
-        
-    })
+        next: user => {this.user = user;}
+      });
   }
 
   ngOnInit(): void {
-    if(this.member){
+    if (this.member) {
+      this.online(this.member);
       this.conectionStatus(this.member);
-      this.online(this.member)
     }
 
-    if(this.member?.username == this.user?.username){
-      this.isUser = true
-    }else{
-      this.isUser = false
-    }
+    if (this.member?.username == this.user?.username) 
+      this.isUser = true;
+    else this.isUser = false;
   }
 
   editProfile(member: Member) {
@@ -62,19 +61,12 @@ export class ProfileHeaderComponent {
     });
   }
 
-  ngOnChanges() {
-    console.log("is online change", this.isOnline)
-  }
-
   online(member: Member){
     console.log("is online 1", this.isOnline)
     this.presenceService.onlineUsers$.subscribe({
       next: response => console.log("users", response) //this.isOnline = response.includes(member.userName),
       //next: response => this.isOnline = response.includes(member.username),
     })
-    
-    console.log("is online 2", this.isOnline)
-    
   }
 
   chatButton(username: string) {
@@ -84,22 +76,29 @@ export class ProfileHeaderComponent {
   }
 
   //connections
-  conectionStatus(member: Member){
+  private conectionStatus(member: Member): void {
     this.memberService.getConnectionStatus(member.id).subscribe({
-      next: response => this.isFollow = response
-    })
+      next: (response) => { this.isFollow = response},
+      error: (error) => {
+        console.error('Error fetching blocked members:', error);},
+      complete: () => {
+        console.log("this is the folow ", this.isFollow)
+      }
+    });
   }
 
   follow(member: Member){
     this.memberService.follow(member.id).subscribe({
       next: () => this.toastr.success('You now follow ' + member.displayname)
     })
+    this.isFollow = true
   }
 
   unfollow(member: Member){
     this.memberService.unfollow(member.id).subscribe({
       next: () => this.toastr.success('You no longer follow ' + member.displayname)
     })
+    this.isFollow = false
   }
 
   //block & unblock
@@ -108,12 +107,16 @@ export class ProfileHeaderComponent {
       next: () => this.toastr.success('You have blocked' + member.displayname)
     })
     if(this.isFollow) this.unfollow(member)
+    this.isMemberBlocked = true
+    //this.blockStatusChanged.emit(this.isMemberBlocked); // Emit the event to notify the parent
   }
 
   unblock(member: Member){
     this.blockService.unblock(member.id).subscribe({
       next: () => this.toastr.success('You have unblocked' + member.displayname)
     })
+    this.isMemberBlocked = false
+    //this.blockStatusChanged.emit(this.isMemberBlocked); // Emit the event to notify the parent
   }
 
   hasAdminRole(): boolean {

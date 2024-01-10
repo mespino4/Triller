@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AccountService, LanguageService, MemberService } from '../../shared/services.index';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,29 +23,30 @@ export class SidebarRightComponent {
     public accountService: AccountService,
     private router: Router,
     private memberService: MemberService,
-    public dialog: MatDialog,
+    public dialog: MatDialog, private cdr: ChangeDetectorRef,
     private languageService: LanguageService) {}
     
     ngOnInit(): void {
       this.initializeUser();
-      this.loadMember();
+      this.loadUser();
       this.exploreUsers(4)
     }
   
-    initializeUser(): void {
-      this.accountService.currentUser$.pipe(take(1)).subscribe({
-        next: user => {
-          this.user = user;
-        }
-      });
-    }
+  initializeUser(): void {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => {
+        this.user = user;
+      }
+    });
+  }
   
-    loadMember(): void {
-      if (!this.user) return;
-      this.memberService.getMember(this.user.username).subscribe({
-        next: member => this.member = member
-      });
-    }
+  loadUser(): void {
+    if (!this.user) return;
+    this.memberService.getMember(this.user.username).subscribe({
+      next: member => this.member = member
+    });
+    this.cdr.detectChanges(); // Manually trigger change detection
+  }
 
   exploreUsers(numOfUsers: number): void {
     this.memberService.exploreUsers(numOfUsers).subscribe({

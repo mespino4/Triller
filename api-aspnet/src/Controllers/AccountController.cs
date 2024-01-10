@@ -61,6 +61,7 @@ public class AccountController : BaseApiController {
 
 		// If password matches, return the user
 		return new UserDTO {
+			UserId = user.Id,
 			Username = user.UserName,
 			Token = await _tokenService.CreateToken(user),
 			Language = user.Language,
@@ -91,15 +92,50 @@ public class AccountController : BaseApiController {
 
 
 	[HttpDelete("delete")]
-	public async Task<IActionResult> DeleteUser(string userId) {
-		var user = await _userManager.FindByIdAsync(userId);
-		if(user == null) return NotFound("User not found");
+	public async Task<IActionResult> DeleteUser(int userId) {
+		try {
+			var user = await _userRepository.GetUserByIdAsync(userId);
+			if(user == null) return NotFound("User not found");
 
-		var result = await _userManager.DeleteAsync(user);
+			/*
+			user.Media.Clear();
+			user.Followers.Clear();
+			user.Following.Clear();
+			user.Retrills.Clear();
+			user.Trills.Clear();
+			user.TrillsLiked.Clear();
+			user.Replies.Clear();
+			user.Bookmarks.Clear();
+			user.UserReactions.Clear();
+			user.UserRoles.Clear();
+			user.MessagesSent.Clear();
+			user.MessagesReceived.Clear();
+			user.BlocksInitiated.Clear();
+			user.BlocksReceived.Clear();
+			user.Notifications.Clear();
+			*/
 
-		if(!result.Succeeded) return BadRequest("Failed delete user");
-		return Ok();
+			// Save changes to make sure TrillsLiked is cleared in the database
+			await _userManager.UpdateAsync(user);
+
+			// Delete the user
+			var result = await _userManager.DeleteAsync(user);
+
+			if(result.Succeeded) {
+				return Ok("User deleted successfully");
+			} else {
+				// Log or handle errors from the deletion operation
+				var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+				return BadRequest($"Failed to delete user. Errors: {errors}");
+			}
+		} catch(Exception ex) {
+			// Log or handle unexpected errors
+			// _logger.LogError($"Error deleting user: {ex.Message}");
+			return StatusCode(500, ex);
+		}
 	}
+
+
 
 
 	//This method checks to see if the username already exists in the database

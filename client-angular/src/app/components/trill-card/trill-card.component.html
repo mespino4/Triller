@@ -1,5 +1,5 @@
 <!--Tweet Start-->
-<li *ngIf="trill" >
+<li *ngIf="trill && !isTrillDestroyed" >
     <article class="hover:bg-gray-800 transition duration-350 ease-in-out">
 
         <div class="flex p-2 items-center" *ngIf="member$">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="px-4">
-            <p class="text-base text-white py-2" routerLink="/trill/{{trill.id}}">
+            <p class="text-base text-white py-2">
                 {{trill.content}}
             </p>
         

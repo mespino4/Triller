@@ -71,16 +71,16 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.HasKey(k => new { k.UserId, k.TrillId });
 
 		builder.Entity<TrillLike>()
-		 .HasOne(u => u.User)
-		 .WithMany(t => t.TrillsLiked)
-		 .HasForeignKey(u => u.UserId)
-		 .OnDelete(DeleteBehavior.Cascade);
+			.HasOne(u => u.User)
+			.WithMany(t => t.TrillsLiked)
+			.HasForeignKey(u => u.UserId)
+			.OnDelete(DeleteBehavior.Cascade); // Change this line to Cascade
 
 		builder.Entity<TrillLike>()
-		 .HasOne(t => t.Trill)
-		 .WithMany(t => t.Likes)
-		 .HasForeignKey(t => t.TrillId)
-		 .OnDelete(DeleteBehavior.NoAction);
+			.HasOne(t => t.Trill)
+			.WithMany(t => t.Likes)
+			.HasForeignKey(t => t.TrillId)
+			.OnDelete(DeleteBehavior.Cascade);
 
 		// UserPhotos
 		builder.Entity<UserPhoto>()
@@ -158,7 +158,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.WithMany(u => u.BlocksInitiated)
 			.HasForeignKey(b => b.UserId)
 			.IsRequired()
-		    .OnDelete(DeleteBehavior.Cascade);
+		    .OnDelete(DeleteBehavior.NoAction);
 
 		//notifications
 		builder.Entity<Notification>()

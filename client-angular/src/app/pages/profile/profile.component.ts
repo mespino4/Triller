@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Observable, of, switchMap, take } from 'rxjs';
 import { Trill } from '../../_models/trill';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class ProfileComponent {
   user: User | null = null;
   username: string = '';
 
-  constructor(private memberService: MemberService, private route: ActivatedRoute,
+  constructor(private memberService: MemberService, private route: ActivatedRoute, 
     private accountService: AccountService,  private blockService: BlockService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => this.user = user
@@ -35,6 +35,16 @@ export class ProfileComponent {
     if (!username) return;
     this.trills$ = this.memberService.getTimeline(username)
   }
+
+  /*
+  onBlockStatusChanged(blockStatus: boolean) {
+    this.isMemberBlocked = blockStatus;
+    this.cdr.detectChanges();
+
+    // Reload the page when the block status changes
+    window.location.reload();
+  }
+  */
 
   async ngOnInit(){
     this.route.data.subscribe(data => {

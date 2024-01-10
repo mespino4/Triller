@@ -7,6 +7,8 @@ namespace api_aspnet.src.Data.Repositories.Interfaces;
 public interface ITrillRepository {
 	void AddTrill(Trill trill);
 	void DeleteTrill(Trill trill);
+	void AddLike(Trill trill, AppUser user);
+	void RemoveLike(Trill trill, AppUser user);
 	void AddTrillReply(TrillReply trillReply);
 	void RemoveTrillReply(TrillReply trillReply);
 	Task<PagedList<Trill>> GetTrillsAsync(int userId, UserParams userParams); //returns alll the trills

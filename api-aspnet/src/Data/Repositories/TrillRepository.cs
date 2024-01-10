@@ -17,11 +17,25 @@ public class TrillRepository : ITrillRepository {
 	}
 	public void AddTrill(Trill trill) {
 		_context.Trills.Add(trill);
-		//_context.SaveChanges();
 	}
 	public void DeleteTrill(Trill trill) {
 		_context.Trills.Remove(trill);
-		//_context.SaveChanges();
+	}
+
+	public void AddLike(Trill trill, AppUser user) {
+		var trillLike = new TrillLike {
+			TrillId = trill.Id,
+			UserId = user.Id
+		};
+		_context.TrillLikes.Add(trillLike);
+	}
+	public void RemoveLike(Trill trill, AppUser user) {
+		var trillLike = _context.TrillLikes
+			.FirstOrDefault(tl => tl.TrillId == trill.Id && tl.UserId == user.Id);
+
+		if(trillLike != null) {
+			_context.TrillLikes.Remove(trillLike);
+		}
 	}
 
 	public void AddTrillReply(TrillReply trillReply) {
@@ -56,7 +70,7 @@ public class TrillRepository : ITrillRepository {
 		return await _context.Trills
 			.Include(t => t.Likes)
 			.Where(trill => trill.AuthorId == userId)
-		.OrderByDescending(trill => trill.Timestamp) // Order by Timestamp in descending order
+			.OrderByDescending(trill => trill.Timestamp) // Order by Timestamp in descending order
 			//.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
 			.ToListAsync();
 	}
@@ -73,7 +87,8 @@ public class TrillRepository : ITrillRepository {
 			.OrderByDescending(trill => trill.Timestamp)
 			.AsNoTracking();
 
-		return await PagedList<Trill>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+		return await PagedList<Trill>
+			.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
 	}
 
 	public async Task<PagedList<Trill>> GetFollowingTrillsAsync(int userId, UserParams userParams) {
@@ -86,7 +101,6 @@ public class TrillRepository : ITrillRepository {
 			.Where(trill => followedUserIds.Contains(trill.AuthorId))
 			.Include(t => t.Replies)
 			.OrderByDescending(trill => trill.Timestamp)
-			//.ProjectTo<TrillDto>(_mapper.ConfigurationProvider)
 			.AsNoTracking();
 
 		return await PagedList<Trill>

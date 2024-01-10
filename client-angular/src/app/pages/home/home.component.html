@@ -63,18 +63,26 @@
 </section>
 
 
-<div class="flex justify-center border-b-2 w-full text-center ">
-  <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white border-b-4 hover:text-blue-400 hover:bg-gray-800 
-  transition duration-350 ease-in-out">{{ 'home.for_you' | translate }}</h2>
-  <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:text-blue-400 hover:bg-gray-800 
-  transition duration-350 ease-in-out">{{ 'home.following' | translate }}</h2>
+<div class="flex justify-center border-b-2 w-full text-center hover:cursor-default ">
+  <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:bg-gray-800 hover:text-blue-400"
+      [class.border-b-4]="isForYou" (click)="loadForYouTrills()">
+    {{ 'home.for_you' | translate }}
+  </h2>
+
+  <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white hover:bg-gray-800 hover:text-blue-400"
+      [class.border-b-4]="!isForYou" (click)="loadFollowingTrills()">
+    {{ 'home.following' | translate }}
+  </h2>
 </div>
 
-<!--Feed -->
-<ul class="list-none" *ngFor="let trill of trills">
+
+<!-- Combined Feed -->
+<ul class="list-none" *ngFor="let trill of (isForYou ? foryouTrills : followingTrills)">
   <app-trill-card [trill]="trill"></app-trill-card>
 </ul>
 
 <button class="my-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
-  *ngIf="pageNumber != totalPages" (click)="loadMoreTrills()">Load More
+  *ngIf="(isForYou && foryouPageNumber < foryouTotalPages) || (!isForYou && followingPageNumber < followingTotalPages)"
+  (click)="loadMoreTrills()">
+  Load More
 </button>

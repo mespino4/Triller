@@ -19,6 +19,11 @@
                                 border-2 border-gray-900 absolute bottom-0 right-0">
                             </span>
                         </div>
+                        <div *ngIf="!(presenceService.onlineUsers$ | async)?.includes(member.username)">
+                            <span class="w-8 h-8 rounded-full bg-red-500 
+                                border-2 border-gray-900 absolute bottom-0 right-0">
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -29,7 +34,7 @@
                     *ngIf="!isUser" routerLink="/messages/{{member.username}}"
                     (click)="chatButton(member.username)">
                 <img class="h-8 hover:cursor-pointer ml-auto" 
-                    src="assets\chatW.png">
+                    src="assets\images\icons\profile\chatW.png">
             </div>
 
             <!-- Delete User Button -->
@@ -49,20 +54,21 @@
                 </button>
             </div>
 
-            <!-- Edit Button -->
+            <!-- Edit or Follow Button -->
             <div class="flex flex-col text-right">
+                <!-- Edit Button -->
                 <button class="border bg-transparent border-blue-500 text-white
                     hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
                     *ngIf="isUser" (click)="editProfile(member)">
                     {{'profile.edit_profile' | translate}}
                 </button>
-
+                <!-- Follow Button -->
                 <button class="border bg-transparent border-blue-500 text-white
                     hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
                     (click)="follow(member)" *ngIf="!isUser && !isFollow">
                     {{'profile.follow' | translate}}
                 </button>
-
+                <!-- Unfollow Button -->
                 <button class="border bg-transparent border-blue-500 text-white
                     hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
                     (click)="unfollow(member)" *ngIf="!isUser && isFollow">

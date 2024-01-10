@@ -17,10 +17,15 @@ export class TrillService {
   //trill: Trill | undefined;
   userTrills: Trill[] = [];
   trillCache = new Map<string, any>();
+  forYouTrillCache = new Map<string, any>();
+  followingTrillCache = new Map<string, any>();
+
   paginatedResult: PaginatedResult<Trill[]> = new PaginatedResult<Trill[]>;
 
   constructor(private http: HttpClient) { }
 
+
+  //All Trills
   getTrills(page: number, itemsPerPage: number): Observable<PaginatedResult<Trill[]>> {
     const cacheKey = `${page}-${itemsPerPage}`;
     const cachedResponse = this.trillCache.get(cacheKey);
@@ -36,6 +41,48 @@ export class TrillService {
       .pipe(
         map(response => {
           this.trillCache.set(cacheKey, response);
+          return response;
+        })
+      );
+  }
+
+  //All ForYou Trills
+  getForYouTrills(page: number, itemsPerPage: number): Observable<PaginatedResult<Trill[]>> {
+    const cacheKey = `${page}-${itemsPerPage}`;
+    const cachedResponse = this.trillCache.get(cacheKey);
+
+    if (cachedResponse) {
+      console.log('Data retrieved from cache:', cachedResponse);
+      return of(cachedResponse);
+    }
+
+    const params = getPaginationHeaders(page, itemsPerPage);
+
+    return getPaginatedResult<Trill[]>(`${this.baseUrl}trill/for-you`, params, this.http)
+      .pipe(
+        map(response => {
+          this.forYouTrillCache.set(cacheKey, response);
+          return response;
+        })
+      );
+  }
+
+  //All ForYou Trills
+  getFollowingTrills(page: number, itemsPerPage: number): Observable<PaginatedResult<Trill[]>> {
+    const cacheKey = `${page}-${itemsPerPage}`;
+    const cachedResponse = this.trillCache.get(cacheKey);
+
+    if (cachedResponse) {
+      console.log('Data retrieved from cache:', cachedResponse);
+      return of(cachedResponse);
+    }
+
+    const params = getPaginationHeaders(page, itemsPerPage);
+
+    return getPaginatedResult<Trill[]>(`${this.baseUrl}trill/following`, params, this.http)
+      .pipe(
+        map(response => {
+          this.followingTrillCache.set(cacheKey, response);
           return response;
         })
       );
@@ -105,8 +152,9 @@ export class TrillService {
   }
 
   deleteTrillLike(trillId: number) {
-    return this.http.delete(this.baseUrl + 'trill/like/delete?trillId=' + trillId, {});
+    return this.http.delete(`${this.baseUrl}trill/like/delete?trillId=${trillId}`);
   }
+  
 
   getTrillLike(trillId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}trill/like?trillId=${trillId}`, {});

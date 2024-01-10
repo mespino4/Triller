@@ -10,6 +10,7 @@ public interface IUserRepository {
 	Task<AppUser> GetUserByIdAsync(int userId);
 	Task<AppUser> GetUserByUsernameAsync(string username);
 	Task<IEnumerable<AppUser>> GetUsersAsync(int currentUserId);
+	void DeleteUser(AppUser user);
 	//Task<MemberDTO> GetMemberAsync(string username);
 	Task<IEnumerable<TrillDTO>> GetUserTimeline(int userId);
 	public Task<IEnumerable<AppUser>> ExploreUsers(int userId, int numberOfUsers);

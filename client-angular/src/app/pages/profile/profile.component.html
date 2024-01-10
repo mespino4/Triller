@@ -26,9 +26,9 @@
   <hr class="border-gray-800">
   
   <app-profile-header 
-    [member]="member"
-    [isMemberBlocked]="isMemberBlocked"
-    [isUserBlocked]="isUserBlocked">
+      [member]="member"
+      [isMemberBlocked]="isMemberBlocked"
+      [isUserBlocked]="isUserBlocked">
   </app-profile-header>
 
 
@@ -38,8 +38,6 @@
     <div *ngFor="let trill of (trills$ | async)">
       <app-trill-card [trill]="trill"></app-trill-card>
     </div>
-  }@else {
-    <p>you cannnot see this</p>
   }
 
 </section>

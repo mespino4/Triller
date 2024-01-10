@@ -75,6 +75,16 @@ public class UserRepository : IUserRepository {
 	public void Update(AppUser user) {
 		_context.Entry(user).State = EntityState.Modified;
 	}
+	public void DeleteUser(AppUser user) {
+		// Delete related entities
+		DeleteBannerPicture(user);
+		DeleteProfilePicture(user);
+
+		// Remove the user
+		_context.Users.Remove(user);
+	}
+
+
 
 	public void DeleteBannerPicture(AppUser user) {
 		if(user.BannerPicture != null) {
@@ -111,6 +121,6 @@ public class UserRepository : IUserRepository {
 
 
 	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
+			return await _context.SaveChangesAsync() > 0;
 	}
 }
