@@ -1,20 +1,28 @@
-<!--Like Trill Notification-->
-<article class="hover:bg-gray-800 transition duration-350 ease-in-out" *ngIf="notification">
-    <div class="flex p-2 items-center">
-        <img src="{{member?.profilePic}}" 
-            alt="Profile Image" 
-            class="w-10 h-10 rounded-full mx-2 hover:cursor-pointer">
+<!-- Like Trill Notification -->
+<article class="hover:bg-gray-800 transition duration-350 ease-in-out flex h-20 items-center" 
+    *ngIf="notification && member">
+    <div class="flex p-2">
+        <img src="{{member.profilePic}}" 
+            alt="Profile Image" routerLink="/profile/{{member.username}}"
+            class="w-16 h-16 rounded-full mx-2 hover:cursor-pointer">
+        <!--
         <div>
             <h2 class="text-white font-semibold text-md hover:underline hover:cursor-pointer">
             {{member?.displayname}}</h2>
             <p class="text-gray-500 text-sm">&#64;{{member?.username}}</p>
         </div>
+        -->
     </div>
 
-    <div class="px-4">
-        <p class="text-base font-medium text-white ">
-            {{member?.displayname}} {{content}}
-        </p> 
-    </div>
-    <hr class="border-gray-600 mt-2">
+    <div class="px-4 flex text-white">
+        <p class="font-semibold mr-1 hover:cursor-pointer hover:underline"
+        routerLink="/profile/{{member.username}}">
+            {{member.displayname}}
+        </p>
+        <p class="font-base">
+            {{content}}
+        </p>
+    </div>    
+    
 </article>
+<hr class="border-gray-8001">

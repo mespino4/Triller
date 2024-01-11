@@ -12,8 +12,9 @@
       </div>
       
       <div>
-        <h2 class="text-lg font-semibold">{{member.displayname}}</h2>
-        <p> {{ getTruncatedMessage(chat.recentMessage , 14) }}</p>
+        <h2 class="text-lg font-semibold">
+          {{ getTruncatedText(member.displayname , 13) }}</h2>
+        <p> {{ getTruncatedText(chat.recentMessage , 14) }}</p>
       </div>
     </div>
 </div>

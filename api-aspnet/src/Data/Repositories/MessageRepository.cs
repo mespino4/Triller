@@ -78,7 +78,7 @@ public class MessageRepository : IMessageRepository{
 		return _mapper.Map<IEnumerable<MessageDTO>>(messages);
 	}
 
-
+	/*
 	public async Task<IEnumerable<ChatCardDTO>> GetRecentChats(string username) {
 		var recentChats = await _context.ChatCards
 			.Where(cc => cc.User1Username == username || cc.User2Username == username)
@@ -96,6 +96,26 @@ public class MessageRepository : IMessageRepository{
 
 		return chatCardDtos;
 	}
+	*/
+	public async Task<IEnumerable<ChatCardDTO>> GetRecentChats(string username) {
+		var recentChats = await _context.ChatCards
+			.Where(cc => cc.User1Username == username || cc.User2Username == username)
+			.GroupBy(cc => cc.User1Username == username ? cc.User2Username : cc.User1Username)
+			.Select(group => group.OrderByDescending(cc => cc.Timestamp).First())
+			.ToListAsync();
+
+		var chatCardDtos = recentChats
+			.Select(latestChat => new ChatCardDTO {
+				ChatPartnerUsername = latestChat.User1Username == username
+					? latestChat.User2Username
+					: latestChat.User1Username,
+				RecentMessage = latestChat.RecentMessage,
+				Timestamp = latestChat.Timestamp
+			});
+
+		return chatCardDtos;
+	}
+
 
 	public async Task<bool> SaveAllAsync() {
 		//throw new NotImplementedException();

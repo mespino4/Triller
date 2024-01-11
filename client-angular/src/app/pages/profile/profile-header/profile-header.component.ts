@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
+import { Component, Input, inject} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileModalComponent } from '../../../_modals/edit-profile-modal/edit-profile-modal.component';
 import { User, Member } from '../../../shared/models.index';
 import { MessageService, AccountService, MemberService, 
-        PresenceService, BlockService, LanguageService } from '../../../shared/services.index';
+        PresenceService, BlockService} from '../../../shared/services.index';
 import { TranslateModule } from '@ngx-translate/core';
-
 
 @Component({
   selector: 'app-profile-header',
@@ -25,105 +24,119 @@ export class ProfileHeaderComponent {
   user: User | null = null;
   @Input() isMemberBlocked: boolean | null = null;
   @Input() isUserBlocked: boolean | null = null;
-  
-  //@Output() blockStatusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   isOnline: boolean | undefined
 
-  constructor( private memberService: MemberService, private messageService: MessageService,  
-    private blockService: BlockService, private toastr: ToastrService, public accountService: AccountService,
-    public presenceService: PresenceService, public dialog: MatDialog) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe({
-        next: user => {this.user = user;}
-      });
-  }
+  private memberService = inject(MemberService)
+  private accountService = inject(AccountService)
+  private blockService = inject(BlockService)
+  private messageService = inject(MessageService)
+  public presenceService = inject(PresenceService)
+  private route = inject(ActivatedRoute)
+  private router = inject(Router)
+  public toastr = inject(ToastrService)
+  public dialog = inject(MatDialog)
 
   ngOnInit(): void {
-    if (this.member) {
+    if (this.member){
+      this.initializeProfile();
       this.online(this.member);
-      this.conectionStatus(this.member);
+      this.connectionStatus(this.member);
     }
 
-    if (this.member?.username == this.user?.username) 
+    if (this.member?.username === this.user?.username)
       this.isUser = true;
-    else this.isUser = false;
+    else 
+      this.isUser = false;
   }
 
-  editProfile(member: Member) {
+  private initializeProfile(): void {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => this.user = user
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.handleRouteChanges();
+      }
+    });
+  }
+
+  private handleRouteChanges(): void {
+    const updatedUsername = this.route.snapshot.paramMap.get('username');
+
+    if (updatedUsername !== this.member?.username) {
+      this.member = undefined; // Reset member data
+      this.isUser = undefined; // Reset user data
+      this.isOnline = undefined; // Reset online status
+      this.isFollow = null; // Reset follow status
+      this.isMemberBlocked = null; // Reset block status
+
+      this.ngOnInit()
+    }
+  }
+
+  editProfile(member: Member): void {
     const dialogRef = this.dialog.open(EditProfileModalComponent, {
       width: '400px',
-      data: { member: member } // Pass the member data here
+      data: { member: member }
     });
-  
-    // Call the showModal method when the dialog is opened
+
     dialogRef.afterOpened().subscribe(() => {
       dialogRef.componentInstance;
     });
   }
 
-  online(member: Member){
-    console.log("is online 1", this.isOnline)
+  private online(member: Member): void {
     this.presenceService.onlineUsers$.subscribe({
-      next: response => console.log("users", response) //this.isOnline = response.includes(member.userName),
-      //next: response => this.isOnline = response.includes(member.username),
-    })
-  }
-
-  chatButton(username: string) {
-    this.messageService.openInbox(username).subscribe({
-      next: response => console.log("inbox opened")
-    })
-  }
-
-  //connections
-  private conectionStatus(member: Member): void {
-    this.memberService.getConnectionStatus(member.id).subscribe({
-      next: (response) => { this.isFollow = response},
-      error: (error) => {
-        console.error('Error fetching blocked members:', error);},
-      complete: () => {
-        console.log("this is the folow ", this.isFollow)
-      }
+      next: response => this.isOnline = response.includes(member.username)
     });
   }
 
-  follow(member: Member){
-    this.memberService.follow(member.id).subscribe({
-      next: () => this.toastr.success('You now follow ' + member.displayname)
-    })
-    this.isFollow = true
+  chatButton(username: string): void {
+    this.messageService.openInbox(username).subscribe();
+  }  
+
+  //connections
+  private connectionStatus(member: Member): void {
+    this.memberService.getConnectionStatus(member.id).subscribe({
+      next: response => this.isFollow = response,
+      error: error => console.error('Error fetching blocked members:', error),
+      complete: () => console.log('this is the follow ', this.isFollow)
+    });
   }
 
-  unfollow(member: Member){
+  follow(member: Member): void {
+    this.memberService.follow(member.id).subscribe({
+      next: () => this.toastr.success(`You now follow ${member.displayname}`)
+    });
+    this.isFollow = true;
+  }
+
+  unfollow(member: Member): void {
     this.memberService.unfollow(member.id).subscribe({
-      next: () => this.toastr.success('You no longer follow ' + member.displayname)
-    })
-    this.isFollow = false
+      next: () => this.toastr.success(`You no longer follow ${member.displayname}`)
+    });
+    this.isFollow = false;
   }
 
   //block & unblock
-  block(member: Member){
+  block(member: Member): void {
     this.blockService.block(member.id).subscribe({
-      next: () => this.toastr.success('You have blocked' + member.displayname)
-    })
-    if(this.isFollow) this.unfollow(member)
-    this.isMemberBlocked = true
-    //this.blockStatusChanged.emit(this.isMemberBlocked); // Emit the event to notify the parent
+      next: () => this.toastr.success(`You have blocked ${member.displayname}`)
+    });
+    if (this.isFollow) this.unfollow(member);
+    this.isMemberBlocked = true;
   }
 
-  unblock(member: Member){
+  unblock(member: Member): void {
     this.blockService.unblock(member.id).subscribe({
-      next: () => this.toastr.success('You have unblocked' + member.displayname)
-    })
-    this.isMemberBlocked = false
-    //this.blockStatusChanged.emit(this.isMemberBlocked); // Emit the event to notify the parent
+      next: () => this.toastr.success(`You have unblocked ${member.displayname}`)
+    });
+    this.isMemberBlocked = false;
   }
 
   hasAdminRole(): boolean {
-    const user = this.user;
-    if (user && user.roles && user.roles.length > 0) {
-        return user.roles.includes('Admin');
-    }
-    return false;
+    return !!this.user?.roles && this.user.roles.includes('Admin');
   }
 }

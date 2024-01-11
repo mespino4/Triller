@@ -1,32 +1,30 @@
-<ngx-spinner type="ball-spin-clockwise">
-  <h3 class="text-white">Loading...</h3>
-</ngx-spinner>
+<!-- Set background color for the entire page -->
+<body style="background-color: #15202b;">
+  <ngx-spinner type="ball-spin-clockwise">
+    <h3 class="text-white">Loading...</h3>
+  </ngx-spinner>
 
-<div class="flex mx-auto w-full h-full justify-center" 
-  style="background-color: #15202b;">
-
+  <div class="flex mx-auto max-w-7xl h-full justify-center">
     <!-- Left Sidebar -->
-    <div class="w-1/6 bg-gray-800 text-white max-w-md"
+    <div class="w-3/12 bg-gray-800 text-white justify-start" 
       *ngIf="(accountService.currentUser$ | async) as user">
       <app-sidebar-left></app-sidebar-left>
     </div>
-    
+
     <!-- Content Section -->
-    <div class="flex-1 overflow-auto px-2 max-w-2xl"
-    *ngIf="!showRightSidebar">
+    <div class="flex-1 overflow-auto px-2" *ngIf="!showRightSidebar">
       <router-outlet></router-outlet>
     </div>
 
-    <!-- Content Section -->
-    <div class="flex-1 overflow-auto px-2 max-w-5xl"
-    *ngIf="showRightSidebar">
+    <!-- Messages Section -->
+    <div class="flex-1 overflow-auto px-2 justify-end" *ngIf="showRightSidebar">
       <router-outlet></router-outlet>
     </div>
 
     <!-- Right Sidebar -->
-    <div class="w-1/6 bg-gray-800 text-white max-w-md"
+    <div class="w-3/12 bg-gray-800 text-white justify-end" 
       *ngIf="!showRightSidebar && (accountService.currentUser$ | async) as user">
       <app-sidebar-right></app-sidebar-right>
     </div>
-    
-</div>
+  </div>
+</body>

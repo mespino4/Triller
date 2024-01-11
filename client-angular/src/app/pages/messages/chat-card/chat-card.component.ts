@@ -31,9 +31,8 @@ export class ChatCardComponent {
     }
   }
 
-  getTruncatedMessage(message: string, maxLength: number): string {
-    if(this.chat?.recentMessage)
-      return message.length <= maxLength ? message : message.slice(0, maxLength) + '...';
-    return "";
+  getTruncatedText(text: string, maxLength: number): string {
+    if(text == null) return ""
+    return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
   }
 }

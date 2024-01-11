@@ -34,7 +34,7 @@ export class BookmarksComponent {
     this.getBookmarks()
   }
 
-  getBookmarks() {
+  async getBookmarks() {
     this.bookmarkService.getBookmarks().subscribe({
       next: response => {
         if (Array.isArray(response)) {

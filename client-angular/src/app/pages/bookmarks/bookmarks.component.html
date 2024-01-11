@@ -25,15 +25,11 @@
   
 <!-- component -->
 <section class="w-full border border-y-0 border-gray-800" >
-<!--Feed-->
-<div *ngIf="!isEmpty" class="w-full border border-y-0 border-gray-800">
-    <ul *ngFor="let trill of (trills$ | async)">
-        <app-trill-card [trill]="trill"></app-trill-card>
-    </ul>
-</div>
-
-<div *ngIf="isEmpty" class="w-full border border-y-0 border-gray-800">
-    <h6 class="text-4xl text-white font-bold w-fit">You have no bookmarks :'C</h6>
-</div>
+  <!--Feed-->
+  <div *ngIf="!isEmpty" class="w-full border border-y-0 border-gray-800">
+      <ul *ngFor="let trill of (trills$ | async)">
+          <app-trill-card [trill]="trill"></app-trill-card>
+      </ul>
+  </div>
 
 </section>

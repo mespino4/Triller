@@ -30,7 +30,9 @@ public class BookmarkRepository : IBookmarkRepository {
 	public async Task<List<Trill>> GetBookmarks(int userId) {
 		var trillEntities = await _context.Bookmarks
 			.Where(b => b.UserId == userId)
-			.Include(b => b.Trill)
+			.Include(l => l.Trill.Likes)
+			.Include(r => r.Trill.Replies)
+			.Include(r => r.Trill.Retrills)
 			.OrderByDescending(b => b.CreatedAt)
 			.Select(b => b.Trill)
 			.ToListAsync();

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-//import { environment } from '../../environments/environment.development';
 import { BehaviorSubject, take } from 'rxjs';
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { Message } from '../_models/message';
-import { User } from '../_models/user';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { getPaginatedResult, getPaginationHeaders } from '../helpers/pagination';
-import { RecentChat } from '../_models/recentChat';
+import { User, RecentChat, Message } from '../shared/models.index';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -45,6 +42,7 @@ export class MessageService {
       this.messageThread$.pipe(take(1)).subscribe(messages => {
         this.messageThreadSource.next([...messages, message])
       })
+      this.playSoundEffect()
     })
   }
 
@@ -83,5 +81,13 @@ export class MessageService {
   //delete message
   deleteMessage(messageId: number) {
     return this.http.delete(this.baseUrl + 'messages?messageId=' + messageId, {});
+  }
+
+  private sound: HTMLAudioElement = new Audio();
+
+  playSoundEffect(): void {
+    this.sound.src = 'assets/sounds/messageSFX.ogg'; // Adjust the path based on your file structure
+    this.sound.load();
+    this.sound.play();
   }
 }

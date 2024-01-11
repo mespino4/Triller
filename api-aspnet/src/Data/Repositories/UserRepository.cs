@@ -54,20 +54,25 @@ public class UserRepository : IUserRepository {
 		var user = await _context.Users
 			.Include(u => u.Trills)
 			.Include(u => u.Retrills)
+			.Include(u => u.TrillsLiked)
+			.Include(r => r.Replies)
 			.SingleOrDefaultAsync(u => u.Id == userId);
 
 		if(user == null) return Enumerable.Empty<TrillDTO>();
 
 		var trillDtos = (await _context.Trills
 				.Where(t => t.AuthorId == userId)
+				.Include(l => l.Likes)
+				.Include(r => r.Retrills)
+				.Include(r => r.Replies)
 				.Select(t => new { Trill = t, Timestamp = t.Timestamp })
-				.ToListAsync()) // Materialize the results into a list
+				.ToListAsync())
 			.Concat(await _context.Retrills
 				.Where(r => r.UserId == userId)
 				.Select(r => new { Trill = r.Trill, Timestamp = r.CreatedAt })
-				.ToListAsync()) // Materialize the results into a list
+				.ToListAsync()) 
 			.OrderByDescending(item => item.Timestamp)
-			.ToList(); // Materialize the results into a list
+			.ToList();
 
 		return trillDtos.Select(item => _mapper.Map<TrillDTO>(item.Trill));
 	}

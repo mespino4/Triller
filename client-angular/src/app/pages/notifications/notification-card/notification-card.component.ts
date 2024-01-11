@@ -4,11 +4,12 @@ import { MemberService } from '../../../_services/member.service';
 import { Notification } from '../../../_models/notification';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-notification-card',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, RouterModule],
   templateUrl: './notification-card.component.html',
   styleUrl: './notification-card.component.css'
 })
@@ -37,12 +38,12 @@ export class NotificationCardComponent {
   loadContent(){
     if(!this.type) return
     if (this.type == 'Reply')
-      this.content = 'replied to your trill' 
+      this.content = 'replied to your trill 💬' 
     else if(this.type == 'Repost')
-      this.content = 'reposted your trill'
+      this.content = 'reposted your trill 🔁'
     else if(this.type == 'Like')
-      this.content = 'liked your trill'
+      this.content = 'liked your trill ❤️'
     else if(this.type == 'Follow')
-      this.content = 'followed you'
+      this.content = 'followed you 👤'
   }
 }
