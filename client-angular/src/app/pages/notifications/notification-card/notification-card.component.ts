@@ -1,26 +1,29 @@
-import { Component, Input } from '@angular/core';
-import { Member } from '../../../_models/member';
+import { Component, Input, inject } from '@angular/core';
 import { MemberService } from '../../../_services/member.service';
-import { Notification } from '../../../_models/notification';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { LanguageService } from '../../../shared/services.index';
+import { Member, Notification } from '../../../shared/models.index';
 
 @Component({
   selector: 'app-notification-card',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterModule],
+  imports: [CommonModule, TranslateModule, RouterModule, TranslateModule],
   templateUrl: './notification-card.component.html',
   styleUrl: './notification-card.component.css'
 })
 export class NotificationCardComponent {
+  private memberService = inject(MemberService)
+  private languageService = inject(LanguageService)
+
   @Input() notification: Notification | undefined;
   type: string | undefined; //Reply, Repost, Like, Follow
   member: Member | undefined;
   content: string | undefined;
 
-  constructor(public memberService: MemberService){}
-
+  language: string = this.languageService.getCurrentLanguage();
+  
   ngOnInit(): void {
     if(!this.notification) return
     this.loadMember()
@@ -35,15 +38,24 @@ export class NotificationCardComponent {
     })
   }
 
-  loadContent(){
-    if(!this.type) return
-    if (this.type == 'Reply')
-      this.content = 'replied to your trill 💬' 
-    else if(this.type == 'Repost')
-      this.content = 'reposted your trill 🔁'
-    else if(this.type == 'Like')
-      this.content = 'liked your trill ❤️'
-    else if(this.type == 'Follow')
-      this.content = 'followed you 👤'
+  loadContent() {
+    if (!this.type || !this.notification) return;
+
+    switch (this.type) {
+      case 'Reply':
+        this.content = this.languageService.getTranslation('notifications','reply');
+        break;
+      case 'Repost':
+        this.content = this.languageService.getTranslation('notifications','repost');
+        break;
+      case 'Like':
+        this.content = this.languageService.getTranslation('notifications','like');
+        break;
+      case 'Follow':
+        this.content = this.languageService.getTranslation('notifications','follow');
+        break;
+      default:
+        break;
+    }
   }
 }

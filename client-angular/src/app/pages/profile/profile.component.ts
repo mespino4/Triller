@@ -1,13 +1,14 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { Observable, filter, of, switchMap, take } from 'rxjs';
+import {  Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Observable, filter, take } from 'rxjs';
 import { Trill } from '../../_models/trill';
-import { ActivatedRoute, NavigationEnd, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
 import { ProfileHeaderComponent } from './profile-header/profile-header.component';
 import { AccountService, MemberService, BlockService } from '../../shared/services.index';
 import { User, Member } from '../../shared/models.index';
+import { NoticeModalComponent } from '../../_modals/notice-modal/notice-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private blockService = inject(BlockService)
   private route = inject(ActivatedRoute)
   private router = inject(Router)
+  
 
   ngOnInit(): void {
     this.initializeUser();

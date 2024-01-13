@@ -1,7 +1,7 @@
 <div class="p-3 text-white bg-gray-800 flex flex-col ">
-    <h2 mat-dialog-title class="text-lg font-semibold mb-4 text-center">Blocked Users</h2>
+    <h2 mat-dialog-title class="text-lg font-semibold mb-4 text-center">{{'misc.blocked_users' | translate}}</h2>
 
-    <div *ngFor="let member of members" class="flex hover:bg-gray-600 transition ease-in-out duration-150">
+    <div *ngFor="let member of members" class="flex hover:bg-gray-700 transition ease-in-out duration-150 rounded-md">
         <div class="flex-1 cursor-pointer" [routerLink]="'/profile/' + member.username">
             <div class="flex items-center">
                 <img class="inline-block h-10 w-10 rounded-full mx-1 my-2" [src]="member.profilePic" alt="">
@@ -20,7 +20,7 @@
                 [ngClass]="{'border-blue-500 hover:bg-blue-500 hover:border-transparent': !blockStatusMap.get(member.id),
                             'border-red-500 hover:bg-red-500 hover:border-transparent': blockStatusMap.get(member.id)}"
                 (click)="toggleBlockStatus(member.id)">
-                {{ blockStatusMap.get(member.id) ? 'Unblock' : 'Block' }}
+                {{ (blockStatusMap.get(member.id) ? 'profile.unblock' : 'profile.block') | translate }}
             </button>
         </div>
     </div>

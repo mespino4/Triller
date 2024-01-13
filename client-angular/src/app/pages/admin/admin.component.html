@@ -21,15 +21,36 @@
 </div>
 
 <div class="flex justify-center border-b-2 w-full text-center ">
-    <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white
-        hover:text-blue-400 hover:bg-gray-800 transition duration-350 ease-in-out">{{ 'admin.user' | translate }}</h2>
-    <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white
-        hover:text-blue-400 hover:bg-gray-800 transition duration-350 ease-in-out">{{ 'admin.roles' | translate }}</h2>
-    <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white
-        hover:text-blue-400 hover:bg-gray-800 transition duration-350 ease-in-out">{{ 'admin.edit_roles' | translate }}</h2>
+    <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white">{{ 'admin.user' | translate }}</h2>
+    <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white">{{ 'admin.roles' | translate }}</h2>
+    <h2 class="flex-1 px-4 py-2 text-xl font-semibold text-white">{{ 'admin.edit_roles' | translate }}</h2>
 </div>
 <hr class="border-gray-800">
 
 <div *ngFor="let user of users">
-    <app-user-management-card [user]="user"></app-user-management-card>
+    <div class="flex justify-center border-b-2 border-gray-500 w-full text-center" *ngIf="user">
+      <div class="flex-1 px-4 py-2 font-semibold text-white">
+          <div class="flex items-center">
+              <img class="inline-block h-14 w-14 rounded-full mx-1 my-2"
+                  src="{{user.profilePic}}" alt="">
+              <div class="ml-2">
+                <p class="text-base leading-6  text-white hover:underline">{{user.displayName}}</p>
+                <p class="text-sm leading-5 text-gray-400">&#64;{{user.username}}</p>
+              </div>
+          </div>
+      </div>
+
+      <ul class="flex-1 px-4 py-2 flex flex-col items-center justify-center">
+          <p *ngFor="let role of user.roles" class="text-base font-medium text-white">
+              {{ role }}
+          </p>
+      </ul>
+
+      <div class="flex flex-1 p-4 font-semibold text-white justify-center">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white
+              hover:border-transparent rounded-lg py-1 px-3" (click)="openModal(user)">
+              {{ 'admin.edit_roles' | translate }}
+          </button>
+      </div>
+  </div>
 </div>

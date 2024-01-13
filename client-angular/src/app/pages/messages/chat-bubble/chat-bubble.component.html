@@ -1,4 +1,4 @@
-<div *ngIf="message">
+<div *ngIf="message && !isMsgDestroyed">
     <div class="mb-4 flex " *ngIf="!isSender">
         <div >
             <div class="flex mb-1">
@@ -16,7 +16,7 @@
             <div class="flex" (mouseenter)="toggleHover(true)" (mouseleave)="toggleHover(false)">
                 <!-- Trashcan -->
                 <div class="flex-1 flex items-center mr-2 p-1 hover:bg-opacity-50 hover:bg-red-600 rounded-full">
-                    <img class="h-6 hover:cursor-pointer" *ngIf="isHovered" src="assets\icons\TrillButtons\trashcanW.png"
+                    <img class="h-6 hover:cursor-pointer" *ngIf="isHovered" src="assets\images\icons\shared\trashcanW.png"
                         (click)="deleteMessage(message.id)">
                 </div>
 

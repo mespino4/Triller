@@ -34,15 +34,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
   public presenceService = inject(PresenceService)
   private route = inject(ActivatedRoute)
 
-  sendMessage(username: string): void {
-    this.messageService.sendMessage(username, this.messageContent);
-    this.messageContent = '';
-  }
+
 
   async ngOnInit(): Promise<void> {
     this.currentUser = await firstValueFrom(this.accountService.currentUser$.pipe(take(1)));
     this.setupRouteListener();
     this.loadChats();
+  }
+
+  sendMessage(username: string): void {
+    this.messageService.sendMessage(username, this.messageContent);
+    this.messageContent = '';
   }
 
   ngOnDestroy(): void {
@@ -87,15 +89,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   private setupRouteListener(): void {
-    this.route.paramMap
-      .pipe(
+    this.route.paramMap.pipe(
         switchMap((params: ParamMap) => {
           this.username = params.get('username') || '';
           this.loadMember();
           this.getMessageThread(this.username);
           return of(null);
         })
-      )
-      .subscribe();
+      ).subscribe();
   }
 }

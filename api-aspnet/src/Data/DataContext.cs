@@ -105,9 +105,10 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 		builder.Entity<Trill>()
 			.HasMany(t => t.Replies) // One Trill has many Replies
 			.WithOne(tr => tr.ParentTrill) // Each Reply has one ParentTrill
-			.HasForeignKey(tr => tr.ParentTrillId); // Foreign key property
+			.HasForeignKey(tr => tr.ParentTrillId) // Foreign key property
+			.OnDelete(DeleteBehavior.Cascade);
 
-		//reactions
+		//reactions for replies
 		builder.Entity<UserReaction>()
 			.HasKey(react => new { react.Id });
 
@@ -121,7 +122,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.HasOne(react => react.TrillReply)
 			.WithMany(tr => tr.Reactions)
 			.HasForeignKey(react => react.TrillReplyId)
-			.OnDelete(DeleteBehavior.NoAction);
+			.OnDelete(DeleteBehavior.Cascade);
 
 		//enum values for reactions
 		builder.Entity<UserReaction>()

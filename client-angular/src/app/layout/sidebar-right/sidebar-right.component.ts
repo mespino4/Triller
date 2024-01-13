@@ -6,11 +6,12 @@ import { Member, User } from '../../shared/models.index';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar-right',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule],
   templateUrl: './sidebar-right.component.html',
   styleUrl: './sidebar-right.component.css'
 })

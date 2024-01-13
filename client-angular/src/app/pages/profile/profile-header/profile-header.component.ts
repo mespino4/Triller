@@ -9,6 +9,7 @@ import { User, Member } from '../../../shared/models.index';
 import { MessageService, AccountService, MemberService, 
         PresenceService, BlockService} from '../../../shared/services.index';
 import { TranslateModule } from '@ngx-translate/core';
+import { NoticeModalComponent } from '../../../_modals/notice-modal/notice-modal.component';
 
 @Component({
   selector: 'app-profile-header',
@@ -138,5 +139,12 @@ export class ProfileHeaderComponent {
 
   hasAdminRole(): boolean {
     return !!this.user?.roles && this.user.roles.includes('Admin');
+  }
+
+  notice() {
+    const dialogRef = this.dialog.open(NoticeModalComponent, {
+      width: '400px',
+      //data: { message: msg }
+    });
   }
 }

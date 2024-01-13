@@ -10,19 +10,26 @@
       "admin": "Admin",
       "logout": "Logout"
     },
+    "sidebar-right": {
+        "following": "Following",
+        "followers": "Followers",
+        "explore_users": "Explore Users",
+        "show_more": "Show more"
+    },
     "home": {
       "label": "Home",
       "trill": "What's happening?",
       "photo": "Photo",
       "emoji": "Emoji",
       "for_you": "For You",
-      "following": "Following"
+      "following": "Following",
+      "load_more": "Load More"
     },
     "profile": {
         "label": "Profile",
         "joined": "Joined",
         "edit_profile": "Edit Profile",
-        "delete_user": "Delete User?",
+        "delete_user": "Ban User",
         "block": "Block",
         "unblock": "Unblock",
         "follow": "Follow",
@@ -32,15 +39,17 @@
     },
     "notifications":{
         "label": "Notifications",
-        "reply": "replied to your trill",
-        "repost": "reposted your trill",
-        "like": "liked your trill",
-        "follow": "followed you"
+        "reply": "replied to your trill 💬",
+        "repost": "reposted your trill 🔁",
+        "like": "liked your trill ❤️",
+        "follow": "followed you 👤"
     },
     "messages":{
         "label": "Messages",
         "online": "Online",
-        "offline": "Offline"
+        "offline": "Offline",
+        "send": "Send",
+        "type_message": "Type a message"
     },
     "bookmarks":{
         "label": "Bookmarks"
@@ -74,6 +83,24 @@
         "moderator": "Moderator",
         "member": "Member",
         "modal_text": "Edit roles for"
+    },"edit_profile":{
+        "label": "Edit Profile",
+        "name": "Name",
+        "about": "About",
+        "location": "Location",
+        "save_changes": "Save Changes",
+        "cancel": "Cancel"
+    },"trill/reply":{
+        "label": "Trill",
+        "post_reply": "Post your reply",
+        "photo": "Photo",
+        "emoji": "Emoji"
+    },"misc": {
+        "label": "Misc",
+        "future_update": "This Feature will be available in a future update",
+        "blocked_users": "Blocked Users",
+        "yes": "Yes",
+        "cancel": "Cancel"
     }
     
 }

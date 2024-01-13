@@ -1,5 +1,5 @@
 <div class="p-3 bg-gray-800 rounded-md" *ngIf="member">
-  <h2  class="text-lg font-semibold mb-2 text-white">Edit Profile</h2>
+  <h2  class="text-lg font-semibold mb-2 text-white">{{ 'edit_profile.label' | translate }}</h2>
 
   <div class="relative mb-6 ">
 
@@ -44,30 +44,30 @@
 
   <form #editForm="ngForm" id="editForm" class="mt-10">
     <div class="mb-2">
-      <label for="fullName" class="block text-white font-medium mb-1">Name</label>
+      <label for="fullName" class="block text-white font-medium mb-1">{{ 'edit_profile.name' | translate }}</label>
       <input type="text" id="fullName" name="displayname" class="w-full border rounded-md p-2 text-black" 
             [(ngModel)]="member.displayname">
     </div>
 
     <div class="mb-2">
-      <label for="about" class="block text-white font-medium mb-1">About</label>
+      <label for="about" class="block text-white font-medium mb-1">{{ 'edit_profile.about' | translate }}</label>
       <textarea id="about" name="about" class="w-full border rounded-md p-2 text-black" rows="4"
                 [(ngModel)]="member.about"></textarea>
     </div>
     
 
     <div class="mb-4">
-      <label for="bio" class="block text-white font-medium mb-1">Location</label>
+      <label for="bio" class="block text-white font-medium mb-1">{{ 'edit_profile.location' | translate }}</label>
       <input type="text" id="fullName" name="location" class="w-full border rounded-md p-2 text-black"
             [(ngModel)]="member.location">
     </div>
 
     <div class="justify-between flex">
       <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-              (click)="updateProfile()" form="editForm">Save Changes</button>
+              (click)="updateProfile()" form="editForm">{{ 'edit_profile.save_changes' | translate }}</button>
 
       <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" 
-              (click)="close()">Cancel</button>
+              (click)="close()">{{ 'edit_profile.cancel' | translate }}</button>
     </div>
   </form>
 </div>

@@ -10,19 +10,26 @@
       "admin": "Admin",
       "logout": "Cerrar sesión"
     },
+    "sidebar-right": {
+        "following": "Siguiendo",
+        "followers": "Seguidores",
+        "explore_users": "Explorar Usuarios",
+        "show_more": "Mostrar Mas"
+    },
     "home": {
       "label": "Inicio",
       "trill": "¿Qué está pasando?",
       "photo": "Foto",
       "emoji": "Emoji",
       "for_you": "Para ti",
-      "following": "Siguiendo"
+      "following": "Siguiendo",
+      "load_more": "Cargar más"
     },
     "profile": {
       "label": "Perfil",
       "joined": "Ingresó",
       "edit_profile": "Editar perfil",
-      "delete_user": "¿Eliminar usuario?",
+      "delete_user": "Prohibir usuario",
       "block": "Bloquear",
       "unblock": "Desbloquear",
       "follow": "Seguir",
@@ -32,15 +39,17 @@
     },
     "notifications": {
         "label": "Notificaciones",
-        "reply": "respondió a tu trill",
-        "repost": "reposteó tu trill",
-        "like": "dio me gusta a tu trill",
-        "follow": "te siguió"
+        "reply": "respondió a tu trill 💬",
+        "repost": "reposteó tu trill 🔁",
+        "like": "dio me gusta a tu trill ❤️",
+        "follow": "te siguió 👤"
     },
     "messages": {
         "label": "Mensajes",
         "online": "En línea",
-        "offline": "Desconectado"
+        "offline": "Desconectado",
+        "send": "Enviar",
+        "type_message": "Escribe un mensaje"
     },
     "bookmarks":{
         "label": "Favoritos"
@@ -74,6 +83,25 @@
         "moderator": "Moderador",
         "member": "Miembro",
         "modal_text": "Editar roles para"
+    },"edit_profile": {
+        "label": "Editar Perfil",
+        "name": "Nombre",
+        "about": "Acerca de",
+        "location": "Ubicación",
+        "save_changes": "Guardar Cambios",
+        "cancel": "Cancelar"
+    },"trill/reply":{
+        "label": "Trill",
+        "post_reply": "Publica tu respuesta",
+        "photo": "Foto",
+        "emoji": "Emoji"
+    },"misc": {
+        "label": "Misc",
+        "future_update": "Esta funcionalidad estará disponible en una próxima actualización.",
+        "blocked_users": "Usuarios Bloqueados",
+        "yes": "Si",
+        "cancel": "Cancelar"
     }
+
 }
   

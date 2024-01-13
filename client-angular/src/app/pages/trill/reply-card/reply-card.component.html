@@ -1,5 +1,5 @@
 <!--Tweet Start-->
-<li *ngIf="reply" >
+<li *ngIf="reply && !isReplyDestroyed" >
     <article class="hover:bg-gray-800 transition duration-350 ease-in-out">
         <div class="flex p-2 items-center">
             <a class=" group block">

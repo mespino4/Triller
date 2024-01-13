@@ -7,11 +7,12 @@ import { TrillCardComponent } from '../../components/trill-card/trill-card.compo
 import { AccountService, TrillService } from '../../shared/services.index';
 import { Reply, Trill, User } from '../../shared/models.index';
 import { ReplyCardComponent } from './reply-card/reply-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trill',
   standalone: true,
-  imports: [CommonModule, FormsModule, TrillCardComponent, ReplyCardComponent],
+  imports: [CommonModule, FormsModule, TrillCardComponent, ReplyCardComponent, TranslateModule],
   templateUrl: './trill.component.html',
   styleUrl: './trill.component.css'
 })

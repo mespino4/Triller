@@ -1,17 +1,19 @@
 <div class="p-3 text-white bg-gray-800 rounded-md">
-    <h2 mat-dialog-title class="text-lg font-semibold mb-4">What is on your mind?</h2>
+    <h2 mat-dialog-title class="text-lg font-semibold mb-4 text-center">TRILL</h2>
 
     <form #trillForm="ngForm" autocomplete="off">
         <textarea name="trillContent" [(ngModel)]="trillContent" type="text" rows="2" cols="50"
             class="bg-transparent text-gray-300 font-medium text-lg w-full"
-            placeholder="What's happening?" [required]="!trillImage"></textarea>
+            placeholder="{{ 'home.trill' | translate }}" [required]="!trillImage"></textarea>
 
         <div *ngIf="trillImageThumbnail" class="flex items-center">
             <img [src]="trillImageThumbnail" alt="Thumbnail" class="max-w-md max-h-20">
-            <button class="bg-red-500 hover:bg-red-700 rounded-md text-white w-8 h-8 ml-2" (click)="removeImage()">x</button>
+            <button class="bg-red-500 hover:bg-red-700 rounded-md text-white w-8 h-8 ml-2"
+                    (click)="removeImage()">x</button>
         </div>
 
-        <input type="file" name="trillImage" id="selectImage" class="hidden" accept="image/*" (change)="onImageSelected($event)" />
+        <input type="file" name="trillImage" id="selectImage" class="hidden" accept="image/*" 
+            (change)="onImageSelected($event)" />
 
         <!-- Photo, Emoji, and Create Trill buttons -->
         <div class="flex items-center justify-between" >
@@ -36,8 +38,8 @@
             </button>
 
             <button class="bg-red-400 hover:bg-red-500 mt-5 mb-5 text-white font-bold py-2 px-8 rounded-full mr-4 float-right"
-            (click)="cancel()">
-                Cancel
+                    (click)="cancel()">
+                    {{ 'misc.cancel' | translate }}
             </button>
         </div>
     </form>

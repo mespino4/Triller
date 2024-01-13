@@ -1,19 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Trill } from '../../_models/trill';
-import { Member } from '../../_models/member';
-import { User } from '../../_models/user';
-import { TrillService } from '../../_services/trill.service';
+import { Component, Input, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../../_services/account.service';
 import { take } from 'rxjs';
-import { BookmarkService } from '../../_services/bookmark.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../../_modals/confirm-modal/confirm-modal.component';
-import { MemberService } from '../../_services/member.service';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { Member,  User, Trill } from '../../shared/models.index';
+import { AccountService, LanguageService, 
+        MemberService, TrillService, BookmarkService } 
+        from '../../shared/services.index';
+
 
 @Component({
   selector: 'app-trill-card',
@@ -24,6 +22,15 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 
 export class TrillCardComponent {
+  private memberService = inject(MemberService)
+  private bookmarkService = inject(BookmarkService)
+  private languageService = inject(LanguageService)
+  private accountService = inject(AccountService)
+  private trillService = inject(TrillService)
+  private clipboard = inject(Clipboard)
+  private toastr = inject(ToastrService)
+  private dialog = inject(MatDialog)
+
   @Input() trill: Trill | undefined;
   isTrillLiked: boolean | undefined
   isRetrilled: boolean | undefined
@@ -35,30 +42,25 @@ export class TrillCardComponent {
 
   isTrillDestroyed: boolean = false;
 
-  constructor(private trillService: TrillService, private toastr: ToastrService,
-    public accountService: AccountService, public memberService: MemberService,
-    private bookmarksService: BookmarkService, private clipboard: Clipboard,
-    public dialog: MatDialog){
-      this.accountService.currentUser$.pipe(take(1)).subscribe({
-        next: user => this.user = user
-      })
-    }
+  language: string = this.languageService.getCurrentLanguage();
     
   ngOnInit(): void {
     if (this.trill && this.trill.id) {
       this.loadTrillData(this.trill.id);
       //this.localTimestamp = new Date(this.trill?.timestamp).toLocaleString();
     }
-    this.loadMember()
+    this.setupUserAndTrill()
   }
 
-
-
-  loadMember() {
+  setupUserAndTrill(){
     if(this.trill)
       this.memberService.getMemberById(this.trill?.authorId).subscribe({
         next: member => this.member$ = member
       });
+
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => this.user = user
+    })  
   }
 
   loadTrillData(trillId: number): void {
@@ -128,7 +130,7 @@ export class TrillCardComponent {
 
   //bookmarks
   addBookmark(trillId: number): void {
-    this.bookmarksService.addBookmark(trillId).subscribe({
+    this.bookmarkService.addBookmark(trillId).subscribe({
       next: () => this.toastr.success('Trill bookmarked'),
       error: (error) => this.handleTrillError('Error bookmarking trill', error)
     });
@@ -136,7 +138,7 @@ export class TrillCardComponent {
   }
 
   deleteBookmark(trillId: number): void {
-    this.bookmarksService.deleteBookmark(trillId).subscribe({
+    this.bookmarkService.deleteBookmark(trillId).subscribe({
       next: () => this.toastr.success('Bookmark removed successfully'),
       error: (error) => this.handleTrillError('Error removing bookmark', error)
     });
@@ -144,7 +146,7 @@ export class TrillCardComponent {
   }
 
   getBookmark(trillId: number): void {
-    this.bookmarksService.getBookmark(trillId).subscribe({
+    this.bookmarkService.getBookmark(trillId).subscribe({
       next: (result) => this.isBookmarked = result,
       error: (error) => this.handleTrillError('Error getting bookmark', error)
     });
@@ -152,13 +154,22 @@ export class TrillCardComponent {
 
   //delete trill
   deleteTrill(trillId: number): void {
+    let msg: string;
+
+    switch (this.language) {
+      case 'en':
+        msg = 'Are you sure you want to delete this trill?';
+        break;
+      case 'es':
+        msg = '¿Estás seguro de que quieres eliminar este trill?';
+        break;
+      default:
+        msg = 'Are you sure you want to delete this trill?';
+    }
+
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '400px',
-      data: {
-        message: 'Are you sure you want to delete this trill?',
-        id: trillId,
-        obj2Del: 'trill',
-      },
+      data: {message: msg},
     });
   
     dialogRef.afterClosed().subscribe((result) => {

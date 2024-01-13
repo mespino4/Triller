@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { take } from 'rxjs';
 import { AccountService } from '../../shared/services.index';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trill-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './trill-modal.component.html',
   styleUrl: './trill-modal.component.css'
 })

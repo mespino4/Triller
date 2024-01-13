@@ -6,11 +6,12 @@ import { BlockService } from '../../_services/block.service';
 import { Member } from '../../shared/models.index';
 import { Observable } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-blocked-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule],
   templateUrl: './view-blocked-users.component.html',
   styleUrl: './view-blocked-users.component.css'
 })

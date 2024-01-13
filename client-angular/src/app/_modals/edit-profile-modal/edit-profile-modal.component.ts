@@ -5,11 +5,12 @@ import { MemberService } from '../../_services/member.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-profile-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './edit-profile-modal.component.html',
   styleUrl: './edit-profile-modal.component.css'
 })

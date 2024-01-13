@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,21 +20,30 @@ import { Router } from '@angular/router';
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent {
+  private memberService = inject(MemberService)
+  private accountService = inject(AccountService)
+  private blockService = inject(BlockService)
+  private languageService = inject(LanguageService)
+  private toastr = inject(ToastrService)
+  private dialog = inject(MatDialog)
+  private router = inject(Router)
+
   user: User | null = null;
   member: Member | null = null;
   blockedMembers: Member[] | undefined;
 
   selectedLanguage: string = this.languageService.getCurrentLanguage();
 
-  constructor( private memberService: MemberService, private blockService: BlockService, private router: Router,
-    private toastr: ToastrService, public accountService: AccountService, private languageService: LanguageService,
-     public dialog: MatDialog) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe({
-        next: user => this.user = user
-      })
+  ngOnInit(){
+    this.setupCurrentUser()
+    this.selectedLanguage = this.languageService.getCurrentLanguage();
   }
 
-  ngOnInit(){
+  
+  setupCurrentUser(){
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => this.user = user
+    })
     if(this.user)
     this.memberService.getMember(this.user?.username).subscribe({
       next: member => this.member = member
@@ -65,12 +74,8 @@ export class SettingsComponent {
 
   viewBlockedUsers() {
     this.blockService.getBlockedUsers().subscribe({
-      next: (blockedMembers: Member[]) => {
-        this.blockedMembers = blockedMembers;
-      },
-      error: (error) => {
-        console.error('Error fetching blocked members:', error);
-      },
+      next: (blockedMembers: Member[]) => {this.blockedMembers = blockedMembers;},
+      error: (error) => {console.error('Error fetching blocked members:', error);},
       complete: () => {
         const dialogRef = this.dialog.open(ViewBlockedUsersComponent, {
           width: '400px',
@@ -80,10 +85,10 @@ export class SettingsComponent {
     });
   }
 
-  notice(msg: string) {
+  notice() {
     const dialogRef = this.dialog.open(NoticeModalComponent, {
       width: '400px',
-      data: { message: msg }
+      //data: { message: msg }
     });
   }
 
@@ -97,5 +102,6 @@ export class SettingsComponent {
       },
     });
   }
+
 
 }

@@ -1,26 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notice-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './notice-modal.component.html',
   styleUrl: './notice-modal.component.css'
 })
 export class NoticeModalComponent {
-  //msg: string | undefined;
+  private dialogRef = inject(MatDialogRef<NoticeModalComponent>)
 
-  //private dialogRef = Inject(MatDialogRef<NoticeModalComponent>)
-  //@Inject(MAT_DIALOG_DATA) public data: { message: string; } | undefined 
-
-  constructor(public dialogRef: MatDialogRef<NoticeModalComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: { message: string }) { }
-
-
-  ok(){
-    this.dialogRef.close(true);
-  }
+  ok(){this.dialogRef.close(true);}
 
 }

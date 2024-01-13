@@ -40,15 +40,15 @@
             <!-- Delete User Button -->
             <div class="flex-col mr-4" *ngIf="!isUser && hasAdminRole()">
                 <button class="border bg-transparent border-red-500 text-white
-                    hover:bg-red-500 font-bold py-2 px-4 rounded-full">
-                    {{'profile.delete_user' | translate}}
+                    hover:bg-red-500 py-1 px-2 rounded-full" (click)="notice()">
+                    {{'profile.delete_user' | translate}} 
                 </button>
             </div>
 
             <!-- Block User Button -->
             <div class="flex-col mr-4" *ngIf="!isUser">
                 <button class="border bg-transparent border-red-500 text-white
-                    hover:bg-red-500 font-bold py-2 px-4 rounded-full"
+                    hover:bg-red-500 py-1 px-2 rounded-full"
                     (click)="block(member)">
                     {{'profile.block' | translate}}
                 </button>
@@ -58,19 +58,19 @@
             <div class="flex flex-col text-right">
                 <!-- Edit Button -->
                 <button class="border bg-transparent border-blue-500 text-white
-                    hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
+                    hover:bg-blue-500  py-1 px-2 rounded-full"
                     *ngIf="isUser" (click)="editProfile(member)">
                     {{'profile.edit_profile' | translate}}
                 </button>
                 <!-- Follow Button -->
                 <button class="border bg-transparent border-blue-500 text-white
-                    hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
+                    hover:bg-blue-500  py-1 px-2 rounded-full"
                     (click)="follow(member)" *ngIf="!isUser && !isFollow">
                     {{'profile.follow' | translate}}
                 </button>
                 <!-- Unfollow Button -->
                 <button class="border bg-transparent border-blue-500 text-white
-                    hover:bg-blue-500 font-bold py-2 px-4 rounded-full"
+                    hover:bg-blue-500 py-1 px-2 rounded-full"
                     (click)="unfollow(member)" *ngIf="!isUser && isFollow">
                     {{'profile.unfollow' | translate}}
                 </button>
@@ -165,7 +165,7 @@
             <!-- Delete User Button -->
             <div class="flex-col mr-4" *ngIf="!isUser && hasAdminRole()">
                 <button class="border bg-transparent border-red-500 text-white
-                    hover:bg-red-500 font-bold py-2 px-4 rounded-full">
+                    hover:bg-red-500 py-1 px-2 rounded-full">
                     {{'profile.delete_user' | translate}}
                 </button>
             </div>
@@ -173,7 +173,7 @@
             <!-- Unblock User Button -->
             <div class="flex-col mr-4" *ngIf="!isUser">
                 <button class="border bg-transparent border-red-500 text-white
-                    hover:bg-red-500 font-bold py-2 px-4 rounded-full"
+                    hover:bg-red-500 py-1 px-2 rounded-full"
                     (click)="unblock(member)">
                     {{'profile.unblock' | translate}}
                 </button>
