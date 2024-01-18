@@ -1,5 +1,5 @@
 cannot delete trillls that have likes, retrills or have been bookmarked
-sometimes that correct language will not be apoplied to some of the modals
+sometimes that correct language will not be applied to some of the modals
 sometimes the entire application will switch to the default language english
 language selected on settings page will switch to english on page refresh
 if you block a user who was following you it wont remove his unfollow

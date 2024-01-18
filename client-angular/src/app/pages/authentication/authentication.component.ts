@@ -1,15 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { Observable, of, take } from 'rxjs';
 import { User } from '../../_models/user';
-import { AccountService } from '../../_services/account.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup,  FormsModule,  ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup,  FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../../_forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../_forms/date-picker/date-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { LanguageService } from '../../_services/language.service';
+import { LanguageService, AccountService } from '../../shared/services.index';
 
 @Component({
   selector: 'app-authentication',
@@ -25,24 +24,18 @@ export class AuthenticationComponent {
   model: any = {}; // An object to store form input data.
   currentUser$: Observable<User | null> = of(null); // An observable to store the current user.
 
-  //toastr = inject(ToastrService)
+  toastr = inject(ToastrService)
 
   constructor(private accountService: AccountService, private router: Router, private toast: ToastrService,
-    private languageService: LanguageService,
+    private language: LanguageService,
     private fb: FormBuilder) { }
 
-    ngOnInit(): void {
-      this.currentUser$ = this.accountService.currentUser$;
-  
-      this.initializeForm();
-      this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
-  
-      // Set up language based on the current user
-      this.currentUser$.pipe(take(1)).subscribe(user => {
-        //this.languageService.setInitialLanguage(user);
-        console.log(":D")
-      });
-    }
+  ngOnInit(): void {
+    this.accountService.logout();
+    this.currentUser$ = this.accountService.currentUser$;
+    this.initializeForm();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+  }
 
   login() {
     this.accountService.login(this.model).subscribe({
@@ -67,9 +60,9 @@ export class AuthenticationComponent {
 
   initializeForm(){
     this.registerForm = this.fb.group({
-      gender: ['male'],
+      language: ['en'],
       username: ['', Validators.required],
-      displayName: ['', Validators.required],
+      displayname: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       location: ['', Validators.required],
       password: ['', [Validators.required, 
@@ -88,15 +81,15 @@ export class AuthenticationComponent {
   }
 
   register() {
-    const dob = this.GetDateOnly(this.registerForm.controls['dateOfBirth'].value)
-    const values = {...this.registerForm.value, dateOfBirth: this.GetDateOnly(dob)}
-    console.log(values)
+    const dob = this.GetDateOnly(this.registerForm.controls['dateOfBirth'].value);
+    const values = { ...this.registerForm.value, dateOfBirth: this.GetDateOnly(dob) };
     this.accountService.register(values).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/home')
-      },error: error => {
+      next: (user) => {this.router.navigateByUrl('/home');},
+      error: (error) => {
         this.validationErrors = error;
-      }
+        this.toastr.error = error
+      },
+      complete: () => {},
     });
   }
 

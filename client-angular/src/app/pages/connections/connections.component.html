@@ -36,9 +36,12 @@
         <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 
             rounded-md shadow-md flex items-center h-40 hover:cursor-pointer" 
             *ngIf="member" routerLink="/profile/{{member.username}}">
-
             <div class="w-36 h-36 overflow-hidden flex-shrink-0">
-                <img src="{{member.profilePic}}" alt="Profile Picture" class="w-full h-full object-cover">
+                @if (member.profilePic) {
+                    <img class="w-full h-full object-cover" src="{{member.profilePic}}" alt="">
+                }@else {
+                    <img class="w-full h-full object-cover" src="assets\images\sin_cara.png" alt="">
+                }
             </div>
 
             <div class="ml-4">

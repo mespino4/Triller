@@ -5,9 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data;
 
-public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, AppRole, int,
+public class DataContext : IdentityDbContext<AppUser, AppRole, int,
 		IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
-		IdentityRoleClaim<int>, IdentityUserToken<int>>(options) {
+		IdentityRoleClaim<int>, IdentityUserToken<int>> {
+
+	public DataContext(DbContextOptions options) : base(options) { }
+
 	public DbSet<Connection> Connections { get; set; }
 	public DbSet<Trill> Trills { get; set; }
 	public DbSet<Bookmark> Bookmarks { get; set; }
@@ -74,13 +77,14 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.HasOne(u => u.User)
 			.WithMany(t => t.TrillsLiked)
 			.HasForeignKey(u => u.UserId)
-			.OnDelete(DeleteBehavior.Cascade); // Change this line to Cascade
+			.OnDelete(DeleteBehavior.Cascade); 
 
 		builder.Entity<TrillLike>()
 			.HasOne(t => t.Trill)
 			.WithMany(t => t.Likes)
 			.HasForeignKey(t => t.TrillId)
-			.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Restrict); 
+
 
 		// UserPhotos
 		builder.Entity<UserPhoto>()
@@ -101,12 +105,20 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 			.OnDelete(DeleteBehavior.NoAction);
 
 
-		//Trills
+		// Trills
 		builder.Entity<Trill>()
 			.HasMany(t => t.Replies) // One Trill has many Replies
 			.WithOne(tr => tr.ParentTrill) // Each Reply has one ParentTrill
 			.HasForeignKey(tr => tr.ParentTrillId) // Foreign key property
-			.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Cascade); // Cascade delete on Trill side
+
+		// TrillReplies
+		builder.Entity<TrillReply>()
+			.HasOne(tr => tr.ParentTrill)
+			.WithMany(t => t.Replies)
+			.HasForeignKey(tr => tr.ParentTrillId)
+			.OnDelete(DeleteBehavior.Restrict); // Restrict delete on TrillReply side
+
 
 		//reactions for replies
 		builder.Entity<UserReaction>()

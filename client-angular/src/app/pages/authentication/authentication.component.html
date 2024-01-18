@@ -1,3 +1,4 @@
+<!--Login-->
 <body class="flex items-center justify-center" *ngIf="isLogin">
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-3xl font-semibold mb-4">Login</h2>
@@ -32,7 +33,7 @@
     </div>
 </body>
 
-
+<!--Register-->
 <body class="flex items-center justify-center" *ngIf="!isLogin">
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-3xl font-semibold mb-4">Register</h2>
@@ -40,18 +41,18 @@
         <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
 
             <div class="flex items-center mb-4">
-                <label class="mr-2">I am a</label>
+                <label class="mr-2">Language: </label>
                 <label class="inline-flex items-center">
-                  <input type="radio" class="form-radio text-indigo-600" value="male" formControlName="gender">
-                  <p class="ml-2">Male</p>
+                  <input type="radio" class="form-radio text-indigo-600" value="en" formControlName="language">
+                  <p class="ml-2">English</p>
                 </label>
                 <label class="inline-flex items-center ml-4">
-                  <input type="radio" class="form-radio text-indigo-600" value="female" formControlName="gender">
-                  <p class="ml-2">Female</p>
+                  <input type="radio" class="form-radio text-indigo-600" value="es" formControlName="language">
+                  <p class="ml-2">Spanish</p>
                 </label>
             </div>
 
-            <app-text-input [formControl]="$any(registerForm.controls['displayName'])"
+            <app-text-input [formControl]="$any(registerForm.controls['displayname'])"
                 [label]="'Name'"></app-text-input>
 
             <app-text-input [formControl]="$any(registerForm.controls['username'])"
@@ -73,8 +74,7 @@
                 class="bg-blue-500 text-white px-4 py-2 rounded-md w-full
                     transition duration-300
                     {{ registerForm.valid ? 'hover:bg-blue-600' : 'filter grayscale pointer-events-none' }}"
-                (click)="register()" [disabled]="!registerForm.valid"
-                routerLink="/home">Register
+                (click)="register()" [disabled]="!registerForm.valid">Register
             </button>
         </form>
 

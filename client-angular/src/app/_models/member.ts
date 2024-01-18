@@ -11,8 +11,8 @@ export interface Member {
   language: string;
   about: string
   location: string
-  profilePic: string
-  bannerPic: string
+  profilePic?: string
+  bannerPic?: string
   //trills: Trill[]
   //bookmarks: Bookmark[]
   //roles: string[]

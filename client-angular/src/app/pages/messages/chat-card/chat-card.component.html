@@ -3,8 +3,11 @@
     <div class="flex items-center">
       
       <div class="relative inline-block mr-4">
-          <img class="w-12 h-12 rounded-full "
-          src="{{member.profilePic}}" />
+        @if (member.profilePic) {
+            <img class="w-12 h-12 rounded-full " src="{{member.profilePic}}" alt="">
+        }@else {
+            <img class="w-12 h-12 rounded-full " src="assets\images\sin_cara.png" alt="">
+        }
         <span class="w-4 h-4 rounded-full bg-green-500 
               border-2 border-gray-900 absolute bottom-0 right-0"
               *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">

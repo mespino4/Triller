@@ -52,7 +52,7 @@ public class BookmarkController : BaseApiController {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId);
+		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId, user.Id);
 		if(bookmark == null) return BadRequest("Bookmark not found");
 
 		_bookmarkRepository.RemoveBookmark(bookmark);
@@ -77,7 +77,7 @@ public class BookmarkController : BaseApiController {
 		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId);
+		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId, user.Id);
 		if(bookmark != null) return Ok(true); else return Ok(false);
 	}
 }

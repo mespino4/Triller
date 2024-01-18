@@ -26,7 +26,7 @@ export class SidebarLeftComponent implements OnInit{
     private router: Router,
     private memberService: MemberService,
     public dialog: MatDialog,
-    private languageService: LanguageService) {}
+    private language: LanguageService) {}
 
   ngOnInit(): void {
     this.initializeUser();
@@ -35,10 +35,10 @@ export class SidebarLeftComponent implements OnInit{
 
   initializeUser(): void {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        this.user = user;
-      }
+      next: user => {this.user = user;}
     });
+    if(this.user)
+    this.language.setCurrentLanguage(this.user.language)
   }
 
   loadMember(): void {

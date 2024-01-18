@@ -8,10 +8,17 @@
 
       <img *ngIf="bannerPreview" [src]="bannerPreview" alt="Thumbnail" class="w-full h-40 rounded object-cover">
 
-      <img *ngIf="!bannerPreview"
-        src="{{member.bannerPic}}"
-        alt="Banner Picture"
-        class="w-full h-40 rounded object-cover"/>
+      @if (member.bannerPic) {
+        <img *ngIf="!bannerPreview"
+          src="{{member.bannerPic}}"
+          alt="Banner Picture"
+          class="w-full h-40 rounded object-cover"/>
+      }@else {
+        <img *ngIf="!bannerPreview"
+          src="assets\images\sin_banner.png"
+          alt="Banner Picture"
+          class="w-full h-40 rounded object-cover"/>
+      }
 
       <label
         class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-500 border-2 border-gray-900 absolute -bottom-0 right-0"
@@ -27,11 +34,19 @@
       <img *ngIf="profilePreview" [src]="profilePreview" alt="Thumbnail" 
       class="w-32 h-32 rounded-full absolute -bottom-10 left-4 border-4 border-gray-800">
 
-      <img *ngIf="!profilePreview"
-        id="profilePic"
-        src="{{member.profilePic}}"
-        alt="Profile Picture"
-        class="w-32 h-32 rounded-full absolute -bottom-10 left-4 border-4 border-gray-800"/>
+      @if (member.profilePic) {
+        <img *ngIf="!profilePreview"
+          id="profilePic"
+          src="{{member.profilePic}}"
+          alt="Profile Picture"
+          class="w-32 h-32 rounded-full absolute -bottom-10 left-4 border-4 border-gray-800"/>
+      }@else {
+        <img *ngIf="!profilePreview"
+          id="profilePic"
+          src="assets\images\sin_banner.png"
+          alt="Profile Picture"
+          class="w-32 h-32 rounded-full absolute -bottom-10 left-4 border-4 border-gray-800"/>
+      }
 
       <label
         class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-500 border-2 border-gray-900 absolute -bottom-8 left-28"

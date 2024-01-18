@@ -24,28 +24,38 @@ public class AccountController : BaseApiController {
 		_mapper = mapper;
 	}
 
-	[HttpPost("register")] //api/account/register
+	[HttpPost("register")]
 	public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDto) {
+		// Check if the username already exists
 		if(await UserExists(registerDto.Username)) return BadRequest("Username already exists");
 
+		// Create a new user object with the provided username
 		var user = _mapper.Map<AppUser>(registerDto);
-		user.UserName = registerDto.Username.ToLower(); // Create a new user object with the provided username.
+		user.UserName = registerDto.Username.ToLower();
 
-		var result = await _userManager.CreateAsync(user, registerDto.Password); // Add the user to the database
+		// Add the user to the database
+		var result = await _userManager.CreateAsync(user, registerDto.Password);
 		if(!result.Succeeded) return BadRequest(result.Errors);
+		
+		// Assign the 'Member' role to the user
+		var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+		if(!roleResult.Succeeded) return BadRequest(roleResult.Errors);
 
-		var roleResult = await _userManager.CreateAsync(user, "Member");
-		if(!roleResult.Succeeded) return BadRequest(result.Errors);
-
-		// Return the newly registered user.
-		return new UserDTO {
+		// Return the newly registered user
+		var userDto = new UserDTO {
+			UserId = user.Id,
 			Username = user.UserName,
 			Token = await _tokenService.CreateToken(user),
-			DisplayName = user.DisplayName,
+			Language = user.Language,
+			Displayname = user.DisplayName,
 			ProfilePic = user.ProfilePic,
 			BannerPic = user.BannerPic,
 		};
+
+		return userDto;
 	}
+
+
 
 	[HttpPost("login")] // Endpoint for user login (HTTP POST request to /api/account/login)
 	public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDto) {
@@ -65,7 +75,7 @@ public class AccountController : BaseApiController {
 			Username = user.UserName,
 			Token = await _tokenService.CreateToken(user),
 			Language = user.Language,
-			DisplayName = user.DisplayName,
+			Displayname = user.DisplayName,
 			ProfilePic = user.ProfilePic,
 			BannerPic = user.BannerPic,
 		};
@@ -91,6 +101,8 @@ public class AccountController : BaseApiController {
 	}
 
 
+
+	//i was gonna let the user delete his account but i ran into problems
 	[HttpDelete("delete")]
 	public async Task<IActionResult> DeleteUser(int userId) {
 		try {

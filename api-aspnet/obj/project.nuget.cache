@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2kwQKs1Q1f0OV40Ldu01OSaKbJaQ7WaPTO98JhsYEyAFvE87bPRhQlGR3DP3DM0pb4U+kt/GPoXIhE7/Rsa9Pg==",
+  "dgSpecHash": "Vbsjj3eXXgBv6xNYSsI7ylznuJqSdPUPZhMJF9F9VWnSFRONOqPiwMr29rHDBHvu1bbDUwaD2X9t948daS9fYw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
   "expectedPackageFiles": [
@@ -136,5 +136,26 @@
     "C:\\Users\\mely\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\mely\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 7.0.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 7.0.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g9c-28fc-mcx2",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

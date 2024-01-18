@@ -2,7 +2,11 @@
     <div class="mb-4 flex " *ngIf="!isSender">
         <div >
             <div class="flex mb-1">
-                <img src="{{message.senderPhotoUrl}}" alt="recipient" class="w-10 h-10 rounded-full mr-2">
+                @if (message.senderPhotoUrl) {
+                    <img src="{{message.senderPhotoUrl}}" alt="recipient" class="w-10 h-10 rounded-full mr-2">
+                }@else {
+                    <img src="assets\images\sin_cara.png" alt="recipient" class="w-10 h-10 rounded-full mr-2">
+                }
                 <div class="bg-gray-300 text-xl p-2 rounded-md max-w-xs">
                     {{message.content}}
                 </div>
@@ -24,7 +28,11 @@
                 <div class="bg-blue-500 text-xl text-white p-2 rounded-md max-w-xs hover:cursor-default">
                     {{message.content}}
                 </div>
-                <img src="{{message.senderPhotoUrl}}" alt="sender" class="w-10 h-10 rounded-full ml-2">
+                @if (message.senderPhotoUrl) {
+                    <img src="{{message.senderPhotoUrl}}" alt="sender" class="w-10 h-10 rounded-full ml-2">
+                }@else {
+                    <img src="assets\images\sin_cara.png" alt="sender" class="w-10 h-10 rounded-full ml-2">
+                }
             </div>
         </div>
         <p class="text-gray-500 text-sm flex justify-end mr-12">{{message.timestamp | date:'short' }}</p>

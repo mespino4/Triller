@@ -821,13 +821,13 @@ namespace api_aspnet.src.Data.Migrations
                     b.HasOne("api_aspnet.src.Entities.Trill", "Trill")
                         .WithMany("Likes")
                         .HasForeignKey("TrillId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("api_aspnet.src.Entities.AppUser", "User")
                         .WithMany("TrillsLiked")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Trill");
@@ -860,7 +860,8 @@ namespace api_aspnet.src.Data.Migrations
 
                     b.HasOne("api_aspnet.src.Entities.Trill", "ParentTrill")
                         .WithMany("Replies")
-                        .HasForeignKey("ParentTrillId");
+                        .HasForeignKey("ParentTrillId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Author");
 
@@ -899,7 +900,7 @@ namespace api_aspnet.src.Data.Migrations
                     b.HasOne("api_aspnet.src.Entities.TrillReply", "TrillReply")
                         .WithMany("Reactions")
                         .HasForeignKey("TrillReplyId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("api_aspnet.src.Entities.AppUser", "User")

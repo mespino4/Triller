@@ -1,4 +1,4 @@
-<div class="flex-auto" style="width: 990px;">
+<div class="flex-auto" >
     <section class=" border border-y-0 border-gray-800">
       <!--Content (Center)-->
       <!-- Nav back-->
@@ -23,13 +23,11 @@
     </section>
 </div>
   
-<!-- component -->
-<section class="w-full border border-y-0 border-gray-800" >
-  <!--Feed-->
-  <div *ngIf="!isEmpty" class="w-full border border-y-0 border-gray-800">
-      <ul *ngFor="let trill of (trills$ | async)">
-          <app-trill-card [trill]="trill"></app-trill-card>
-      </ul>
-  </div>
 
-</section>
+
+<!--Bookmarks-->
+<div *ngIf="!isEmpty" class="w-full border border-y-0 border-gray-800">
+    <ul *ngFor="let trill of (trills$ | async)">
+        <app-trill-card [trill]="trill"></app-trill-card>
+    </ul>
+</div>

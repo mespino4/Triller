@@ -1,9 +1,17 @@
 <!-- User card-->
 <div *ngIf="member && !isMemberBlocked && !isUserBlocked">
 
-    <div class="w-full bg-cover bg-no-repeat bg-center" style="height: 200px; background-image: url({{member.bannerPic}});">
-        <img class="opacity-0 w-full h-full" src="{{member.bannerPic}}" alt="">
-    </div>
+    @if (member.bannerPic) {
+        <div class="w-full bg-cover bg-no-repeat bg-center" 
+            style="height: 200px; background-image: url({{member.bannerPic}});">
+            <img class="opacity-0 w-full h-full" src="{{member.bannerPic}}" alt="">
+        </div>
+    }@else {
+        <div class="w-full bg-cover bg-no-repeat bg-center" 
+            style="height: 200px; background-image: url('/assets/images/sin_banner.png');">
+            <img class="opacity-0 w-full h-full" src="assets\images\sin_banner.png" alt="">
+        </div>
+    }
     
     <div class="p-4">
         <div class="relative flex w-full">
@@ -11,8 +19,13 @@
             <div class="flex flex-1">
                 <div style="margin-top: -6rem;">
                     <div style="height:9rem; width:9rem;" class="md rounded-full relative avatar ">
-                        <img style="height:9rem; width:9rem;" class="md rounded-full relative border-4 border-gray-900" 
-                            src="{{member.profilePic}}" alt="">
+                        @if (member.profilePic) {
+                            <img style="height:9rem; width:9rem;" class="md rounded-full relative border-4 border-gray-900" 
+                                src="{{member.profilePic}}" alt="">
+                        }@else {
+                            <img style="height:9rem; width:9rem;" class="md rounded-full relative border-4 border-gray-900" 
+                                src="assets\images\sin_cara.png" alt="">
+                        }
 
                         <div *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">
                             <span class="w-8 h-8 rounded-full bg-green-500 

@@ -28,7 +28,7 @@ public class BookmarkRepository : IBookmarkRepository {
 	}
 
 	public async Task<List<Trill>> GetBookmarks(int userId) {
-		var trillEntities = await _context.Bookmarks
+		var bookmarks = await _context.Bookmarks
 			.Where(b => b.UserId == userId)
 			.Include(l => l.Trill.Likes)
 			.Include(r => r.Trill.Replies)
@@ -37,14 +37,15 @@ public class BookmarkRepository : IBookmarkRepository {
 			.Select(b => b.Trill)
 			.ToListAsync();
 
-		return trillEntities;
+		return bookmarks;
 	}
 
-	public async Task<Bookmark> GetBookmarkByTrillId(int trillId) {
+	public async Task<Bookmark> GetBookmarkByTrillId(int trillId, int userId) {
 		return await _context.Bookmarks
-			.Where(b => b.TrillId == trillId)
+			.Where(b => b.TrillId == trillId && b.UserId == userId)
 			.FirstOrDefaultAsync();
 	}
+
 	public async Task<bool> SaveAllAsync() {
 		return await _context.SaveChangesAsync() > 0;
 	}

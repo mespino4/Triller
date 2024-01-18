@@ -26,7 +26,8 @@ export class AccountService {
   private notificationSource = new BehaviorSubject<Notification[]>([]);
   notification$ = this.notificationSource.asObservable();
 
-  constructor(private http: HttpClient, private presenceService: PresenceService)  { }
+  constructor(private http: HttpClient, private presenceService: PresenceService,
+    private language: LanguageService,)  { }
 
   // Function to send a login request to the server.
   login(model: any) {
@@ -37,6 +38,7 @@ export class AccountService {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
+          this.language.setInitialLanguage(user.language)
         }
       })
     );
@@ -52,17 +54,16 @@ export class AccountService {
       )
   }
 
-  // Function to send a register request to the server.
-  register(model: any) {
+  register(model: any): Observable<User> {
     return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
-      map(user => {
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
-        }
+      map((user: User) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.currentUserSource.next(user);
+        return user; // Pass the user through the observable chain
       })
     );
   }
+  
 
   // Function to set the current user.
   setCurrentUser(user: User) {

@@ -18,9 +18,12 @@
         <!--Post Reply-->
         <hr class="border-gray-800 border-4">
         <div class="flex" >
-            <div class="m-2 w-10 py-1">
-                <img class="inline-block h-10 w-10 rounded-full" 
-                    *ngIf="user" src="{{user.profilePic}}" alt="">
+            <div class="m-2 w-10 py-1" *ngIf="user">
+                @if (user.profilePic) {
+                    <img class="inline-block h-10 w-10 rounded-full" src="{{user.profilePic}}" alt="">
+                }@else {
+                    <img class="inline-block h-10 w-10 rounded-full" src="assets\images\sin_cara.png" alt="">
+                }
             </div>
             <div class="flex-1 px-2 pt-2 mt-2">
                 <form #replyForm="ngForm" (ngSubmit)="createReply(trill.id)" autocomplete="off">

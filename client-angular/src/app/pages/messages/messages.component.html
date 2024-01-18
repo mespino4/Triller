@@ -17,9 +17,11 @@
   <div class="flex-1 flex flex-col items-center w-full justify-between" *ngIf="member">
     <!-- Chat Window Header--> 
     <div class="p-4 w-full border-b flex items-center bg-gray-800" >
-      <img src="{{member.profilePic}}" 
-          alt="Friend 1" class="w-12 h-12 rounded-full mr-4">
-
+      @if (member.profilePic) {
+        <img src="{{member.profilePic}}" alt="Friend 1" class="w-12 h-12 rounded-full mr-4">
+      }@else {
+          <img src="assets\images\sin_cara.png" alt="Friend 1" class="w-12 h-12 rounded-full mr-4">
+      }
       <div>
         <h2 class="text-lg font-semibold text-white">{{member.displayname}}</h2>
         

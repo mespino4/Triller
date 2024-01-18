@@ -4,6 +4,15 @@
         <div class="flex p-2 items-center">
             <a class=" group block">
                 <div class="flex items-center">
+                    @if (member$?.profilePic) {
+                        <img src="{{member$?.profilePic}}" alt="Profile Image" 
+                            class="w-10 h-10 rounded-full mx-2 hover:cursor-pointer"
+                            routerLink="/profile/{{member$?.username}}">
+                    }@else {
+                        <img src="assets\images\sin_cara.png" alt="Profile Image" 
+                            class="w-10 h-10 rounded-full mx-2 hover:cursor-pointer"
+                            routerLink="/profile/{{member$?.username}}">
+                    }
                     <img src="{{member$?.profilePic}}" alt="Profile Image" 
                         class="w-10 h-10 rounded-full mx-2 hover:cursor-pointer"
                         routerLink="/profile/{{member$?.username}}">

@@ -127,7 +127,6 @@ export class TrillCardComponent {
     });
   }
   
-
   //bookmarks
   addBookmark(trillId: number): void {
     this.bookmarkService.addBookmark(trillId).subscribe({

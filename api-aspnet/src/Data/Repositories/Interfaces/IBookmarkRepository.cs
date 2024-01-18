@@ -7,6 +7,6 @@ public interface IBookmarkRepository {
 	void AddBookmark(Bookmark bookmark);
 	void RemoveBookmark(Bookmark bookmark);
 	Task<List<Trill>> GetBookmarks(int userId);
-	Task<Bookmark> GetBookmarkByTrillId(int trillId);
+	Task<Bookmark> GetBookmarkByTrillId(int trillId, int userId);
 	Task<bool> SaveAllAsync();
 }

@@ -13,9 +13,7 @@ public class AutoMapperProfiles : Profile {
 		
 		CreateMap<MemberUpdateDTO, AppUser>();
 
-		/*
-		CreateMap<RegisterDto, AppUser>();
-		*/
+		CreateMap<RegisterDTO, AppUser>();
 
 		CreateMap<Trill, TrillDTO>()
 			.ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Likes.Count))

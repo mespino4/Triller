@@ -393,13 +393,13 @@ namespace api_aspnet.src.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TrillLikes_Trills_TrillId",
                         column: x => x.TrillId,
                         principalTable: "Trills",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -454,7 +454,8 @@ namespace api_aspnet.src.Data.Migrations
                         name: "FK_TrillReplies_Trills_ParentTrillId",
                         column: x => x.ParentTrillId,
                         principalTable: "Trills",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -518,7 +519,8 @@ namespace api_aspnet.src.Data.Migrations
                         name: "FK_UserReactions_TrillReplies_TrillReplyId",
                         column: x => x.TrillReplyId,
                         principalTable: "TrillReplies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

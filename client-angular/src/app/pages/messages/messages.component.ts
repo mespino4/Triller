@@ -34,8 +34,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   public presenceService = inject(PresenceService)
   private route = inject(ActivatedRoute)
 
-
-
   async ngOnInit(): Promise<void> {
     this.currentUser = await firstValueFrom(this.accountService.currentUser$.pipe(take(1)));
     this.setupRouteListener();

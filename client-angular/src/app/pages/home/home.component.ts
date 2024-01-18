@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,18 +34,17 @@ export class HomeComponent {
   trillImage: File | null = null;
   trillImageThumbnail: string | null = null;
 
-  constructor(public accountService: AccountService, private bookmarkService: BookmarkService, 
-    private trillService: TrillService, private cdr: ChangeDetectorRef) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => this.user = user
-    })
-  }
+  private accountService = inject(AccountService)
+  private bookmarkService = inject(BookmarkService)
+  private trillService = inject(TrillService)
+  private cdr = inject(ChangeDetectorRef)
 
   ngOnInit(): void {
     this.loadForYouTrills()
-    //this.loadFollowingTrills()
-    //this.isForYou = true
-    //this.loadTrills();
+
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => this.user = user
+    })
   }
 
   /*
