@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { AccountService, LanguageService, MemberService } from '../../shared/services.index';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Member, User } from '../../shared/models.index';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccountService, LanguageService, MemberService } from '../../shared/services.index';
+import { Member, User } from '../../shared/models.index';
+import { ExploreUsersModalComponent } from '../../_modals/explore-users-modal/explore-users-modal.component';
 
 @Component({
   selector: 'app-sidebar-right',
@@ -15,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './sidebar-right.component.html',
   styleUrl: './sidebar-right.component.css'
 })
+
 export class SidebarRightComponent {
   member: Member | undefined;
   user: User | null = null;
@@ -27,11 +29,11 @@ export class SidebarRightComponent {
     public dialog: MatDialog, private cdr: ChangeDetectorRef,
     private languageService: LanguageService) {}
     
-    ngOnInit(): void {
-      this.initializeUser();
-      this.loadUser();
-      this.exploreUsers(4)
-    }
+  ngOnInit(): void {
+    this.initializeUser();
+    this.loadUser();
+    this.exploreUsers(4)
+  }
   
   initializeUser(): void {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
@@ -58,4 +60,9 @@ export class SidebarRightComponent {
     });
   }
 
+  viewExploreUsers() {
+    const dialogRef = this.dialog.open(ExploreUsersModalComponent, {
+      width: '400px',
+    });
+  }
 }

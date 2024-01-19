@@ -43,7 +43,6 @@
         </div>
     </div>
 
-
     <div class="my-5"></div>
 
     <div class="max-w-sm rounded-lg overflow-hidden" style="background-color: #15202b" >
@@ -73,12 +72,11 @@
             <hr class="border-gray-800">
         </div>
         
-    
         <!-- Show more -->
         <div class="flex p-4">
-            <h2 class="ml-2 font-bold text-blue-400">{{ 'sidebar-right.show_more' | translate }}</h2>
+            <h2 class="ml-2 font-bold text-blue-400 hover:cursor-pointer hover:underline" 
+                (click)="viewExploreUsers()">
+                {{ 'sidebar-right.show_more' | translate }}</h2>
         </div>
     </div>
-    
-
 </div>

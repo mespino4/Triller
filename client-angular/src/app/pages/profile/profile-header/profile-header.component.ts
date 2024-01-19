@@ -102,7 +102,7 @@ export class ProfileHeaderComponent {
   private connectionStatus(member: Member): void {
     this.memberService.getConnectionStatus(member.id).subscribe({
       next: response => this.isFollow = response,
-      error: error => console.error('Error fetching blocked members:', error),
+      error: error => console.error('Error fetching connections:', error),
       complete: () => console.log('this is the follow ', this.isFollow)
     });
   }

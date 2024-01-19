@@ -21,7 +21,6 @@ export class TrillModalComponent {
   trillImage: File | null = null;
   trillImageThumbnail: string | null = null;
   
-
   constructor(public accountService: AccountService,
     private trillService: TrillService, public dialogRef: MatDialogRef<TrillModalComponent>) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
