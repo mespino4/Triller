@@ -7,13 +7,14 @@ import { provideToastr } from 'ngx-toastr';
 import { jwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate/core';
+import { errorInterceptor } from './_interceptors/error.interceptor';
+import { loadingInterceptor } from './_interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), 
-    provideHttpClient(), 
     provideAnimations(), 
-    provideToastr({preventDuplicates: true}), 
-    provideHttpClient(withInterceptors([jwtInterceptor])),
+    provideToastr({preventDuplicates: true}),
+    provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor, loadingInterceptor])),
     importProvidersFrom(HttpClientModule),
     importProvidersFrom(
       TranslateModule.forChild({
@@ -22,7 +23,7 @@ export const appConfig: ApplicationConfig = {
           useFactory: createTranslateLoader,
           deps: [HttpClient],
         },
-      })
+      }),
     ),
     TranslateStore
   ],

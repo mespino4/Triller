@@ -123,9 +123,4 @@ public class UserRepository : IUserRepository {
 
 		return randomUsers;
 	}
-
-
-	public async Task<bool> SaveAllAsync() {
-			return await _context.SaveChangesAsync() > 0;
-	}
 }

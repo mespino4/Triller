@@ -9,5 +9,4 @@ public interface IBlockRepository {
 	bool IsUserBlocked(int userId, int blockedUserId);
 	Task<List<AppUser>> GetBlockedMembers(int userId);
 	Task<Block> GetBlock(int userId, int blockedUserId);
-	Task<bool> SaveAllAsync();
 }

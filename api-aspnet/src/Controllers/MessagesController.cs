@@ -1,27 +1,18 @@
 ﻿using api_aspnet.src.Data.Repositories.Interfaces;
-using api_aspnet.src.Data.Repositories;
 using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
 using api_aspnet.src.Helpers;
 using AutoMapper;
-using Azure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using api_aspnet.src.Extensions;
 
 namespace api_aspnet.src.Controllers;
 
 public class MessagesController : BaseApiController{
-	private readonly IUserRepository _userRepository;
-	private readonly IMessageRepository _messageRepository;
-	private readonly IChatCardRepository _chatCardRepository;
+	private readonly IUnitOfWork _uow;
 	private readonly IMapper _mapper;
-	public MessagesController(IUserRepository userRepository, IMessageRepository messageRepository,
-		IChatCardRepository chatCardRepository, IMapper mapper) {
-		_userRepository = userRepository;
-		_messageRepository = messageRepository;
-		_chatCardRepository = chatCardRepository;
+	public MessagesController(IUnitOfWork uow, IMapper mapper) {
+		_uow = uow;
 		_mapper = mapper;
 	}
 
@@ -32,8 +23,8 @@ public class MessagesController : BaseApiController{
 		if(username == createMessageDto.RecipientUsername.ToLower())
 			return BadRequest("You cannot send messages to yourself");
 
-		var sender = await _userRepository.GetUserByUsernameAsync(username);
-		var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+		var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
+		var recipient = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
 		if(recipient == null) return BadRequest("Recipient not found");
 
@@ -46,7 +37,7 @@ public class MessagesController : BaseApiController{
 		};
 
 		// Check if a ChatCard already exists
-		var chatCard = await _chatCardRepository.GetChatCardAsync(username, recipient.UserName);
+		var chatCard = await _uow.ChatCardRepository.GetChatCardAsync(username, recipient.UserName);
 		if(chatCard == null) {
 			// If no ChatCard exists, create a new one
 			chatCard = new ChatCard {
@@ -56,9 +47,9 @@ public class MessagesController : BaseApiController{
 				Timestamp = DateTime.UtcNow
 			};
 
-			_chatCardRepository.AddChatCard(chatCard);
+			_uow.ChatCardRepository.AddChatCard(chatCard);
 
-			if(!await _chatCardRepository.SaveAllAsync())
+			if(!await _uow.Complete())
 				return BadRequest("Failed to save chat card");
 
 			// Now associate the ChatCard with the message
@@ -68,15 +59,15 @@ public class MessagesController : BaseApiController{
 			chatCard.RecentMessage = createMessageDto.Content;
 			chatCard.Timestamp = DateTime.UtcNow;
 
-			if(!await _chatCardRepository.SaveAllAsync())
+			if(!await _uow.Complete())
 				return BadRequest("Failed to update chat card timestamp");
 
 			// Associate the existing ChatCard with the message
 			message.ChatCardId = chatCard.Id;
 		}
-		_messageRepository.AddMessage(message);
+		_uow.MessageRepository.AddMessage(message);
 
-		if(await _messageRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<MessageDTO>(message));
 
 		return BadRequest("Failed to send message");
@@ -84,11 +75,11 @@ public class MessagesController : BaseApiController{
 
 	[HttpDelete] //api//messages
 	public async Task<ActionResult<MessageDTO>> RemoveMessage(int messageId) {
-		var message = await _messageRepository.GetMessage(messageId);
+		var message = await _uow.MessageRepository.GetMessage(messageId);
 		if(message == null) return BadRequest("Message not found");
-		_messageRepository.DeleteMessage(message);
+		_uow.MessageRepository.DeleteMessage(message);
 
-		if(await _messageRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<MessageDTO>(message));
 
 		return BadRequest("Failed to Delete message");
@@ -99,7 +90,7 @@ public class MessagesController : BaseApiController{
 			MessageParams messageParams) {
 		messageParams.Username = User.GetUsername();
 
-		var messages = await _messageRepository.GetMessagesForUser(messageParams);
+		var messages = await _uow.MessageRepository.GetMessagesForUser(messageParams);
 
 		Response.AddPaginationHeader(new PaginationHeader(messages.CurrentPage, messages.PageSize,
 			messages.TotalCount, messages.TotalPages));
@@ -107,26 +98,28 @@ public class MessagesController : BaseApiController{
 		return messages;
 	}
 
+	/*
 	[HttpGet("thread/{username}")]
 	public async Task<ActionResult<IEnumerable<MessageDTO>>> GetMessageThread(string username) {
 		var currentUsername = User.GetUsername();
-		var thread = await _messageRepository.GetMessageThread(currentUsername, username);
+		var thread = await _uow.MessageRepository.GetMessageThread(currentUsername, username);
 
 		//return Ok(_mapper.Map<IEnumerable<MessageDto>>(thread));
 		return Ok(thread);
 	}
+	*/
 
 	//this is to add a member to the users chatlist(the people they are chatting with)
 	[HttpPost("inbox/{username}")]
 	public async Task<ActionResult<ChatCardDTO>> Inbox(string username) {
-		var sender = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var sender = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(sender == null) return BadRequest("sender not found");
 
-		var recipient = await _userRepository.GetUserByUsernameAsync(username);
+		var recipient = await _uow.UserRepository.GetUserByUsernameAsync(username);
 		if(recipient == null) return BadRequest("recipient not found");
 
 		// Check if a ChatCard already exists
-		var chatCard = await _chatCardRepository.GetChatCardAsync(username, recipient.UserName);
+		var chatCard = await _uow.ChatCardRepository.GetChatCardAsync(username, recipient.UserName);
 
 		if(chatCard == null) { // If no ChatCard exists,
 			chatCard = new ChatCard { //create a new one
@@ -134,11 +127,11 @@ public class MessagesController : BaseApiController{
 				User2Username = recipient.UserName,
 				Timestamp = DateTime.UtcNow
 			};
-			_chatCardRepository.AddChatCard(chatCard);
+			_uow.ChatCardRepository.AddChatCard(chatCard);
 		} else
 			chatCard.Timestamp = DateTime.UtcNow; // Update the existing ChatCard's timestamp
 
-		if(await _chatCardRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<ChatCardDTO>(chatCard));
 
 		return BadRequest("Failed to open inbox");
@@ -150,7 +143,7 @@ public class MessagesController : BaseApiController{
 		var username = User.GetUsername(); // Assuming you have a User.GetUsername() extension method or similar
 		if(username == null) return BadRequest("User not found");
 
-		var recentChats = await _messageRepository.GetRecentChats(username);
+		var recentChats = await _uow.MessageRepository.GetRecentChats(username);
 		return Ok(recentChats);
 	}
 }

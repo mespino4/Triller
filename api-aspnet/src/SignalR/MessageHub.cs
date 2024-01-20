@@ -10,16 +10,11 @@ namespace api_aspnet.src.SignalR;
 
 [Authorize]
 public class MessageHub : Hub {
-	private readonly IMessageRepository _messageRepository;
-	private readonly IUserRepository _userRepository;
-	private readonly IChatCardRepository _chatCardRepository;
+	private readonly IUnitOfWork _uow;
 	private readonly IMapper _mapper;
 
-	public MessageHub(IMessageRepository messageRepository, IUserRepository userRepository,
-		IChatCardRepository chatCardRepository, IMapper mapper) {
-		_messageRepository = messageRepository;
-		_userRepository = userRepository;
-		_chatCardRepository = chatCardRepository;
+	public MessageHub(IUnitOfWork uow, IMapper mapper) {
+		_uow = uow;
 		_mapper = mapper;
 	}
 
@@ -29,8 +24,10 @@ public class MessageHub : Hub {
 		var groupName = GetGroupName(Context.User.GetUsername(), otherUser);
 		await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-		var messages = await _messageRepository
+		var messages = await _uow.MessageRepository
 			.GetMessageThread(Context.User.GetUsername(), otherUser);
+
+		if(_uow.HasChanges()) await _uow.Complete();
 
 		await Clients.Group(groupName).SendAsync("ReceiveMessageThread", messages);
 	}
@@ -50,8 +47,8 @@ public class MessageHub : Hub {
 		if(username == createMessageDto.RecipientUsername.ToLower())
 			throw new HubException("You cannot send messages to yourself");
 
-		var sender = await _userRepository.GetUserByUsernameAsync(username);
-		var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+		var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
+		var recipient = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
 		if(recipient == null)
 			throw new HubException("Recipient not found");
@@ -65,7 +62,7 @@ public class MessageHub : Hub {
 		};
 
 		// Check if a ChatCard already exists
-		var chatCard = await _chatCardRepository.GetChatCardAsync(username, recipient.UserName);
+		var chatCard = await _uow.ChatCardRepository.GetChatCardAsync(username, recipient.UserName);
 		if(chatCard == null) {
 			// If no ChatCard exists, create a new one
 			chatCard = new ChatCard {
@@ -75,9 +72,9 @@ public class MessageHub : Hub {
 				Timestamp = DateTime.UtcNow
 			};
 
-			_chatCardRepository.AddChatCard(chatCard);
+			_uow.ChatCardRepository.AddChatCard(chatCard);
 
-			if(!await _chatCardRepository.SaveAllAsync())
+			if(!await _uow.Complete())
 				throw new HubException("Failed to save chat card");
 
 			// Now associate the ChatCard with the message
@@ -87,16 +84,16 @@ public class MessageHub : Hub {
 			chatCard.RecentMessage = createMessageDto.Content;
 			chatCard.Timestamp = DateTime.UtcNow;
 
-			if(!await _chatCardRepository.SaveAllAsync())
+			if(!await _uow.Complete())
 				throw new HubException("Failed to update chat card timestamp");
 
 			// Associate the existing ChatCard with the message
 			message.ChatCardId = chatCard.Id;
 		}
 
-		_messageRepository.AddMessage(message);
+		_uow.MessageRepository.AddMessage(message);
 
-		if(await _messageRepository.SaveAllAsync()) {
+		if(await _uow.Complete()) {
 			var group = GetGroupName(sender.UserName, recipient.UserName);
 			await Clients.Group(group).SendAsync("NewMessage", _mapper.Map<MessageDTO>(message));
 		} else

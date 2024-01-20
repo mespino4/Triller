@@ -45,9 +45,5 @@ public class BookmarkRepository : IBookmarkRepository {
 			.Where(b => b.TrillId == trillId && b.UserId == userId)
 			.FirstOrDefaultAsync();
 	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
-	}
 }
 

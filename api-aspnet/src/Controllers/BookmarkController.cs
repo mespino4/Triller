@@ -8,27 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace api_aspnet.src.Controllers;
 
 public class BookmarkController : BaseApiController {
-	private readonly IUserRepository _userRepository;
-	private readonly IBookmarkRepository _bookmarkRepository;
-	private readonly ITrillRepository _trillRepository;
+	private readonly IUnitOfWork _uow;
 	private readonly IMapper _mapper;
 
-	public BookmarkController(IUserRepository userRepository,
-		IBookmarkRepository bookmarkRepository, ITrillRepository trillRepository,
-		IMapper mapper) {
-
-		_userRepository = userRepository;
-		_bookmarkRepository = bookmarkRepository;
-		_trillRepository = trillRepository;
+	public BookmarkController(IUnitOfWork uow, IMapper mapper) {
+		_uow = uow;
 		_mapper = mapper;
 	}
 
 	[HttpPost("add")] // /api/bookmark/add
 	public async Task<ActionResult<TrillDTO>> AddBookmark(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("trill not found");
 
 		var bookmark = new Bookmark {
@@ -39,9 +32,9 @@ public class BookmarkController : BaseApiController {
 			CreatedAt = DateTime.Now,
 		};
 
-		_bookmarkRepository.AddBookmark(bookmark);
+		_uow.BookmarkRepository.AddBookmark(bookmark);
 
-		if(await _bookmarkRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return _mapper.Map<TrillDTO>(bookmark.Trill);
 
 		return BadRequest("Failed to add bookmark");
@@ -49,14 +42,14 @@ public class BookmarkController : BaseApiController {
 
 	[HttpDelete("delete")] // /api/bookmark/delete
 	public async Task<ActionResult> DeleteBookmark(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId, user.Id);
+		var bookmark = await _uow.BookmarkRepository.GetBookmarkByTrillId(trillId, user.Id);
 		if(bookmark == null) return BadRequest("Bookmark not found");
 
-		_bookmarkRepository.RemoveBookmark(bookmark);
-		if(await _bookmarkRepository.SaveAllAsync()) return Ok();
+		_uow.BookmarkRepository.RemoveBookmark(bookmark);
+		if(await _uow.Complete()) return Ok();
 
 		return BadRequest("Failed to remove bookmark");
 	}
@@ -64,20 +57,20 @@ public class BookmarkController : BaseApiController {
 
 	[HttpGet("user")] // /api/bookmark/user
 	public async Task<ActionResult<IEnumerable<TrillDTO>>> GetUserBookmarks() {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var trills = await _bookmarkRepository.GetBookmarks(user.Id);
+		var trills = await _uow.BookmarkRepository.GetBookmarks(user.Id);
 		var trillDtos = _mapper.Map<IEnumerable<TrillDTO>>(trills);
 		return Ok(trillDtos);
 	}
 
 	[HttpGet] // /api/bookmark
 	public async Task<ActionResult<bool>> GetBookmark(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var bookmark = await _bookmarkRepository.GetBookmarkByTrillId(trillId, user.Id);
+		var bookmark = await _uow.BookmarkRepository.GetBookmarkByTrillId(trillId, user.Id);
 		if(bookmark != null) return Ok(true); else return Ok(false);
 	}
 }

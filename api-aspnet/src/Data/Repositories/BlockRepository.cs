@@ -9,11 +9,9 @@ namespace api_aspnet.src.Data.Repositories;
 
 public class BlockRepository : IBlockRepository {
 	private readonly DataContext _context;
-	private readonly IMapper _mapper;
 
-	public BlockRepository(DataContext context, IMapper mapper) {
+	public BlockRepository(DataContext context) {
 		_context = context;
-		_mapper = mapper;
 	}
 
 	public void BlockUser(Block block) {
@@ -45,9 +43,5 @@ public class BlockRepository : IBlockRepository {
 	public async Task<Block> GetBlock(int userId, int blockedUserId) {
 		return await _context.Blocks
 			.FirstOrDefaultAsync(b => b.UserId == userId && b.BlockedUserId == blockedUserId);
-	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
 	}
 }

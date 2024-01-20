@@ -1,5 +1,4 @@
 ﻿using api_aspnet.src.Data.Repositories.Interfaces;
-using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
 using api_aspnet.src.Helpers;
 using AutoMapper;
@@ -9,11 +8,9 @@ namespace api_aspnet.src.Data.Repositories;
 
 public class TrillRepository : ITrillRepository {
 	private readonly DataContext _context;
-	private readonly IMapper _mapper;
 
-	public TrillRepository(DataContext context, IMapper mapper) {
+	public TrillRepository(DataContext context) {
 		_context = context;
-		_mapper = mapper;
 	}
 	public void AddTrill(Trill trill) {
 		_context.Trills.Add(trill);
@@ -60,7 +57,7 @@ public class TrillRepository : ITrillRepository {
 			.Include(t => t.Likes)
 			.Include(t => t.Retrills)
 			.OrderByDescending(trill => trill.Timestamp)
-		//.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
+			//.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
 			.AsNoTracking();
 
 		return await PagedList<Trill>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
@@ -71,7 +68,7 @@ public class TrillRepository : ITrillRepository {
 			.Include(t => t.Likes)
 			.Where(trill => trill.AuthorId == userId)
 			.OrderByDescending(trill => trill.Timestamp) // Order by Timestamp in descending order
-			//.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
+														 //.ProjectTo<TrillDTO>(_mapper.ConfigurationProvider)
 			.ToListAsync();
 	}
 
@@ -124,9 +121,5 @@ public class TrillRepository : ITrillRepository {
 				.ThenInclude(reaction => reaction.User)  // Include the User navigation property within Reactions
 			.Where(tr => tr.ParentTrillId == trillId)
 			.ToListAsync();
-	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
 	}
 }

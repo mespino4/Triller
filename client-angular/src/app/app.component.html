@@ -1,8 +1,5 @@
 <!-- Set background color for the entire page -->
 <body style="background-color: #15202b;">
-  <ngx-spinner type="ball-spin-clockwise">
-    <h3 class="text-white">Loading...</h3>
-  </ngx-spinner>
 
   <div class="flex mx-auto max-w-7xl h-full justify-center">
     <!-- Left Sidebar -->
@@ -13,6 +10,10 @@
 
     <!-- Content Section -->
     <div class="flex-1 overflow-auto px-2" *ngIf="!showRightSidebar">
+      <ngx-spinner type="ball-spin-clockwise">
+        <h3 class="text-white">Loading...</h3>
+      </ngx-spinner>
+      
       <router-outlet></router-outlet>
     </div>
 

@@ -3,7 +3,7 @@ import { Observable, of, take } from 'rxjs';
 import { User } from '../../_models/user';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup,  FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../../_forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../_forms/date-picker/date-picker.component';
@@ -13,7 +13,7 @@ import { LanguageService, AccountService } from '../../shared/services.index';
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [CommonModule, FormsModule,  RouterModule, ReactiveFormsModule,
+  imports: [CommonModule, FormsModule,  RouterModule, ReactiveFormsModule, 
     TextInputComponent, DatePickerComponent, MatNativeDateModule, ToastrModule],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'

@@ -13,15 +13,15 @@ namespace api_aspnet.src.Controllers;
 public class AccountController : BaseApiController {
 	private readonly UserManager<AppUser> _userManager;
 	private readonly ITokenService _tokenService;
-	private readonly IUserRepository _userRepository;
 	private readonly IMapper _mapper;
+	private readonly IUnitOfWork _uow;
 
-	public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, 
-		IUserRepository userRepository, IMapper mapper) {
+	public AccountController(UserManager<AppUser> userManager, IUnitOfWork uow,
+		ITokenService tokenService,  IMapper mapper) {
 		_userManager = userManager;
 		_tokenService = tokenService;
-		_userRepository = userRepository;
 		_mapper = mapper;
+		_uow = uow;
 	}
 
 	[HttpPost("register")]
@@ -83,19 +83,19 @@ public class AccountController : BaseApiController {
 
 	[HttpPut("language/set")]
 	public async Task<IActionResult> SetLanguage(bool isEnglish) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return NotFound("User not found");
 
 		user.Language = isEnglish ? "en" : "es";
 
-		await _userRepository.SaveAllAsync();
+		await _uow.Complete();
 		return Ok();
 		//return StatusCode(500, "Internal server error");
 	}
 
 	[HttpGet("language/get")]
 	public async Task<string> GetLanguage() {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
 		return user.Language;
 	}
@@ -106,7 +106,7 @@ public class AccountController : BaseApiController {
 	[HttpDelete("delete")]
 	public async Task<IActionResult> DeleteUser(int userId) {
 		try {
-			var user = await _userRepository.GetUserByIdAsync(userId);
+			var user = await _uow.UserRepository.GetUserByIdAsync(userId);
 			if(user == null) return NotFound("User not found");
 
 			/*

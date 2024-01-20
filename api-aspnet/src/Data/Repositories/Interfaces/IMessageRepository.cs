@@ -11,5 +11,4 @@ public interface IMessageRepository {
 	Task<PagedList<MessageDTO>> GetMessagesForUser(MessageParams messageParams);
 	Task<IEnumerable<MessageDTO>> GetMessageThread(string userUsername, string recipientUsername);
 	Task<IEnumerable<ChatCardDTO>> GetRecentChats(string username);
-	Task<bool> SaveAllAsync();
 }

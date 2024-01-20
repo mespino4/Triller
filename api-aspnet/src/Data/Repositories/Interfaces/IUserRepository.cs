@@ -16,5 +16,4 @@ public interface IUserRepository {
 	public Task<IEnumerable<AppUser>> ExploreUsers(int userId, int numberOfUsers);
 	public void DeleteProfilePicture(AppUser user);
 	public void DeleteBannerPicture(AppUser user);
-	Task<bool> SaveAllAsync();
 }

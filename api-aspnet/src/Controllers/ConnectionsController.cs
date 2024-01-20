@@ -8,26 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace api_aspnet.src.Controllers;
 
 public class ConnectionsController : BaseApiController{
-	private readonly IUserRepository _userRepository;
-	private readonly INotificationRepository _notificationRepository;
-	private readonly IConnectionRepository _connectionRepository;
+	private readonly IUnitOfWork _uow;
 	private readonly IMapper _mapper;
 
-	public ConnectionsController(IUserRepository userRepository, 
-		INotificationRepository notificationRepository,
-		IConnectionRepository connectionRepository, IMapper mapper){
-		_userRepository = userRepository;
-		_notificationRepository = notificationRepository;
-		_connectionRepository = connectionRepository;
+	public ConnectionsController(IUnitOfWork uow, IMapper mapper){
+		_uow = uow;
 		_mapper = mapper;
 	}
 
 	[HttpPost("follow")] // /api/connections/follow
 	public async Task<ActionResult<MemberDTO>> FollowUser(int targetUserId) {
-		var sourceUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var sourceUser = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(sourceUser == null) return BadRequest("user not found");
 
-		var targetUser = await _userRepository.GetUserByIdAsync(targetUserId);
+		var targetUser = await _uow.UserRepository.GetUserByIdAsync(targetUserId);
 		if(targetUser == null) return BadRequest("User to follow not found");
 
 		if(sourceUser == targetUser) return BadRequest("you cannot follow yourself");
@@ -49,12 +43,12 @@ public class ConnectionsController : BaseApiController{
 			Timestamp = DateTime.Now
 		};
 
-		_notificationRepository.AddNotification(notification);
-		await _notificationRepository.SaveAllAsync();
+		_uow.NotificationRepository.AddNotification(notification);
+		//await _uow.NotificationRepository.SaveAllAsync();
 
-		_connectionRepository.AddConnection(follow);
+		_uow.ConnectionRepository.AddConnection(follow);
 
-		if(await _connectionRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return _mapper.Map<MemberDTO>(targetUser);
 
 		return BadRequest("Failed to follow user");
@@ -63,37 +57,37 @@ public class ConnectionsController : BaseApiController{
 
 	[HttpDelete("unfollow")] //api/connections/unfollow
 	public async Task<ActionResult<MemberDTO>> UnfollowUser(int targetUserId) {
-		var sourceUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var sourceUser = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(sourceUser == null) return BadRequest("User not found");
 
-		var targetUser = await _userRepository.GetUserByIdAsync(targetUserId);
+		var targetUser = await _uow.UserRepository.GetUserByIdAsync(targetUserId);
 		if(targetUser == null) return BadRequest("Target user not found");
 		
-		var unfollow = await _connectionRepository.GetUserConnection(sourceUser.Id, targetUserId);
+		var unfollow = await _uow.ConnectionRepository.GetUserConnection(sourceUser.Id, targetUserId);
 		if(unfollow == null) return BadRequest("Connection not found");
-		
-		_connectionRepository.RemoveConnection(unfollow);
 
-		if(await _connectionRepository.SaveAllAsync()) return _mapper.Map<MemberDTO>(targetUser);
+		_uow.ConnectionRepository.RemoveConnection(unfollow);
+
+		if(await _uow.Complete()) return _mapper.Map<MemberDTO>(targetUser);
 		return BadRequest("Failed to unfollow user");
 	}
 
 
 	[HttpGet] ////api/
 	public async Task<ActionResult<List<MemberDTO>>> GetUserConnections(string predicate) {
-		var users = await _connectionRepository.GetConnections(predicate, User.GetUserId());
+		var users = await _uow.ConnectionRepository.GetConnections(predicate, User.GetUserId());
 		return Ok(users);
 	}
 
 	[HttpGet("status")]
 	public async Task<ActionResult<bool>> GetConnectionStatus(int targetUserId) {
-		var sourceUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var sourceUser = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(sourceUser == null) return BadRequest("User not found");
 
-		var targetUser = await _userRepository.GetUserByIdAsync(targetUserId);
+		var targetUser = await _uow.UserRepository.GetUserByIdAsync(targetUserId);
 		if(targetUser == null) return BadRequest("Target user not found");
 
-		var connection = await _connectionRepository
+		var connection = await _uow.ConnectionRepository
 			.GetConnectionStatus(sourceUser.Id, targetUser.Id);
 
 		return connection;

@@ -6,5 +6,4 @@ public interface IRetrillRepository {
 	void CreateRetrill(Retrill retrill);
 	void RemoveRetrill(int userId, int trillId);
 	bool HasUserRetrilled(int userId, int trillId);
-	Task<bool> SaveAllAsync();
 }

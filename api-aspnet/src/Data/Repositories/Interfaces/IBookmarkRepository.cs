@@ -8,5 +8,4 @@ public interface IBookmarkRepository {
 	void RemoveBookmark(Bookmark bookmark);
 	Task<List<Trill>> GetBookmarks(int userId);
 	Task<Bookmark> GetBookmarkByTrillId(int trillId, int userId);
-	Task<bool> SaveAllAsync();
 }

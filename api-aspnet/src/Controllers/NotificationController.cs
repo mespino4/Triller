@@ -2,29 +2,25 @@
 using api_aspnet.src.DTOs;
 using api_aspnet.src.Extensions;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 
 public class NotificationController : BaseApiController {
-	private readonly INotificationRepository _notificationRepository;
-	private readonly IUserRepository _userRepository;
+	private readonly IUnitOfWork _uow;
 	private readonly IMapper _mapper;
 
-	public NotificationController(INotificationRepository notificationRepository, IUserRepository userRepository,
-		IMapper mapper){
-		_notificationRepository = notificationRepository;
-		_userRepository = userRepository;
+	public NotificationController(IUnitOfWork uow, IMapper mapper){
+		_uow = uow;
 		_mapper = mapper;
 	}
 
     [HttpGet] ///api/notification
 	public async Task<ActionResult<IEnumerable<NotificationDTO>>> GetNotifications() {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var notifications = await _notificationRepository.GetNotificationsByUserId(user.Id);
+		var notifications = await _uow.NotificationRepository.GetNotificationsByUserId(user.Id);
 		return Ok(_mapper.Map<IEnumerable<NotificationDTO>>(notifications));
 	}
 }

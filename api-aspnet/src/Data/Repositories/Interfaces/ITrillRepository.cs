@@ -19,5 +19,4 @@ public interface ITrillRepository {
 	Task<PagedList<Trill>> GetForYouTrillsAsync(int userId, UserParams userParams);
 
 	Task<Trill> GetTrillById(int id); //returns a trill with a specific id
-	Task<bool> SaveAllAsync();
 }

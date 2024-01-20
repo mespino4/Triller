@@ -9,5 +9,4 @@ public interface IConnectionRepository {
 	Task<List<MemberDTO>> GetConnections(string predicate, int userId);
 	Task<Connection> GetUserConnection(int sourceUserId, int targetUserId);
 	Task<bool> GetConnectionStatus(int sourceUserId, int targetUserId);
-	Task<bool> SaveAllAsync();
 }

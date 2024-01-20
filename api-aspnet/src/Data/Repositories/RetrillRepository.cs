@@ -26,8 +26,4 @@ public class RetrillRepository : IRetrillRepository{
 	public bool HasUserRetrilled(int userId, int trillId) {
 		return _context.Retrills.Any(r => r.UserId == userId && r.TrillId == trillId);
 	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
-	}
 }

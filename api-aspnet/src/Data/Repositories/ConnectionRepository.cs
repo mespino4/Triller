@@ -62,8 +62,4 @@ public class ConnectionRepository : IConnectionRepository{
 
 		return connection != null; // Returns true if the connection exists, false otherwise
 	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
-	}
 }

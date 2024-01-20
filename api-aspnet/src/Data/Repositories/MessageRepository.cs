@@ -67,6 +67,7 @@ public class MessageRepository : IMessageRepository{
 			//.ProjectTo<MessageDto>(_mapper.ConfigurationProvider)
 			.ToListAsync();
 
+		/*
 		var unreadMessages = messages.Where(m => m.DateRead == null
 			&& m.RecipientUsername == currentUsername).ToList();
 
@@ -75,6 +76,8 @@ public class MessageRepository : IMessageRepository{
 				message.DateRead = DateTime.Now;
 			await _context.SaveChangesAsync();
 		}
+		*/
+
 		return _mapper.Map<IEnumerable<MessageDTO>>(messages);
 	}
 
@@ -114,11 +117,5 @@ public class MessageRepository : IMessageRepository{
 			});
 
 		return chatCardDtos;
-	}
-
-
-	public async Task<bool> SaveAllAsync() {
-		//throw new NotImplementedException();
-		return await _context.SaveChangesAsync() > 0;
 	}
 }

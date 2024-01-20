@@ -21,8 +21,4 @@ public class ChatCardRepository : IChatCardRepository {
 	public void AddChatCard(ChatCard chatCard) {
 		_context.ChatCards.Add(chatCard);
 	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
-	}
 }

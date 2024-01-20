@@ -10,27 +10,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace api_aspnet.src.Controllers;
 
 public class TrillController : BaseApiController {
-	private readonly IUserRepository _userRepository;
-	private readonly ITrillRepository _trillRepository;
-	private readonly IRetrillRepository _retrillRepository;
-	private readonly INotificationRepository _notificationRepository;
+	private readonly IUnitOfWork _uow;
 	private readonly IMediaService _mediaService;
 	private readonly IMapper _mapper;
 
-	public TrillController(IUserRepository userRepository, ITrillRepository trillRepository,
-		IRetrillRepository retrillRepository, INotificationRepository notificationRepository,
-		IMediaService mediaService, IMapper mapper) {
-		_userRepository = userRepository;
-		_trillRepository = trillRepository;
-		_retrillRepository = retrillRepository;
-		_notificationRepository = notificationRepository;
+	public TrillController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) {
+		_uow = uow;
 		_mediaService = mediaService;
 		_mapper = mapper;
 	}
 
 	[HttpPost] ///api/trill/
 	public async Task<ActionResult<TrillDTO>> CreateTrill(CreateTrillDTO createTrillDTO) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
 		var trill = new Trill {
@@ -53,9 +45,9 @@ public class TrillController : BaseApiController {
 			trill.Photo = trillMedia.Url;
 		}
 
-		_trillRepository.AddTrill(trill);
+		_uow.TrillRepository.AddTrill(trill);
 
-		if(await _trillRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<TrillDTO>(trill));
 
 		return BadRequest("Failed to create trill");
@@ -63,15 +55,15 @@ public class TrillController : BaseApiController {
 
 	[HttpDelete] ///api/trill/
 	public async Task<ActionResult<TrillDTO>> DeleteTrill(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(user == null) return BadRequest("trill not found");
 
-		_trillRepository.DeleteTrill(trill);
+		_uow.TrillRepository.DeleteTrill(trill);
 
-		if(await _trillRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<TrillDTO>(trill));
 
 		return BadRequest("Failed to delete trill");
@@ -79,10 +71,10 @@ public class TrillController : BaseApiController {
 
 	[HttpGet]
 	public async Task<ActionResult<PagedList<TrillDTO>>> GetTrills([FromQuery] UserParams userParams) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trills = await _trillRepository.GetTrillsAsync(user.Id, userParams);
+		var trills = await _uow.TrillRepository.GetTrillsAsync(user.Id, userParams);
 		
 		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
 		trills.TotalCount, trills.TotalPages));
@@ -94,10 +86,10 @@ public class TrillController : BaseApiController {
 
 	[HttpGet("for-you/")]
 	public async Task<ActionResult<PagedList<TrillDTO>>> GetForYouTrills([FromQuery] UserParams userParams) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trills = await _trillRepository
+		var trills = await _uow.TrillRepository
 			.GetForYouTrillsAsync(user.Id, userParams);
 
 		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
@@ -110,10 +102,10 @@ public class TrillController : BaseApiController {
 
 	[HttpGet("following/")]
 	public async Task<ActionResult<PagedList<TrillDTO>>> GetFollowingTrills([FromQuery] UserParams userParams) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trills = await _trillRepository
+		var trills = await _uow.TrillRepository
 			.GetFollowingTrillsAsync(user.Id, userParams);
 
 		Response.AddPaginationHeader(new PaginationHeader(trills.CurrentPage, trills.PageSize,
@@ -126,7 +118,7 @@ public class TrillController : BaseApiController {
 
 	[HttpGet("id/")] // /api/trill/id/2
 	public async Task<ActionResult<TrillDTO>> GetTrillsById(int trillId) {
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("Trill not found");
 		var trillDto = _mapper.Map<TrillDTO>(trill);
 		return Ok(trillDto);
@@ -134,7 +126,7 @@ public class TrillController : BaseApiController {
 
 	[HttpGet("replies/")]
 	public async Task<ActionResult<IEnumerable<TrillReplyDTO>>> GetRepliesFromTrillId(int trillId) {
-		var replies = await _trillRepository.GetRepliesFromTrillId(trillId);
+		var replies = await _uow.TrillRepository.GetRepliesFromTrillId(trillId);
 
 		if(replies == null)
 			return NotFound($"Replies for trill with ID {trillId} not found.");
@@ -144,10 +136,10 @@ public class TrillController : BaseApiController {
 
 	[HttpPost("reply/{trillId}")] // /api/trill/reply/{trillId}
 	public async Task<IActionResult> ReplyToTrill(int trillId, CreateTrillDTO trillReplyDTO) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("trill not found");
 
 		var trillReply = new TrillReply {
@@ -182,14 +174,14 @@ public class TrillController : BaseApiController {
 				//TrillId = trillId,
 				Timestamp = DateTime.Now
 			};
-			_notificationRepository.AddNotification(notification);
-			await _notificationRepository.SaveAllAsync();
+			_uow.NotificationRepository.AddNotification(notification);
+			await _uow.Complete();
 		}
 
 
-		_trillRepository.AddTrillReply(trillReply);
+		_uow.TrillRepository.AddTrillReply(trillReply);
 
-		if(await _trillRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<TrillReplyDTO>(trillReply));
 
 		return BadRequest("Failed to reply");
@@ -197,10 +189,10 @@ public class TrillController : BaseApiController {
 
 	[HttpPost("retrill/add")]
 	public async Task<IActionResult> CreateRetrill(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("trill not found");
 
 		// Create the retweet
@@ -222,15 +214,15 @@ public class TrillController : BaseApiController {
 				//TrillId = trillId,
 				Timestamp = DateTime.Now
 			};
-			_notificationRepository.AddNotification(notification);
-			await _notificationRepository.SaveAllAsync();
+			_uow.NotificationRepository.AddNotification(notification);
+			await _uow.Complete();
 		}
 
 		//retrill.Trill.Timestamp = DateTime.UtcNow; // See explanation 1 below
 
-		_retrillRepository.CreateRetrill(retrill);
+		_uow.RetrillRepository.CreateRetrill(retrill);
 
-		if(await _retrillRepository.SaveAllAsync())
+		if(await _uow.Complete())
 			return Ok(_mapper.Map<TrillDTO>(trill));
 
 		return BadRequest("Unable to retrill");
@@ -238,10 +230,10 @@ public class TrillController : BaseApiController {
 
 	[HttpGet("retrill/")] // /api/trill/retrill
 	public async Task<ActionResult<bool>> GetRetrill(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("Trill not found");
 
 		var retrill = trill.Retrills.FirstOrDefault(t => t.UserId == user.Id);
@@ -251,10 +243,10 @@ public class TrillController : BaseApiController {
 
 	[HttpDelete("retrill/delete")] // /api/trill/like/delete
 	public async Task<ActionResult> DeleteRetrill(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("trill not found");
 
 		var retrill = trill.Retrills.FirstOrDefault(t => t.TrillId == trillId);
@@ -266,7 +258,7 @@ public class TrillController : BaseApiController {
 		trill.Retrills.Remove(retrill);
 		//trill.Likes.Remove(trillLike);
 
-		if(await _userRepository.SaveAllAsync()) return Ok();
+		if(await _uow.Complete()) return Ok();
 
 		return BadRequest("Failed to remove retrill");
 	}
@@ -274,17 +266,17 @@ public class TrillController : BaseApiController {
 	//Trill Likes
 	[HttpPost("like/add")]
 	public async Task<ActionResult> AddLike(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("Trill not found");
 
 		// Check if the user already liked the trill
 		var existingLike = trill.Likes.FirstOrDefault(tl => tl.UserId == user.Id);
 
 		if(existingLike == null) {
-			_trillRepository.AddLike(trill, user);
+			_uow.TrillRepository.AddLike(trill, user);
 
 			if(user.Id != trill.AuthorId) {
 				var notification = new Notification {
@@ -295,14 +287,14 @@ public class TrillController : BaseApiController {
 					Timestamp = DateTime.Now
 				};
 
-				_notificationRepository.AddNotification(notification);
-				await _trillRepository.SaveAllAsync(); // Save trill and like changes
+				_uow.NotificationRepository.AddNotification(notification);
+				//await _uow.Complete(); // Save trill and like changes
 
-				await _notificationRepository.SaveAllAsync(); // Save notification changes separately
+				await _uow.Complete(); // Save notification changes separately
 
 				return Ok();
 			}
-			return await _trillRepository.SaveAllAsync() ? Ok() : BadRequest("Failed to add like");
+			return await _uow.Complete() ? Ok() : BadRequest("Failed to add like");
 		}
 		return BadRequest("User already liked this trill");
 	}
@@ -310,23 +302,23 @@ public class TrillController : BaseApiController {
 
 	[HttpDelete("like/delete")] // /api/trill/like/delete
 	public async Task<ActionResult> DeleteLike(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("Trill not found");
 
-		_trillRepository.RemoveLike(trill, user);
+		_uow.TrillRepository.RemoveLike(trill, user);
 
-		return await _trillRepository.SaveAllAsync() ? Ok() : BadRequest("Failed to remove like");
+		return await _uow.Complete() ? Ok() : BadRequest("Failed to remove like");
 	}
 
 	[HttpGet("like")] // /api/trill/like
 	public async Task<ActionResult<bool>> GetTrillLike(int trillId) {
-		var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("User not found");
 
-		var trill = await _trillRepository.GetTrillById(trillId);
+		var trill = await _uow.TrillRepository.GetTrillById(trillId);
 		if(trill == null) return BadRequest("Trill not found");
 
 		var trillLike = trill.Likes.FirstOrDefault(t => t.UserId == user.Id);

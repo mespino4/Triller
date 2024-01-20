@@ -31,7 +31,7 @@ public class Seed {
 			await userManager.AddToRoleAsync(user, "Member");
 		}
 
-		var admin = new AppUser { UserName = "admin" };
+		var admin = new AppUser { UserName = "admin", DisplayName = "Admin", About = "im the admin"};
 		await userManager.CreateAsync(admin, "Pa$$w0rd");
 		await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
 	}
@@ -44,7 +44,5 @@ public class Seed {
 		}
 
 		if(context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
-
-		Console.WriteLine("CHUPALAAAAAA!!!!");
 	}
 }

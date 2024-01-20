@@ -43,9 +43,4 @@ public class TrillReplyRepository : ITrillReplyRepository {
 
 		return null; // User has neither liked nor disliked
 	}
-
-	public async Task<bool> SaveAllAsync() {
-		return await _context.SaveChangesAsync() > 0;
-	}
-
 }
