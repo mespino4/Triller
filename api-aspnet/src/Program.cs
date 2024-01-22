@@ -1,4 +1,3 @@
-
 using api_aspnet.src.Data;
 using api_aspnet.src.Data.Seed;
 using api_aspnet.src.Entities;
@@ -26,14 +25,18 @@ app.UseCors(builder => builder
 	.AllowCredentials()
 	.WithOrigins("https://localhost:4200"));
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

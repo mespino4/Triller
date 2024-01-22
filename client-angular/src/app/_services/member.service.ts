@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
-import { Member } from '../_models/member';
-import { User } from '../_models/user';
+import { environment } from '../../environments/environment';
 import { AccountService } from './account.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, of, take } from 'rxjs';
-import { Trill } from '../_models/trill';
+import { Trill, Member, User } from '../shared/models.index';
+
 
 @Injectable({
   providedIn: 'root'

@@ -186,11 +186,15 @@ export class TrillCardComponent {
 
   //share
   shareButton() {
-    if(this.trill){
-      this.clipboard.copy(environment.clientUrl + 'trill/' + this.trill?.id);
-      this.toastr.success('Link to Trill copied')
+    if (this.trill) {
+      const currentUrl = window.location.origin;
+      const trillUrl = '/trill/' + this.trill?.id;
+      const fullTrillUrl = currentUrl + trillUrl;
+  
+      this.clipboard.copy(fullTrillUrl);
+      this.toastr.success('Link to Trill copied');
     }
-  }
+  }  
 
   hasModeratorRole(): boolean {
     const user = this.user;

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Observable, forkJoin, map, of } from 'rxjs';
 import { Trill } from '../_models/trill';
 import { PaginatedResult } from '../_models/pagination';

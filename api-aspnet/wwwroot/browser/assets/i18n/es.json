@@ -1,0 +1,107 @@
+{
+    "sidebar-left": {
+      "home": "Inicio",
+      "profile": "Perfil",
+      "notifications": "Notificaciones",
+      "messages": "Mensajes",
+      "bookmarks": "Favoritos",
+      "settings": "Configuración",
+      "connections": "Conexiones",
+      "admin": "Admin",
+      "logout": "Cerrar sesión"
+    },
+    "sidebar-right": {
+        "following": "Siguiendo",
+        "followers": "Seguidores",
+        "explore_users": "Explorar Usuarios",
+        "show_more": "Mostrar Mas"
+    },
+    "home": {
+      "label": "Inicio",
+      "trill": "¿Qué está pasando?",
+      "photo": "Foto",
+      "emoji": "Emoji",
+      "for_you": "Para ti",
+      "following": "Siguiendo",
+      "load_more": "Cargar más"
+    },
+    "profile": {
+      "label": "Perfil",
+      "joined": "Ingresó",
+      "edit_profile": "Editar perfil",
+      "delete_user": "Prohibir usuario",
+      "block": "Bloquear",
+      "unblock": "Desbloquear",
+      "follow": "Seguir",
+      "unfollow": "Dejar de seguir",
+      "following": "Siguiendo",
+      "followers": "Seguidores"
+    },
+    "notifications": {
+        "label": "Notificaciones",
+        "reply": "respondió a tu trill 💬",
+        "repost": "reposteó tu trill 🔁",
+        "like": "dio me gusta a tu trill ❤️",
+        "follow": "te siguió 👤"
+    },
+    "messages": {
+        "label": "Mensajes",
+        "online": "En línea",
+        "offline": "Desconectado",
+        "send": "Enviar",
+        "type_message": "Escribe un mensaje"
+    },
+    "bookmarks":{
+        "label": "Favoritos"
+    },
+    "settings": {
+        "label": "Configuración",
+        "profile": "Perfil",
+        "edit_profile": "Editar Perfil",
+        "language": "Idioma",
+        "change_language": "Cambiar Idioma",
+        "password": "Contraseña",
+        "change_password": "Cambiar Contraseña",
+        "blocked_users": "Usuarios Bloqueados",
+        "view_blocked_users": "Ver Usuarios Bloqueados",
+        "privacy": "Privacidad",
+        "make_account_private": "Hacer Cuenta Privada",
+        "account": "Cuenta",
+        "delete_account": "Eliminar Cuenta"
+    },
+    "connections": {
+        "label": "Conexiones",
+        "following": "Siguiendo",
+        "followers": "Seguidores"
+    },
+    "admin": {
+        "label": "Admin",
+        "user": "Usuario",
+        "roles": "Roles",
+        "edit_roles": "Editar Roles",
+        "admin": "Admin",
+        "moderator": "Moderador",
+        "member": "Miembro",
+        "modal_text": "Editar roles para"
+    },"edit_profile": {
+        "label": "Editar Perfil",
+        "name": "Nombre",
+        "about": "Acerca de",
+        "location": "Ubicación",
+        "save_changes": "Guardar Cambios",
+        "cancel": "Cancelar"
+    },"trill/reply":{
+        "label": "Trill",
+        "post_reply": "Publica tu respuesta",
+        "photo": "Foto",
+        "emoji": "Emoji"
+    },"misc": {
+        "label": "Misc",
+        "future_update": "Esta funcionalidad estará disponible en una próxima actualización.",
+        "blocked_users": "Usuarios Bloqueados",
+        "yes": "Si",
+        "cancel": "Cancelar"
+    }
+
+}
+  
