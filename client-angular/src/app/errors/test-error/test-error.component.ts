@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-test-error',
@@ -13,7 +13,7 @@ export class TestErrorComponent {
   baseUrl = 'https://localhost:5001/api/';
   validationErrors: string[] = [];
 
-  constructor(private http: HttpClient){}
+  private http = inject(HttpClient)
 
   get404Error(){
     this.http.get(this.baseUrl + 'buggy/not-found').subscribe({

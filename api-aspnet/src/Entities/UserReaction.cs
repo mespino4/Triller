@@ -5,7 +5,7 @@ public class UserReaction {
 	public AppUser User { get; set; }
 	public int UserId { get; set; }
 	public ReactionType ReactionType { get; set; } // Enum: Like, Dislike
-	public int TrillReplyId { get; set; }
+	public int? TrillReplyId { get; set; }
 	public TrillReply TrillReply { get; set; }
 }
 

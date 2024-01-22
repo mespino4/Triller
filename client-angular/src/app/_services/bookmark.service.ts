@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Trill } from '../_models/trill';
 import { Observable, map, of } from 'rxjs';
@@ -11,7 +11,7 @@ export class BookmarkService {
   baseUrl = environment.apiUrl; //'api/'
   trills: Trill[] = []
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient)
 
   getBookmarks(): Observable<Trill[]> {
     return this.trills.length > 0 ? of(this.trills) :

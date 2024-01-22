@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -25,9 +25,10 @@ export class AccountService {
 
   private notificationSource = new BehaviorSubject<Notification[]>([]);
   notification$ = this.notificationSource.asObservable();
-
-  constructor(private http: HttpClient, private presenceService: PresenceService,
-    private language: LanguageService,)  { }
+  
+  private http = inject(HttpClient)
+  private presenceService = inject(PresenceService)
+  private language = inject(LanguageService)
 
   // Function to send a login request to the server.
   login(model: any) {

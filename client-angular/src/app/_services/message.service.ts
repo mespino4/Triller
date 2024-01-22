@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, take } from 'rxjs';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
@@ -16,7 +16,7 @@ export class MessageService {
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient)
 
   createHubConnection(user: User, otherUsername: string) {
     //this.busyService.busy();

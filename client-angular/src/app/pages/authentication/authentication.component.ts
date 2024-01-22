@@ -24,11 +24,10 @@ export class AuthenticationComponent {
   model: any = {}; // An object to store form input data.
   currentUser$: Observable<User | null> = of(null); // An observable to store the current user.
 
-  toastr = inject(ToastrService)
-
-  constructor(private accountService: AccountService, private router: Router, private toast: ToastrService,
-    private language: LanguageService,
-    private fb: FormBuilder) { }
+  private toastr = inject(ToastrService)
+  private router = inject(Router)
+  private accountService = inject(AccountService)
+  private fb = inject(FormBuilder)
 
   ngOnInit(): void {
     this.accountService.logout();

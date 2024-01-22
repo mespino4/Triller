@@ -498,7 +498,7 @@ namespace api_aspnet.src.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ReactionType = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "None"),
-                    TrillReplyId = table.Column<int>(type: "int", nullable: false),
+                    TrillReplyId = table.Column<int>(type: "int", nullable: true),
                     AppUserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

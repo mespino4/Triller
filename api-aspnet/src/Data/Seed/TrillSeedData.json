@@ -5,44 +5,104 @@
     "Photo": ""
   },
   {
+    "AuthorId": 2,
+    "Content": "🔧 Diseñando el futuro con ingeniería mecánica. Cada engranaje cuenta una historia de innovación. ¡Listo para desafiar los límites de la tecnología! 🚀 #IngenieroMecánico #InnovaciónTecnológica",
+    "Photo": "https://cdn.mos.cms.futurecdn.net/PFxP5HX8oNsLtufFRMumpc-650-80.jpg.webp"
+  },
+  {
     "AuthorId": 3,
-    "Content": "LETS GOOOOO!!!",
+    "Content": "🎮 ¡Nuevo proyecto en marcha! Explorando mundos virtuales y creando experiencias únicas. ¿Estás listo para la aventura? Únete al juego. 🕹️🌌 #DesarrolladorDeVideojuegos #AventuraDigital",
     "Photo": ""
   },
   {
     "AuthorId": 4,
-    "Content": "THIRD TRILLL EVER !!!",
+    "Content": "🍽️ Cada plato es una obra maestra, cada sabor una experiencia. Bienvenidos a mi restaurante, donde la pasión culinaria cobra vida. ¡Buen provecho! 👨‍🍳🍷 #RestauranteGourmet #ExperienciaCulinaria",
     "Photo": ""
   },
   {
     "AuthorId": 5,
-    "Content": "🥞 Pancakes for the win! 😍 Fluffy stacks of joy that soak up syrup perfectly, no need for those waffle divots. Pancakes are the OG breakfast delight – versatile, easy to make, and a canvas for creativity. Sorry waffles, but pancakes have my heart. 💙 #PancakeLove #BreakfastDebate",
-    "Photo": "https://www.wholesomeyum.com/wp-content/uploads/2018/04/wholesomeyum-Easy-Keto-Almond-Flour-Pancakes-Recipe-24.jpg"
+    "Content": "💻 Resolviendo problemas tecnológicos, un dispositivo a la vez. ¿Necesitas ayuda con tu computadora? Estoy aquí para hacer magia digital. 🔧🖥️ #ReparaciónDeComputadoras #Tecnología",
+    "Photo": ""
   },
   {
     "AuthorId": 6,
-    "Content": "🥤 The Pepsi-Coke debate rages on, but let's be real – Pepsi's crisp sweetness and bold flavor take the crown! 😎 No shade to Coke lovers, but Pepsi just hits different. Team Pepsi all the way, and honestly, I don't care what any of you goofies got to say. #PepsiOverCoke #UnapologeticSip",
+    "Content": "📚 Inspirando mentes y construyendo el futuro. La educación es la llave para el cambio. ¿Cuál es tu lección favorita de la vida? 🍎✏️ #Educador #AprendizajeSignificativo",
     "Photo": ""
   },
   {
     "AuthorId": 7,
-    "Content": "🚀 In the world of JavaScript frameworks, let's settle the debate once and for all: Angular is and will forever be the GOAT! 🐐💻 Its structure, TypeScript magic, and powerful features make it the undeniable champion. React devs, no hard feelings, but Angular is on another level. 😎 #AngularAdvocate #JavaScriptGreatness",
-    "Photo": ""
+    "Content": "⚽️ En el campo, la pasión se traduce en goles. Representando con orgullo los colores del equipo. ¡Vamos juntos por la victoria! 🥅🏆 #Fútbol #PasiónDeportiva",
+    "Photo": "https://daily.jstor.org/wp-content/uploads/2018/06/soccer_europe_1050x700.jpg"
   },
   {
     "AuthorId": 8,
-    "Content": "🌵 Texas, where the sunsets paint the sky like a masterpiece and hospitality runs as deep as our Lone Star pride. From the sprawling landscapes to the BBQ that's practically an art form – Texas, you're not just a state, you're a state of mind. ❤️🤠 #TexasForever #BigHeartBigState",
-    "Photo": ""
+    "Content": "🎨 Dibujando historias que cobran vida en cada viñeta. Explorando mundos imaginarios y compartiendo mi amor por el arte secuencial. ¿Cuál es tu héroe de cómic favorito? 🦸‍♂️✨ #ArtistaDeCómics #Ilustración",
+    "Photo": "https://img.money.com/2017/11/171102-comic-book-inking.jpg"
   },
   {
     "AuthorId": 9,
-    "Content": "🏗️ Building digital landscapes with the precision of an architect. As a software architect, every line of code is a brushstroke in the canvas of functionality and efficiency. Striving for scalable, resilient systems – because in the world of software, a solid foundation is everything. 💡🚀 #SoftwareCraftsmanship #ArchitectingTheFuture",
+    "Content": "📱 Compartiendo momentos, consejos y risas. La vida a través de mi lente digital. Únete a la comunidad y hagamos de las redes sociales un lugar más divertido. 🌟 #Influencer #ComunidadDigital",
     "Photo": ""
   },
   {
     "AuthorId": 10,
-    "Content": "☕️ Coffee: the unsung hero of code. From the first sip that kickstarts the day to those late-night coding sessions fueled by espresso shots, it's the programmer's liquid courage. Debugging or designing, coffee is the constant companion in the language of caffeine and code. ☕️💻 #CodeAndCoffee #DevFuel",
+    "Content": "👻 Explorando lo paranormal y desentrañando misterios. ¿Has tenido alguna experiencia con lo paranormal? Comparte tus historias y adéntrate en lo desconocido. 🕵️‍♂️🕯️ #CazadorDeFantasmas #Misterios",
     "Photo": ""
+  },
+  {
+    "AuthorId": 11,
+    "Content": "🎬 Analizando películas con ojo crítico. Desde dramas intensos hasta comedias hilarantes, cada película cuenta una historia única. ¿Cuál es tu película favorita del momento? 🍿📽️ #CríticoDeCine #Cinefilo",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 12,
+    "Content": "🎥 Just wrapped up an intense shoot! The magic is in the details, and every frame tells a story. Can't wait to share this creation with the world. 🌟 #Filmmaking #BehindTheScenes",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 13,
+    "Content": "🚀 New video alert! 🎉 Embarking on a crazy adventure, and I want you there with me. Hit subscribe, grab some popcorn, and let's dive into the fun! 🍿✨ #YouTubeLife #AdventureTime",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 14,
+    "Content": "🎮 Epic gaming session tonight! Team up or face off – let's conquer the virtual realms together. What's your game of choice lately? 🕹️🚀 #GamerLife #GameOn",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 15,
+    "Content": "👩‍🍳 Culinary masterpiece achieved! From the kitchen to your plate – the symphony of flavors is ready to delight. What's your favorite dish to savor? 🍽️😋 #ChefLife #FoodArtistry",
+    "Photo": "https://img.freepik.com/premium-photo/exquisite-culinary-masterpiece-succulent-steak-cooked-perfection-sizzles-plate-adorned-with_117406-5470.jpg"
+  },
+  {
+    "AuthorId": 16,
+    "Content": "🎶 Late-night studio session vibes. Crafting beats that resonate with the soul. What's your go-to music for inspiration? Let's share playlists! 🎧🔥 #MusicCreation #StudioLife",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 17,
+    "Content": "🎨 In the studio, lost in a world of colors. Art is my sanctuary, and every stroke tells a story. What emotions do you see in this canvas? 🖌️✨ #ArtisticExpression #PaintingVibes",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 18,
+    "Content": "💻 Just deployed a new project! Coding dreams into reality one line at a time. Excited to see this creation in action. 🔧💡 #WebDev #CodeMagic",
+    "Photo": "https://www.sectorlink.com/img/blog/web-devel-important.jpg"
+  },
+  {
+    "AuthorId": 19,
+    "Content": "🏞️ Conquered a challenging trail today! The view from the summit was worth every step. Nature is the ultimate reset button. Where should I hike next? 🥾⛰️ #HikingAdventures #NatureTherapy",
+    "Photo": ""
+  },
+  {
+    "AuthorId": 20,
+    "Content": "🥞 Sunday morning stack! 🌞 Tried a new pancake recipe, and it's a game-changer. Who's in for a pancake party? Share your favorite toppings! 🥳 #PancakeParty #SundayBrunch",
+    "Photo": "https://kirbiecravings.com/wp-content/uploads/2017/03/japanese-souffle-pancakes-21-700x839.jpg"
+  },
+  {
+    "AuthorId": 21,
+    "Content": "🍔 Found the holy grail of burgers today – a symphony of flavors in every bite. Burger buddies, where should I go next on this epic quest for patty perfection? 🤔🍟 #BurgerQuest #FoodieAdventures",
+    "Photo": "https://i.insider.com/5c4f8aa1dde8671ce65d5abe?width=700"
   }
 
 ]

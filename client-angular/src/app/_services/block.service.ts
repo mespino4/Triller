@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Member } from '../_models/member';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class BlockService {
   baseUrl = environment.apiUrl;
   
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient)
   
   block(blockUserId: number){
     return this.http.post<boolean>(this.baseUrl + 'users/block?blockUserId=' + blockUserId, {});

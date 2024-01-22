@@ -12,7 +12,7 @@ using api_aspnet.src.Data;
 namespace api_aspnet.src.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240118004837_InitialCreate")]
+    [Migration("20240121235221_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -610,7 +610,7 @@ namespace api_aspnet.src.Data.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("None");
 
-                    b.Property<int>("TrillReplyId")
+                    b.Property<int?>("TrillReplyId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -903,8 +903,7 @@ namespace api_aspnet.src.Data.Migrations
                     b.HasOne("api_aspnet.src.Entities.TrillReply", "TrillReply")
                         .WithMany("Reactions")
                         .HasForeignKey("TrillReplyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("api_aspnet.src.Entities.AppUser", "User")
                         .WithMany()

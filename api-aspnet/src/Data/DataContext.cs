@@ -104,25 +104,23 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
 			.HasForeignKey<UserPhoto>(up => up.BannerPictureId)
 			.OnDelete(DeleteBehavior.NoAction);
 
-
 		// Trills
 		builder.Entity<Trill>()
-			.HasMany(t => t.Replies) // One Trill has many Replies
-			.WithOne(tr => tr.ParentTrill) // Each Reply has one ParentTrill
-			.HasForeignKey(tr => tr.ParentTrillId) // Foreign key property
-			.OnDelete(DeleteBehavior.Cascade); // Cascade delete on Trill side
+			.HasMany(t => t.Replies)
+			.WithOne(tr => tr.ParentTrill)
+			.HasForeignKey(tr => tr.ParentTrillId)
+			.OnDelete(DeleteBehavior.Cascade);
 
 		// TrillReplies
 		builder.Entity<TrillReply>()
 			.HasOne(tr => tr.ParentTrill)
 			.WithMany(t => t.Replies)
 			.HasForeignKey(tr => tr.ParentTrillId)
-			.OnDelete(DeleteBehavior.Restrict); // Restrict delete on TrillReply side
+			.OnDelete(DeleteBehavior.Restrict);
 
-
-		//reactions for replies
+		// UserReactions
 		builder.Entity<UserReaction>()
-			.HasKey(react => new { react.Id });
+			.HasKey(react => react.Id);
 
 		builder.Entity<UserReaction>()
 			.HasOne(react => react.User)
@@ -134,9 +132,9 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
 			.HasOne(react => react.TrillReply)
 			.WithMany(tr => tr.Reactions)
 			.HasForeignKey(react => react.TrillReplyId)
-			.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Restrict);
 
-		//enum values for reactions
+		// enum values for reactions
 		builder.Entity<UserReaction>()
 			.Property(e => e.ReactionType)
 			.HasConversion<string>();
@@ -178,7 +176,7 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
 			.HasOne(n => n.User)
 			.WithMany(u => u.Notifications)
 			.HasForeignKey(n => n.UserId)
-			.OnDelete(DeleteBehavior.Cascade); // Choose the appropriate delete behavior
+			.OnDelete(DeleteBehavior.Cascade);
 
 		builder.Entity<Notification>()
 			.HasOne(n => n.Member)

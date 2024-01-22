@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { Reply } from '../_models/reply';
 export class ReplyService {
   baseUrl = environment.apiUrl; //'api/'
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient)
 
   //get a reply by ID
   getReplyById(replyId: number): Observable<Reply> {

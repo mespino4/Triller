@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable, forkJoin, map, of } from 'rxjs';
 import { Trill } from '../_models/trill';
@@ -14,7 +14,6 @@ export class TrillService {
   baseUrl = environment.apiUrl; //'api/'
   trill: Trill | undefined
   trills: Trill[] = [];
-  //trill: Trill | undefined;
   userTrills: Trill[] = [];
   trillCache = new Map<string, any>();
   forYouTrillCache = new Map<string, any>();
@@ -22,8 +21,7 @@ export class TrillService {
 
   paginatedResult: PaginatedResult<Trill[]> = new PaginatedResult<Trill[]>;
 
-  constructor(private http: HttpClient) { }
-
+  private http = inject(HttpClient)
 
   //All Trills
   getTrills(page: number, itemsPerPage: number): Observable<PaginatedResult<Trill[]>> {
