@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { TrillService } from '../../_services/trill.service';
 import { Observable, of, take } from 'rxjs';
-import { BookmarkService } from '../../_services/bookmark.service';
-import { Trill } from '../../_models/trill';
-import { AccountService } from '../../_services/account.service';
-import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
 import { TrillCardComponent } from '../../components/trill-card/trill-card.component';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule} from '@ngx-translate/core';
+import { AccountService, BookmarkService, TrillService } from '../../shared/services.index';
+import { Trill, User } from '../../shared/models.index';
 
 @Component({
   selector: 'app-bookmarks',
@@ -54,9 +51,7 @@ export class BookmarksComponent {
           this.isEmpty = false;
         }
       },
-      error: (error) => {
-        console.error('Error in trills$ observable', error);
-      },
+      error: (error) => {console.error('Error in trills$ observable', error);},
     });
   }
 

@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { AccountService, LanguageService, MemberService } from '../../shared/services.index';
+import { AccountService, MemberService } from '../../shared/services.index';
 import { Member, User } from '../../shared/models.index';
 import { ExploreUsersModalComponent } from '../../_modals/explore-users-modal/explore-users-modal.component';
 
@@ -22,12 +22,10 @@ export class SidebarRightComponent {
   user: User | null = null;
   exploreMembers: Member[] | undefined;
 
-  constructor(
-    public accountService: AccountService,
-    private router: Router,
-    private memberService: MemberService,
-    public dialog: MatDialog, private cdr: ChangeDetectorRef,
-    private languageService: LanguageService) {}
+  private accountService = inject(AccountService)
+  private memberService = inject(MemberService)
+  private dialog = inject(MatDialog)
+  private cdr = inject(ChangeDetectorRef)
     
   ngOnInit(): void {
     this.initializeUser();
@@ -37,9 +35,7 @@ export class SidebarRightComponent {
   
   initializeUser(): void {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        this.user = user;
-      }
+      next: user => {this.user = user;}
     });
   }
   
@@ -53,9 +49,7 @@ export class SidebarRightComponent {
 
   exploreUsers(numOfUsers: number): void {
     this.memberService.exploreUsers(numOfUsers).subscribe({
-      next: (response) => {console.log('Explore Users Response:', response);
-      this.exploreMembers = response
-    },
+      next: (response) => {this.exploreMembers = response},
       error: (error) => {console.error('Explore Users Error:', error);}
     });
   }

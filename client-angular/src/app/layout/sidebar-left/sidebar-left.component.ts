@@ -21,6 +21,14 @@ export class SidebarLeftComponent implements OnInit{
   member: Member | undefined;
   user: User | null = null;
 
+  /*
+  private accountService = inject(AccountService)
+  private router = inject(Router)
+  private memberService = inject(MemberService)
+  private dialog = inject(MatDialog)
+  private language = inject(LanguageService)
+
+  */
   constructor(
     public accountService: AccountService,
     private router: Router,

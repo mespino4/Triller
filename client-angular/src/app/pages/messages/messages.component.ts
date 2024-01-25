@@ -64,12 +64,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   async loadChats(): Promise<void> {
-    try {
-      this.chats = await firstValueFrom(this.messageService.getChats());
-      console.log('response load chats is ', this.chats);
-    } catch (error) {
-      console.error('Error loading chats', error);
-    }
+    try {this.chats = await firstValueFrom(this.messageService.getChats());} 
+    catch (error) {console.error('Error loading chats', error);}
   }
 
   pageChanged(event: any): void {

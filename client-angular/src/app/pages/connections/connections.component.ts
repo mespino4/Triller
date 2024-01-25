@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MemberService } from '../../_services/member.service';
 import { AccountService } from '../../_services/account.service';
@@ -21,7 +21,8 @@ export class ConnectionsComponent {
   following: Member[] = []; // Define an array to store following
   followerId: number[] = []
 
-  constructor( private memberService: MemberService, private accountService: AccountService) {}
+  private accountService = inject(AccountService)
+  private memberService = inject(MemberService)
 
   ngOnInit(): void {
     this.loadFollowers('following')

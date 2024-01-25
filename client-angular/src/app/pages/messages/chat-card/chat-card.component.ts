@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { RecentChat } from '../../../_models/recentChat';
-import { MemberService } from '../../../_services/member.service';
 import { Router } from '@angular/router';
-import { Member } from '../../../_models/member';
-import { PresenceService } from '../../../_services/presence.service';
 import { CommonModule } from '@angular/common';
+import { MemberService, PresenceService } from '../../../shared/services.index';
+import { RecentChat, Member } from '../../../shared/models.index';
 
 @Component({
   selector: 'app-chat-card',

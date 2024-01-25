@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { User } from './_models/user';
 import { filter, take } from 'rxjs';
-import { AccountService } from './_services/account.service';
 import { HttpClient } from '@angular/common/http';
 import { SidebarLeftComponent } from './layout/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from './layout/sidebar-right/sidebar-right.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { LanguageService } from './_services/language.service';
+import { LanguageService, AccountService} from './shared/services.index';
 
 @Component({
   selector: 'app-root',

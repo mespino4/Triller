@@ -5,7 +5,9 @@ using api_aspnet.src.Extensions;
 using api_aspnet.src.Middleware;
 using api_aspnet.src.SignalR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 

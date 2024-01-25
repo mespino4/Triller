@@ -39,7 +39,6 @@ export class TrillComponent {
     if (!trillId) return;
     this.trill$ = this.trillService.getTrillById(Number(trillId));
     this.replies$ = this.trillService.getTrillRepliesById(Number(trillId));
-    console.log('replies are ', this.replies$)
   }
 
   createReply(trillId: number){
@@ -49,12 +48,8 @@ export class TrillComponent {
     // Check if this.trillImage is not null
     const imageToSend = this.replyImage ? this.replyImage : undefined;
 
-    console.log('create reply pressed');
     //if(!this.trillId) return
     this.trillService.createReply(trillId, this.replyContent, imageToSend).subscribe((response) => {
-      // Handle the response, e.g., show a success message or update your UI.
-      console.log('Reply Created:', response);
-
       // Clear the trillContent and trillImage after creating the trill if needed.
       this.replyContent = '';
       this.replyImage = null;

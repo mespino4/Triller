@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AdminService } from '../../_services/admin.service';
 import { User } from '../../_models/user';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditRolesModalComponent } from '../../_modals/edit-roles-modal/edit-roles-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LanguageService } from '../../shared/services.index';
+import { LanguageService, AdminService } from '../../shared/services.index';
 
 @Component({
   selector: 'app-admin',
@@ -30,7 +29,6 @@ export class AdminComponent {
     this.language.getTranslation('admin','member')
   ]
   */
-
   
   availableRoles = [
     'Admin',

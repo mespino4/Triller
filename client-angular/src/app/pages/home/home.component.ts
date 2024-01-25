@@ -81,8 +81,7 @@ export class HomeComponent {
 
   loadFollowingTrills() {
     this.foryouTrills = [];
-
-    console.log("following clicked following");
+    
     this.trillService.getFollowingTrills(this.followingPageNumber, this.pageSize).subscribe({
       next: (response) => {
         if (response.result && response.pagination) {
