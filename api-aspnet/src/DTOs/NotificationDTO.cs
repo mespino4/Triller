@@ -8,6 +8,5 @@ public class NotificationDTO {
 	public string MemberUsername { get; set; }
 	public string Type { get; set; }
 	public int? TrillId { get; set; }
-	//public bool IsRead { get; set; }
 	public DateTime Timestamp { get; set; }
 }

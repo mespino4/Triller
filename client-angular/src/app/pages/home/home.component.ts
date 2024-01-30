@@ -20,7 +20,6 @@ export class HomeComponent {
 
   foryouTrills: Trill[] =  [];
   followingTrills: Trill[] =  [];
-  //trills: Trill[] =  [];
   isForYou: boolean | undefined = undefined;
 
   pagination: Pagination | undefined
@@ -35,9 +34,7 @@ export class HomeComponent {
   trillImageThumbnail: string | null = null;
 
   private accountService = inject(AccountService)
-  private bookmarkService = inject(BookmarkService)
   private trillService = inject(TrillService)
-  private cdr = inject(ChangeDetectorRef)
 
   ngOnInit(): void {
     this.loadForYouTrills()
@@ -66,7 +63,6 @@ export class HomeComponent {
   loadForYouTrills() {
     this.followingTrills = [];
 
-    console.log("for you clicked for you");
     this.trillService.getForYouTrills(this.foryouPageNumber, this.pageSize).subscribe({
       next: (response) => {
         if (response.result && response.pagination) {
@@ -123,8 +119,6 @@ export class HomeComponent {
     // Only create trill if either trillContent or trillImage is present
     if (this.trillContent || this.trillImage) {
       this.trillService.createTrill(this.trillContent, imageToSend).subscribe((response) => {
-        // Handle the response, e.g., show a success message or update your UI.
-        console.log('Trill created:', response);
   
         // Clear the trillContent and trillImage after creating the trill if needed.
         this.trillContent = '';
