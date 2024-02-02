@@ -2,6 +2,7 @@
 using api_aspnet.src.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -13,6 +14,10 @@ public static class IdentityServiceExtensions {
 
 		services.AddIdentityCore<AppUser>(opt => {
 			opt.Password.RequireNonAlphanumeric = false;
+			opt.Password.RequiredLength = 4;
+			opt.Password.RequireLowercase = false;
+			opt.Password.RequireUppercase = false;
+			opt.Password.RequireDigit = false;
 		})
 			.AddRoles<AppRole>()
 			.AddRoleManager<RoleManager<AppRole>>()
