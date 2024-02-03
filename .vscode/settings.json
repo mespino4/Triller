@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/862569a5-2b65-4d1f-b02a-6b42a834a7b7/resourceGroups/Triller_group/providers/Microsoft.Web/sites/Triller",
+    "appService.deploySubpath": "publish"
+}

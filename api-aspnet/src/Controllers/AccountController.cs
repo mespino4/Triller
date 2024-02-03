@@ -4,7 +4,6 @@ using api_aspnet.src.Entities;
 using api_aspnet.src.Extensions;
 using api_aspnet.src.Services.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -67,7 +67,7 @@ export class AuthenticationComponent {
       dateOfBirth: ['', Validators.required],
       location: ['', Validators.required],
       password: ['', [Validators.required, 
-        Validators.minLength(4), Validators.maxLength(12)]],
+        Validators.minLength(4), Validators.maxLength(16)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
