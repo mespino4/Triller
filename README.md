@@ -13,8 +13,8 @@ the platform supports user-to-user connections with a follow system.
   - [Server Installation](#server-installation)
   - [Client Installation](#client-installation)
 - [Usage](#usage)
+- [Configuration](#configuration)
 - [Screenshots](#screenshots)
-- [Demo](#demo)
 - [License](#license)
 
 ## Features
@@ -78,9 +78,31 @@ To install and run the Triller client (Angular) locally, follow these steps:
     ```
     npm install
     ```
-
+    
 3. Run the Angular development server:
 
     ```
     ng serve
     ```
+    
+## Usage
+
+- Access the frontend application in your browser at `http://localhost:4200`.
+- Explore the different features and functionalities of the application.
+- Use the provided authentication mechanism to log in and access restricted resources.
+
+## Configuration
+
+- Backend:
+  - Database connection settings: Update the connection string in `appsettings.json`.
+  - Authentication settings: Configure authentication providers, JWT tokens, etc., in `Program.cs`.
+
+- Frontend:
+  - API base URL: Update the base URL of the backend API in `environment.ts` for development and `environment.prod.ts` for production.
+
+## Screenshots
+Coming Soon!
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
