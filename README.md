@@ -9,6 +9,7 @@ the platform supports user-to-user connections with a follow system.
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
 - [Installation](#installation)
   - [Server Installation](#server-installation)
   - [Client Installation](#client-installation)
@@ -42,9 +43,6 @@ the platform supports user-to-user connections with a follow system.
 
 
 ## Architecture
-
-This section describes the architecture and design patterns used in the Triller application.
-
 ### Repository and Unit of Work Patterns
 Triller utilizes the Repository and Unit of Work Patterns to organize and manage data access logic.
 
