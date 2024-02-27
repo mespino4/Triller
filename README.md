@@ -1,4 +1,4 @@
-![Logo](client-angular/src/assets/images/logo.png)
+![Logo](images/trillerLogo2.png)
 # Triller: A Microblogging Social Media Platform
 
 Triller is a social media platform that mimics the functionality of Twitter, 
