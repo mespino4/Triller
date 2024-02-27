@@ -23,9 +23,20 @@ https://triller.azurewebsites.net/
 
 ## Features
 - **Authorization**: Users need to sign in or register to be able to use the application.
-- **Trills**: Users can compose and share short posts, known as Trills, with their followers.  
+- **Trills**: Users can compose and share short posts, known as Trills, with their followers. They can attach photos to their Trills.
 - **Engagement**: Users can express their opinions by liking, commenting, and reposting Trills.
 - **Follow System**: Users can follow each other to stay updated on the latest Trills from their connections.
+- **Blocking System**: Users can block each other to prevent interactions and viewing of content.
+- **Reply to Trills**: Users can reply to Trills to engage in conversations and discussions.
+- **Repost Trills**: Users can repost Trills to share them with their own followers.
+- **Bookmark Trills**: Users can bookmark Trills to save them for later viewing.
+- **Share Trills**: Users can share Trills with others via external platforms or messaging.
+- **Thumbs Up/Down**: Users can express their sentiment on replies with thumbs up or thumbs down reactions.
+- **Language Toggle**: Users can toggle between English and Spanish languages for the website interface.
+- **Messaging System**: Users can message each other privately.
+- **Notification System**: Users receive notifications for activities such as likes, comments, follows, and messages.
+- **Profile Editing**: Users can edit their profile information, including profile picture, bio, and other details.
+
 
 ## Tech Stack
 - **Backend:**
