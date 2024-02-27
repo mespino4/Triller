@@ -6,6 +6,9 @@ allowing users to share their thoughts, updates, and more through short posts ca
 Users can engage with Trills by liking, commenting, and reposting them. Additionally, 
 the platform supports user-to-user connections with a follow system.
 
+## Live Demo
+https://triller.azurewebsites.net/
+
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -113,7 +116,33 @@ To install and run the Triller client (Angular) locally, follow these steps:
   - API base URL: Update the base URL of the backend API in `environment.ts` for development and `environment.prod.ts` for production.
 
 ## Screenshots
-Coming Soon!
+![HomePage](docs/screenshots/HomePage.png)
+
+*Home page*
+
+![ProfilePage](docs/screenshots/ProfilePage.png)
+
+*Profile page*
+
+![NotificationsPage](docs/screenshots/NotificationsPage.png)
+
+*Notifications page*
+
+![MessagesPage](docs/screenshots/MessagePage.png)
+
+*Messages page*
+
+![BookmarksPage](docs/screenshots/BookmarksPage.png)
+
+*Bookmarks page*
+
+![SettingsPage](docs/screenshots/SettingsPage.png)
+
+*Settings page*
+
+![ConnectionsPage](docs/screenshots/ConectionsPage.png)
+
+*Connections page*
 
 ## License
 
