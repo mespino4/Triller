@@ -4,7 +4,8 @@
 Triller is a social media platform that mimics the functionality of Twitter, 
 allowing users to share their thoughts, updates, and more through short posts called Trills. 
 Users can engage with Trills by liking, commenting, and reposting them. Additionally, 
-the platform supports user-to-user connections with a follow system.
+the platform supports user-to-user connections with a follow system. Finally, users can 
+communicate with each other through a real-time messaging system
 
 ## Live Demo
 https://triller.azurewebsites.net/
