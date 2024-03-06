@@ -39,32 +39,35 @@ https://triller.azurewebsites.net/
 
 
 ## Tech Stack
-- **Backend:**
-  - ASP.NET 8
-  - Microsoft SQL Server
-  - Entity Framework
+### API
+- **ASP.NET 8**
+- **Entity Framework**
 
-- **Frontend:**
-  - Angular 17
-  - Angular Material
-  - Tailwind CSS
+### Database
+- **Microsoft SQL Server**
 
-- **Infrastructure:**
-  - Microsoft Azure (for deployment)
+### Authentication
+- **ASP.NET Identity**
+- **JSON Web Tokens (JWT)**
 
-- **External Services:**
-  - Cloudinary (for photo uploading)
+### Web Client
+- **Angular 17**
+- **Angular Material**
+- **Tailwind CSS**
 
+### Infrastructure
+- **Microsoft Azure** (for deployment)
+
+### External Services
+- **Cloudinary** (for photo uploading)
 
 ## Architecture
-### Repository and Unit of Work Patterns
-Triller utilizes the Repository and Unit of Work Patterns to organize and manage data access logic.
-
+### Layered Architecture with Repository and Unit of Work Patterns
+Triller follows a layered architecture design pattern, incorporating the Repository and Unit of Work Patterns to organize and manage data access logic effectively.
 - **Repository Pattern:** Data access logic is encapsulated in repositories, providing a clean separation between the data layer and the business logic. Each entity type typically has its own repository class responsible for CRUD operations.
-
 - **Unit of Work Pattern:** The Unit of Work pattern coordinates multiple repositories and ensures that all changes to the database are made within a single transaction. This pattern helps maintain data integrity and consistency.
 
-By adhering to these patterns, the application achieves better maintainability, testability, and separation of concerns.
+By adhering to these patterns, Triller achieves better maintainability, testability, and separation of concerns within its architecture.
 
 ## Installation
 ### Server Installation
