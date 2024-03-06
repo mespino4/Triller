@@ -48,7 +48,6 @@ public class MessageRepository : IMessageRepository{
 
 		return await PagedList<MessageDTO>
 			.CreateAsync(query, messageParams.PageNumber, messageParams.PageSize);
-
 	}
 
 	public async Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUsername,

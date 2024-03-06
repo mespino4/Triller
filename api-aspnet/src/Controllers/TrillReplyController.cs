@@ -36,7 +36,7 @@ public class TrillReplyController : BaseApiController {
 
 		// Check if the user has already disliked the trill reply
 		if(reactionType == ReactionType.Dislike) {
-			// User has already disliked the trill reply, remove the dislike
+			// If the user has already disliked the trill reply, remove the dislike
 			var trillReplyToRemoveDislike = await _uow.TrillReplyRepository.GetTrillReplyById(trillReplyId);
 			if(trillReplyToRemoveDislike == null) return NotFound("Trill reply not found.");
 
@@ -48,7 +48,7 @@ public class TrillReplyController : BaseApiController {
 			await _uow.Complete();
 		}
 
-		// Continue with the like logic...
+		// Continue with the like logic
 		var trillReplyToAddLike = await _uow.TrillReplyRepository.GetTrillReplyById(trillReplyId);
 		if(trillReplyToAddLike == null) return NotFound("Trill reply not found.");
 
@@ -56,12 +56,12 @@ public class TrillReplyController : BaseApiController {
 			.FirstOrDefault(r => r.UserId == user.Id && r.ReactionType == ReactionType.Like);
 
 		if(existingLike != null) {
-			// User has already liked the trill reply, remove the like
+			// If user has already liked the reply, remove the like
 			trillReplyToAddLike.Reactions.Remove(existingLike);
 			if(await _uow.Complete())
 				return Ok();
 		} else {
-			// User hasn't liked the trill reply, add the like
+			// If user hasn't liked the trill reply, add the like
 			var like = new UserReaction {
 				User = user,
 				UserId = user.Id,
@@ -88,7 +88,7 @@ public class TrillReplyController : BaseApiController {
 
 		// Check if the user has already liked the trill reply
 		if(reactionType == ReactionType.Like) {
-			// User has already liked the trill reply, remove the like
+			// If user has already liked the trill reply, remove the like
 			var trillReplyToRemoveLike = await _uow.TrillReplyRepository.GetTrillReplyById(trillReplyId);
 			if(trillReplyToRemoveLike == null) return NotFound("Trill reply not found.");
 
@@ -100,7 +100,7 @@ public class TrillReplyController : BaseApiController {
 			await _uow.Complete();
 		}
 
-		// Continue with the dislike logic...
+		// Continue with the dislike logic
 		var trillReplyToAddDislike = await _uow.TrillReplyRepository.GetTrillReplyById(trillReplyId);
 		if(trillReplyToAddDislike == null) return NotFound("Trill reply not found.");
 
@@ -108,12 +108,12 @@ public class TrillReplyController : BaseApiController {
 			.FirstOrDefault(r => r.UserId == user.Id && r.ReactionType == ReactionType.Dislike);
 
 		if(existingDislike != null) {
-			// User has already disliked the trill reply, remove the dislike
+			//If user has already disliked the trill reply, remove the dislike
 			trillReplyToAddDislike.Reactions.Remove(existingDislike);
 			if(await _uow.Complete())
 				return Ok();
 		} else {
-			// User hasn't disliked the trill reply, add the dislike
+			//If user hasn't disliked the trill reply, add the dislike
 			var dislike = new UserReaction {
 				User = user,
 				UserId = user.Id,

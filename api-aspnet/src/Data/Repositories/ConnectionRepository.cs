@@ -52,9 +52,6 @@ public class ConnectionRepository : IConnectionRepository{
 		return connection;
 	}
 
-
-
-
 	public async Task<bool> GetConnectionStatus(int sourceUserId, int targetUserId) {
 		var connection = await _context.Connections
 			.SingleOrDefaultAsync(c =>

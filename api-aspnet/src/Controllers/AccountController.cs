@@ -147,12 +147,9 @@ public class AccountController : BaseApiController {
 	}
 
 
-
-
 	//This method checks to see if the username already exists in the database
 	private async Task<bool> UserExists(string username) {
 		return await _userManager.Users
 			.AnyAsync(x => x.UserName == username.ToLower());
 	}
-
 }

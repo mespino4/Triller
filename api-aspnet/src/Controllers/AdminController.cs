@@ -50,13 +50,9 @@ public class AdminController : BaseApiController{
 
 	}
 
-
 	[Authorize(Policy = "ModeratePhotoRole")]
 	[HttpGet("photos-to-moderate")]
 	public ActionResult GetPhotosForModeration() {
 		return Ok("Admins or moderators can see this");
-		/*
-		return Ok("Admins or moderators can see this");
-		*/
 	}
 }
