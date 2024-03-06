@@ -131,33 +131,26 @@ To install and run the Triller client (Angular) locally, follow these steps:
   - API base URL: Update the base URL of the backend API in `environment.ts` for development and `environment.prod.ts` for production.
 
 ## Screenshots
+### Home page
 ![HomePage](docs/screenshots/HomePage.png)
 
-*Home page*
-
+### Profile page
 ![ProfilePage](docs/screenshots/ProfilePage.png)
 
-*Profile page*
-
+### Notifications page
 ![NotificationsPage](docs/screenshots/NotificationsPage.png)
 
-*Notifications page*
-
+### Messages page
 ![MessagesPage](docs/screenshots/MessagePage.png)
 
-*Messages page*
-
+### Bookmarks page
 ![BookmarksPage](docs/screenshots/BookmarksPage.png)
 
-*Bookmarks page*
-
+### Settings page
 ![SettingsPage](docs/screenshots/SettingsPage.png)
 
-*Settings page*
-
+### Connections page
 ![ConnectionsPage](docs/screenshots/ConectionsPage.png)
-
-*Connections page*
 
 ## License
 
