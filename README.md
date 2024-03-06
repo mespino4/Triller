@@ -152,6 +152,8 @@ To install and run the Triller client (Angular) locally, follow these steps:
 ### Connections page
 ![ConnectionsPage](docs/screenshots/ConectionsPage.png)
 
-## License
+### Spanish Version
+![Spanish](docs/screenshots/Spanish.png)
 
+## License
 This project is licensed under the [MIT License](LICENSE).
