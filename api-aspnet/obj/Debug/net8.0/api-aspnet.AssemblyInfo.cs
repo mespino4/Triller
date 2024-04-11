@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("api-aspnet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2520945dd32326ac4829626ddb1a1aa85b2633d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+546f91dbde61bf9a33d27b962998801f4afa7aa0")]
 [assembly: System.Reflection.AssemblyProductAttribute("api-aspnet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("api-aspnet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
