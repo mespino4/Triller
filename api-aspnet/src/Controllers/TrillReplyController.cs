@@ -8,18 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 
-public class TrillReplyController : BaseApiController {
-	private readonly IUnitOfWork _uow;
-	private readonly IMediaService _mediaService;
-	private readonly IMapper _mapper;
+public class TrillReplyController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) : BaseApiController {
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMediaService _mediaService = mediaService;
+	private readonly IMapper _mapper = mapper;
 
-	public TrillReplyController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) {
-		_uow = uow;
-		_mediaService = mediaService;
-		_mapper = mapper;
-	}
-
-	[HttpGet("id/")]
+    [HttpGet("id/")]
 	public async Task<ActionResult<TrillReplyDTO>> GetReply(int replyId) {
 		var reply = await _uow.TrillReplyRepository.GetTrillReplyById(replyId);
 		if(reply == null) return NotFound("Reply not found");

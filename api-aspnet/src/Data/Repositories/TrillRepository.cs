@@ -6,13 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class TrillRepository : ITrillRepository {
-	private readonly DataContext _context;
+public class TrillRepository(DataContext context) : ITrillRepository {
+	private readonly DataContext _context = context;
 
-	public TrillRepository(DataContext context) {
-		_context = context;
-	}
-	public void AddTrill(Trill trill) {
+    public void AddTrill(Trill trill) {
 		_context.Trills.Add(trill);
 	}
 	public void DeleteTrill(Trill trill) {

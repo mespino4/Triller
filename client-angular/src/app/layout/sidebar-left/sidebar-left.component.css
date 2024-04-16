@@ -1,0 +1,23 @@
+.nav-button {
+    display: flex;
+    align-items: center;
+    padding: 1.0rem 0.5rem; /* Equivalent to py-5 px-2 */
+    font-size: 1.5rem; /* Equivalent to text-2xl */
+    line-height: 1.5; /* Equivalent to leading-6 */
+    font-weight: 600; /* Equivalent to font-semibold */
+    transition: background-color 0.3s, color 0.3s; /* For hover effects */
+
+    /* Default styles */
+    color: #ffffff; /* Default text color */
+
+    /* Hover styles */
+    &:hover {
+        color: #3b82f6; /* Equivalent to hover:text-blue-300 */
+    }
+}
+
+.nav-button svg {
+    margin-right: 1rem; /* Equivalent to mr-4 */
+    height: 1.5rem; /* Equivalent to h-6 */
+    width: 1.5rem; /* Equivalent to w-6 */
+}

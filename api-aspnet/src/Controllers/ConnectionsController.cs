@@ -7,16 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 
-public class ConnectionsController : BaseApiController{
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
+public class ConnectionsController(IUnitOfWork uow, IMapper mapper) : BaseApiController{
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
 
-	public ConnectionsController(IUnitOfWork uow, IMapper mapper){
-		_uow = uow;
-		_mapper = mapper;
-	}
-
-	[HttpPost("follow")] // /api/connections/follow
+    [HttpPost("follow")] // /api/connections/follow
 	public async Task<ActionResult<MemberDTO>> FollowUser(int targetUserId) {
 		var sourceUser = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(sourceUser == null) return BadRequest("user not found");

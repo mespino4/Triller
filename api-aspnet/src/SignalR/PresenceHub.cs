@@ -5,14 +5,10 @@ using api_aspnet.src.Extensions;
 namespace api_aspnet.src.SignalR;
 
 [Authorize]
-public class PresenceHub : Hub {
-	private readonly PresenceTracker _tracker;
+public class PresenceHub(PresenceTracker tracker) : Hub {
+	private readonly PresenceTracker _tracker = tracker;
 
-	public PresenceHub(PresenceTracker tracker) {
-		_tracker = tracker;
-	}
-
-	public override async Task OnConnectedAsync() {
+    public override async Task OnConnectedAsync() {
 		var isOnline = await _tracker.UserConnected(Context.User.GetUsername(), Context.ConnectionId);
 		if(isOnline) await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUsername());
 

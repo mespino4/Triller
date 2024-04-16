@@ -7,56 +7,61 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace api_aspnet.src.Controllers;
-public class AccountController : BaseApiController {
-	private readonly UserManager<AppUser> _userManager;
-	private readonly ITokenService _tokenService;
-	private readonly IMapper _mapper;
-	private readonly IUnitOfWork _uow;
+public class AccountController(UserManager<AppUser> userManager, IUnitOfWork uow,
+    ITokenService tokenService, IMapper mapper) : BaseApiController {
+	private readonly UserManager<AppUser> _userManager = userManager;
+	private readonly ITokenService _tokenService = tokenService;
+	private readonly IMapper _mapper = mapper;
+	private readonly IUnitOfWork _uow = uow;
 
-	public AccountController(UserManager<AppUser> userManager, IUnitOfWork uow,
-		ITokenService tokenService,  IMapper mapper) {
-		_userManager = userManager;
-		_tokenService = tokenService;
-		_mapper = mapper;
-		_uow = uow;
-	}
+    [HttpPost("register")]
+    public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDto) {
+        // Check if the username already exists
+        if(await UserExists(registerDto.Username)) return BadRequest("Username already exists");
 
-	[HttpPost("register")]
-	public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDto) {
-		// Check if the username already exists
-		if(await UserExists(registerDto.Username)) return BadRequest("Username already exists");
+        // Create a new user object with the provided username
+        var user = _mapper.Map<AppUser>(registerDto);
+        user.UserName = registerDto.Username.ToLower();
 
-		// Create a new user object with the provided username
-		var user = _mapper.Map<AppUser>(registerDto);
-		user.UserName = registerDto.Username.ToLower();
+        // Add the user to the database
+        var result = await _userManager.CreateAsync(user, registerDto.Password);
+        if(!result.Succeeded) return BadRequest(result.Errors);
 
-		// Add the user to the database
-		var result = await _userManager.CreateAsync(user, registerDto.Password);
-		if(!result.Succeeded) return BadRequest(result.Errors);
-		
-		// Assign the 'Member' role to the user
-		var roleResult = await _userManager.AddToRoleAsync(user, "Member");
-		if(!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+        // Assign the 'Member' role to the user
+        var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+        if(!roleResult.Succeeded) return BadRequest(roleResult.Errors);
 
-		// Return the newly registered user
-		var userDto = new UserDTO {
+        // Return the newly registered user
+        var userDto = new UserDTO {
 			UserId = user.Id,
 			Username = user.UserName,
 			Token = await _tokenService.CreateToken(user),
 			Language = user.Language,
 			Displayname = user.DisplayName,
 			ProfilePic = user.ProfilePic,
-			BannerPic = user.BannerPic,
+			BannerPic = user.BannerPic
 		};
 
-		return userDto;
-	}
+		/*
+        // with recrods
+        var userDto = new UserDTO(
+            user.Id,
+            user.UserName,
+            await _tokenService.CreateToken(user),
+            user.Language,
+            user.DisplayName,
+            user.ProfilePic,
+            user.BannerPic
+        );
+		*/
 
+        return userDto;
+    }
 
-
-	[HttpPost("login")] // Endpoint for user login (HTTP POST request to /api/account/login)
+    [HttpPost("login")] // Endpoint for user login (HTTP POST request to /api/account/login)
 	public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDto) {
 		// Find the user in the database by username
 		var user = await _userManager.Users
@@ -78,7 +83,19 @@ public class AccountController : BaseApiController {
 			ProfilePic = user.ProfilePic,
 			BannerPic = user.BannerPic,
 		};
-	}
+
+		/*
+        return new UserDTO(
+			user.Id,
+			user.UserName,
+			await _tokenService.CreateToken(user),
+			user.Language,
+			user.DisplayName,
+			user.ProfilePic,
+			user.BannerPic
+		);
+		*/
+    }
 
 	[HttpPut("language/set")]
 	public async Task<IActionResult> SetLanguage(bool isEnglish) {

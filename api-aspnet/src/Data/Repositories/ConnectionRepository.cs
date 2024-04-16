@@ -6,16 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class ConnectionRepository : IConnectionRepository{
-	private readonly DataContext _context;
-	private readonly IMapper _mapper;
+public class ConnectionRepository(DataContext context, IMapper mapper) : IConnectionRepository{
+	private readonly DataContext _context = context;
+	private readonly IMapper _mapper = mapper;
 
-	public ConnectionRepository(DataContext context, IMapper mapper) {
-		_context = context;
-		_mapper = mapper;
-	}
-
-	public void AddConnection(Connection connection) {
+    public void AddConnection(Connection connection) {
 		_context.Connections.Add(connection);
 	}
 

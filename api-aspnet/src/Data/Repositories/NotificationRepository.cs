@@ -4,14 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class NotificationRepository : INotificationRepository {
-	private readonly DataContext _context;
+public class NotificationRepository(DataContext context) : INotificationRepository {
+	private readonly DataContext _context = context;
 
-	public NotificationRepository(DataContext context) {
-		_context = context;
-	}
-
-	public void AddNotification(Notification notification) {
+    public void AddNotification(Notification notification) {
 		_context.Notifications.Add(notification);
 	}
 

@@ -4,23 +4,16 @@ using System.Text.Json;
 
 namespace api_aspnet.src.Middleware;
 
-public class ExceptionMiddleware {
-	private readonly RequestDelegate _next;
-	private readonly ILogger<ExceptionMiddleware> _logger;
-	private readonly IHostEnvironment _env;
+public class ExceptionMiddleware(
+    RequestDelegate next,
+    ILogger<ExceptionMiddleware> logger,
+    IHostEnvironment env) {
+	private readonly RequestDelegate _next = next;
+	private readonly ILogger<ExceptionMiddleware> _logger = logger;
+	private readonly IHostEnvironment _env = env;
 
-	// Constructor that takes the necessary dependencies
-	public ExceptionMiddleware(
-		RequestDelegate next,
-		ILogger<ExceptionMiddleware> logger,
-		IHostEnvironment env) {
-		_next = next;
-		_logger = logger;
-		_env = env;
-	}
-
-	// Middleware's main entry point
-	public async Task InvokeAsync(HttpContext context) {
+    // Middleware's main entry point
+    public async Task InvokeAsync(HttpContext context) {
 		try {
 			// Call the next middleware in the pipeline
 			await _next(context);

@@ -8,15 +8,11 @@ using api_aspnet.src.Data.Repositories.Interfaces;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class MessageRepository : IMessageRepository{
-	private readonly DataContext _context;
-	private readonly IMapper _mapper;
-	public MessageRepository(DataContext context, IMapper mapper) {
-		_mapper = mapper;
-		_context = context;
-	}
+public class MessageRepository(DataContext context, IMapper mapper) : IMessageRepository{
+	private readonly DataContext _context = context;
+	private readonly IMapper _mapper = mapper;
 
-	public void AddMessage(Message message) {
+    public void AddMessage(Message message) {
 		_context.Messages.Add(message);
 	}
 

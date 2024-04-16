@@ -10,18 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace api_aspnet.src.Controllers;
 
 [Authorize]
-public class UsersController : BaseApiController {
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
-	private readonly IMediaService _mediaService;
+public class UsersController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) : BaseApiController {
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
+	private readonly IMediaService _mediaService = mediaService;
 
-	public UsersController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) {
-		_uow = uow;
-		_mapper = mapper;
-		_mediaService = mediaService;
-	}
-
-	[HttpGet]
+    [HttpGet]
 	public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers() {
 		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return NotFound();

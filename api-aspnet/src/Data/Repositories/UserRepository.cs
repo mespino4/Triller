@@ -2,23 +2,16 @@
 using api_aspnet.src.DTOs;
 using api_aspnet.src.Entities;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class UserRepository : IUserRepository {
-	private readonly DataContext _context;
-	private readonly IMapper _mapper;
+public class UserRepository(DataContext context, IMapper mapper) : IUserRepository {
+	private readonly DataContext _context = context;
+	private readonly IMapper _mapper = mapper;
 
-	public UserRepository(DataContext context, IMapper mapper) {
-		_context = context;
-		_mapper = mapper;
-	}
-
-	//This retrieves all users
-	public async Task<IEnumerable<AppUser>> GetAllUsersAsync() {
+    //This retrieves all users
+    public async Task<IEnumerable<AppUser>> GetAllUsersAsync() {
 		return await _context.Users
 			.Include(b => b.BannerPicture)
 			.ToListAsync();

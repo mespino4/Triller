@@ -4,16 +4,11 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
-public class TrillReplyRepository : ITrillReplyRepository {
-	private readonly DataContext _context;
-	private readonly IMapper _mapper;
+public class TrillReplyRepository(DataContext context, IMapper mapper) : ITrillReplyRepository {
+	private readonly DataContext _context = context;
+	private readonly IMapper _mapper = mapper;
 
-	public TrillReplyRepository(DataContext context, IMapper mapper) {
-		_context = context;
-		_mapper = mapper;
-	}
-
-	public async Task<TrillReply> GetTrillReplyById(int trillReplyId) {
+    public async Task<TrillReply> GetTrillReplyById(int trillReplyId) {
 		return await _context.TrillReplies
 			.Include(tr => tr.Reactions) // Include the Reactions collection
 			.FirstOrDefaultAsync(tr => tr.Id == trillReplyId);

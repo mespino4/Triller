@@ -7,16 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 
-public class BookmarkController : BaseApiController {
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
+public class BookmarkController(IUnitOfWork uow, IMapper mapper) : BaseApiController {
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
 
-	public BookmarkController(IUnitOfWork uow, IMapper mapper) {
-		_uow = uow;
-		_mapper = mapper;
-	}
-
-	[HttpPost("add")] // /api/bookmark/add
+    [HttpPost("add")] // /api/bookmark/add
 	public async Task<ActionResult<TrillDTO>> AddBookmark(int trillId) {
 		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");

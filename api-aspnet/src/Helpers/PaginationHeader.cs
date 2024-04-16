@@ -1,15 +1,8 @@
 ﻿namespace api_aspnet.src.Helpers;
 
-public class PaginationHeader {
-	public PaginationHeader(int currentPage, int itemsPerPage, int totalItems, int totalPages) {
-		CurrentPage = currentPage;
-		ItemsPerPage = itemsPerPage;
-		TotalItems = totalItems;
-		TotalPages = totalPages;
-	}
-
-	public int CurrentPage { get; set; }
-	public int ItemsPerPage { get; set; }
-	public int TotalItems { get; set; }
-	public int TotalPages { get; set; }
+public class PaginationHeader(int currentPage, int itemsPerPage, int totalItems, int totalPages) {
+    public int CurrentPage { get; set; } = currentPage;
+    public int ItemsPerPage { get; set; } = itemsPerPage;
+    public int TotalItems { get; set; } = totalItems;
+    public int TotalPages { get; set; } = totalPages;
 }

@@ -9,18 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 
-public class TrillController : BaseApiController {
-	private readonly IUnitOfWork _uow;
-	private readonly IMediaService _mediaService;
-	private readonly IMapper _mapper;
+public class TrillController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) : BaseApiController {
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMediaService _mediaService = mediaService;
+	private readonly IMapper _mapper = mapper;
 
-	public TrillController(IUnitOfWork uow, IMediaService mediaService, IMapper mapper) {
-		_uow = uow;
-		_mediaService = mediaService;
-		_mapper = mapper;
-	}
-
-	[HttpPost] ///api/trill/
+    [HttpPost] ///api/trill/
 	public async Task<ActionResult<TrillDTO>> CreateTrill(CreateTrillDTO createTrillDTO) {
 		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 		if(user == null) return BadRequest("user not found");

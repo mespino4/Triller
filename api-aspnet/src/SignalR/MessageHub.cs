@@ -9,16 +9,11 @@ using api_aspnet.src.DTOs;
 namespace api_aspnet.src.SignalR;
 
 [Authorize]
-public class MessageHub : Hub {
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
+public class MessageHub(IUnitOfWork uow, IMapper mapper) : Hub {
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
 
-	public MessageHub(IUnitOfWork uow, IMapper mapper) {
-		_uow = uow;
-		_mapper = mapper;
-	}
-
-	public override async Task OnConnectedAsync() {
+    public override async Task OnConnectedAsync() {
 		var httpContext = Context.GetHttpContext();
 		var otherUser = httpContext.Request.Query["user"];
 		var groupName = GetGroupName(Context.User.GetUsername(), otherUser);

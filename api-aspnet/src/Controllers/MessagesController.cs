@@ -8,16 +8,11 @@ using api_aspnet.src.Extensions;
 
 namespace api_aspnet.src.Controllers;
 
-public class MessagesController : BaseApiController{
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
-	public MessagesController(IUnitOfWork uow, IMapper mapper) {
-		_uow = uow;
-		_mapper = mapper;
-	}
+public class MessagesController(IUnitOfWork uow, IMapper mapper) : BaseApiController{
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
 
-
-	[HttpPost]
+    [HttpPost]
 	public async Task<ActionResult<MessageDTO>> CreateMessage(CreateMessageDTO createMessageDto) {
 		var username = User.GetUsername();
 		if(username == createMessageDto.RecipientUsername.ToLower())

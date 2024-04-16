@@ -8,19 +8,13 @@ using System.Text;
 
 namespace api_aspnet.src.Services;
 
-public class TokenService : ITokenService {
+public class TokenService(IConfiguration config, UserManager<AppUser> userManager) : ITokenService {
 
-	private readonly SymmetricSecurityKey _key;
-	private readonly UserManager<AppUser> _userManager;
+	private readonly SymmetricSecurityKey _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+	private readonly UserManager<AppUser> _userManager = userManager;
 
-	// Constructor that takes IConfiguration as a parameter to initialize the SymmetricSecurityKey.
-	public TokenService(IConfiguration config, UserManager<AppUser> userManager) {
-		_key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
-		_userManager = userManager;
-	}
-
-	// Method to create a JWT token for the provided user.
-	public async Task<string> CreateToken(AppUser user) {
+    // Method to create a JWT token for the provided user.
+    public async Task<string> CreateToken(AppUser user) {
 		// Create a list of claims for the token, including the user's username.
 		var claims = new List<Claim>{
 				new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),

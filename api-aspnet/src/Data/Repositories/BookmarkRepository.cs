@@ -5,14 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class BookmarkRepository : IBookmarkRepository {
-	private readonly DataContext _context;
+public class BookmarkRepository(DataContext context) : IBookmarkRepository {
+	private readonly DataContext _context = context;
 
-	public BookmarkRepository(DataContext context) {
-		_context = context;
-	}
-
-	public void AddBookmark(Bookmark bookmark) {
+    public void AddBookmark(Bookmark bookmark) {
 		_context.Bookmarks.Add(bookmark);
 	}
 

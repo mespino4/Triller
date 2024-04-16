@@ -3,14 +3,10 @@ using api_aspnet.src.Entities;
 
 namespace api_aspnet.src.Data.Repositories;
 
-public class RetrillRepository : IRetrillRepository{
-	private readonly DataContext _context;
+public class RetrillRepository(DataContext context) : IRetrillRepository{
+	private readonly DataContext _context = context;
 
-	public RetrillRepository(DataContext context) {
-		_context = context;
-	}
-
-	public void CreateRetrill(Retrill retrill) {
+    public void CreateRetrill(Retrill retrill) {
 		_context.Retrills.Add(retrill);
 	}
 	public void RemoveRetrill(int userId, int trillId) {

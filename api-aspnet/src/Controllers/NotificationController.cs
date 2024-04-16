@@ -6,14 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 
-public class NotificationController : BaseApiController {
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
-
-	public NotificationController(IUnitOfWork uow, IMapper mapper){
-		_uow = uow;
-		_mapper = mapper;
-	}
+public class NotificationController(IUnitOfWork uow, IMapper mapper) : BaseApiController {
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
 
     [HttpGet] ///api/notification
 	public async Task<ActionResult<IEnumerable<NotificationDTO>>> GetNotifications() {

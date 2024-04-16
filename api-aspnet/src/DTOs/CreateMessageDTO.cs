@@ -1,6 +1,8 @@
-﻿namespace api_aspnet.src.DTOs;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public class CreateMessageDTO {
-	public string RecipientUsername { get; set; }
-	public string Content { get; set; }
-}
+namespace api_aspnet.src.DTOs;
+
+public record CreateMessageDTO(
+    string RecipientUsername,
+    string Content
+    );

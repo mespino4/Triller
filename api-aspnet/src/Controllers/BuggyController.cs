@@ -6,14 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_aspnet.src.Controllers;
 [ApiController]
-public class BuggyController : BaseApiController {
-	private readonly DataContext _context;
+public class BuggyController(DataContext context) : BaseApiController {
+	private readonly DataContext _context = context;
 
-	public BuggyController(DataContext context) {
-		_context = context;
-	}
-
-	[Authorize]
+    [Authorize]
 	[HttpGet("auth")]
 	public ActionResult<string> GetSecret() {
 		return "secret text";
