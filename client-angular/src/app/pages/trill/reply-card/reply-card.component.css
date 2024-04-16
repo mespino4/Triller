@@ -1,0 +1,16 @@
+/* Common styles for buttons */
+.reply-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 9999px;
+    cursor: pointer;
+    padding: 0.25rem; /* Adjust padding as needed */
+}
+
+/* Additional styles for action buttons */
+.action-button {
+    margin-right: 0.5rem; /* Adjust margin as needed */
+}

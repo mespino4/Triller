@@ -26,8 +26,7 @@
 
             <!-- Trashcan Icon -->
             <div class="flex flex-1 justify-end" *ngIf="(user?.username == member$?.username) || hasModeratorRole()">
-                <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                        hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1">
+                <div class="reply-button hover:bg-opacity-50 hover:bg-red-600">
                     <img class="h-6 hover:cursor-pointer ml-auto" 
                         src="assets\images\icons\shared\trashcanW.png"
                         (click)="deleteReply(reply.id)">
@@ -71,26 +70,27 @@
 
         <!--BUTTONS-->
         <div class="flex items-center justify-center py-2">
-            <div class="flex-1 flex items-center justify-center
-                text-white text-xs hover:text-green-600 transition duration-350 ease-in-out">
-                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumpsUpW.png"
-                    *ngIf="!isLike" (click)="like(reply.id)">
+            <div class="flex justify-between w-full max-w-xs">
+                <div class="reply-button hover:bg-opacity-50 hover:bg-green-600">
+                    @if (!isLike) {
+                        <img class="h-6 pr-2" src="assets\images\icons\reply-card\thumpsUpW.png" (click)="like(reply.id)">
+                    }@else if(isLike){
+                        <img class="h-6 pr-2" src="assets\images\icons\reply-card\thumpsUpFilled.png" (click)="like(reply.id)">
+                    }
+                    {{reply.likes}}
+                </div>
 
-                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumpsUpFilled.png"
-                    *ngIf="isLike" (click)="like(reply.id)">
-                {{reply.likes}}
-            </div>
-
-            <div class="flex-1 flex items-center justify-center 
-            text-white text-xs hover:text-red-600 transition duration-350 ease-in-out">
-                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumbsDownW.png"
-                *ngIf="!isDislike" (click)="dislike(reply.id)">
-
-                <img class="h-6 pr-2 hover: cursor-pointer" src="assets\images\icons\reply-card\thumbsDownFilled.png"
-                *ngIf="isDislike" (click)="dislike(reply.id)">
-                {{reply.dislikes}}
+                <div class="reply-button hover:bg-opacity-50 hover:bg-red-600">
+                    @if (!isDislike) {
+                        <img class="h-6 pr-2" src="assets\images\icons\reply-card\thumbsDownW.png" (click)="dislike(reply.id)">
+                    }@else if(isDislike){
+                        <img class="h-6 pr-2" src="assets\images\icons\reply-card\thumbsDownFilled.png" (click)="dislike(reply.id)">
+                    }
+                    {{reply.dislikes}}
+                </div>
             </div>
         </div>
+
 
         <hr class="border-gray-600 mt-2">
     </article>

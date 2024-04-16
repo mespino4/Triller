@@ -24,8 +24,7 @@
         
             <!-- Trashcan Icon -->
             <div class="flex flex-1 justify-end" *ngIf="(user?.username == member$?.username) || hasModeratorRole()">
-                <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                        hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1">
+                <div class="trill-button hover:bg-opacity-50 hover:bg-red-600">
                     <img class="h-6 hover:cursor-pointer ml-auto" 
                         src="assets\images\icons\shared\trashcanW.png"
                         (click)="deleteTrill(trill.id)">
@@ -46,7 +45,6 @@
                 alt="Tweet Image" class="w-full h-full rounded-lg mx-auto mt-2">
             -->
             
-
             <!-- Tweet Video 
             <video class="w-full h-auto rounded-lg mx-auto mt-2" controls>
                 <source src="https://www.youtube.com/embed/tgbNymZ7vqY" type="video/mp4">
@@ -72,8 +70,7 @@
 
                 <!--Replies Button-->
                 <div class="flex flex-1 justify-center " >
-                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                            hover:bg-opacity-50 hover:bg-blue-400 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-blue-600"
                             routerLink="/trill/{{trill.id}}">
                         <img class="h-6 pr-2 " src="assets\images\icons\trill-card\commentW.png" >
                         <p>{{trill.replies.length}}</p>
@@ -82,17 +79,15 @@
                 
                 <!--Retrills Button-->
                 <div class="flex flex-1 justify-center " *ngIf="!isRetrilled">
-                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                            hover:bg-opacity-50 hover:bg-green-600 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-green-600"
                         (click)="retrill(trill.id)">
                         <img class="h-6 pr-2 " src="assets\images\icons\trill-card\repostW.png" >
                         <p>{{trill.retrills}}</p>
                     </div>
                 </div>
 
-                <div class="flex flex-1 justify-center " *ngIf="isRetrilled">
-                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                            hover:bg-opacity-50 hover:bg-green-600 hover:cursor-pointer p-1"
+                <div class="flex flex-1 justify-center" *ngIf="isRetrilled">
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-green-600"
                         (click)="deleteRetrill(trill.id)">
                         <img class="h-6 pr-2 " src="assets\images\icons\trill-card\repostFilled.png" >
                         <p>{{trill.retrills}}</p>
@@ -101,8 +96,7 @@
                 
                 <!--Like Button-->
                 <div class="flex flex-1 justify-center " *ngIf="!isTrillLiked">
-                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                            hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-red-600"
                         (click)="likeTrill(trill.id)">
                         <img class="h-6 pr-2 " src="assets\images\icons\trill-card\heartW.png" >
                         <p>{{trill.likes}}</p>
@@ -110,8 +104,7 @@
                 </div>
 
                 <div class="flex flex-1 justify-center " *ngIf="isTrillLiked">
-                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                            hover:bg-opacity-50 hover:bg-red-600 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-red-600"
                             (click)="deleteLike(trill.id)">
                         <img class="h-6 pr-2" src="assets\images\icons\trill-card\heartFilled.png" >
                         <p>{{trill.likes}}</p>
@@ -120,22 +113,19 @@
 
                 <!--Share & Bookmark Buttons-->
                 <div class="flex flex-1 justify-center ">
-                    <div class="flex text-white  rounded-full transition duration-350 ease-in-out 
-                                hover:bg-opacity-50 hover:bg-blue-500 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-blue-600"
                                 (click)="shareButton()">
-                        <img class="h-6 " src="assets\images\icons\trill-card\paperAirplaneW.png" >
+                        <img class="h-6" src="assets\images\icons\trill-card\paperAirplaneW.png" >
                     </div>
 
                     <div class="mx-1"></div>
 
-                    <div class="flex text-white  rounded-full transition duration-350 ease-in-out 
-                                hover:bg-opacity-50 hover:bg-blue-500 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-blue-600"
                                 *ngIf="!isBookmarked" (click)="addBookmark(trill.id)">
                         <img class="h-6 " src="assets\images\icons\trill-card\bookmarkW.png" >
                     </div>
                     
-                    <div class="flex text-white rounded-full transition duration-350 ease-in-out 
-                                hover:bg-opacity-50 hover:bg-blue-500 hover:cursor-pointer p-1"
+                    <div class="trill-button hover:bg-opacity-50 hover:bg-blue-600"
                                 *ngIf="isBookmarked" (click)="deleteBookmark(trill.id)">
                         <img class="h-6 " src="assets\images\icons\trill-card\bookmarkFilled.png" >
                     </div>
