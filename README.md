@@ -70,6 +70,8 @@ Triller is a monolith application that follows the layered architecture design p
 
 By adhering to these patterns, Triller achieves better maintainability, testability, and separation of concerns within its architecture.
 
+![Logo](images/ArchitectureDiagram.png)
+
 ## Installation
 ### Server Installation
 
