@@ -64,7 +64,7 @@ https://triller.azurewebsites.net/
 
 ## Architecture
 ### Layered Architecture with Repository and Unit of Work Patterns
-Triller follows a layered architecture design pattern, incorporating the Repository and Unit of Work Patterns to organize and manage data access logic effectively.
+Triller is a monolith application that follows the layered architecture design pattern, incorporating the Repository and Unit of Work Patterns to organize and manage data access logic effectively.
 - **Repository Pattern:** Data access logic is encapsulated in repositories, providing a clean separation between the data layer and the business logic. Each entity type typically has its own repository class responsible for CRUD operations.
 - **Unit of Work Pattern:** The Unit of Work pattern coordinates multiple repositories and ensures that all changes to the database are made within a single transaction. This pattern helps maintain data integrity and consistency.
 
