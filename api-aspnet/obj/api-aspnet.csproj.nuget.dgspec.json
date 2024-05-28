@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {}
+    "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {
+    "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
+        "projectUniqueName": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
         "projectName": "api-aspnet",
-        "projectPath": "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\obj\\",
+        "projectPath": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
+        "packagesPath": "C:\\Users\\mely\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Programs\\Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Users\\mely\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mely\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mely\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
