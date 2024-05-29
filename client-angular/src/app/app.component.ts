@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { User } from './_models/user';
@@ -25,13 +25,24 @@ export class AppComponent {
   user: User | null = null;
   showRightSidebar = true;
   currentLanguage: string = 'en'
+  isDesktop = window.innerWidth >= 768;
 
   constructor(private http: HttpClient, public accountService: AccountService, 
     private router: Router, private languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.setCurrentUser();
-    this.setupRightSidebar()
+    this.checkScreenWidth();
+    this.setupRightSidebar();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenWidth();
+  }
+
+  private checkScreenWidth() {
+    this.isDesktop = window.innerWidth >= 768;
   }
 
   setCurrentUser() {
@@ -54,6 +65,7 @@ export class AppComponent {
     });
   }
 
+  //If the URL includes 'messages', showRightSidebar is set to true. Otherwise, it is set to false.
   private setupRightSidebar() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event) => {

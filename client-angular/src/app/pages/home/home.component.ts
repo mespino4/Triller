@@ -89,8 +89,6 @@ export class HomeComponent {
     });
     this.isForYou = false;
   }
-
-
   
   loadMoreTrills() {
     //this.pageNumber++;

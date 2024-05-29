@@ -113,7 +113,8 @@ public class AccountController(UserManager<AppUser> userManager, IUnitOfWork uow
 	public async Task<string> GetLanguage() {
 		var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-		return user.Language;
+		if(user == null) return "en";
+		else return user.Language;
 	}
 
 

@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{52321AB8-E8B9-4B82-ACA0-7E41CD245A65}|api-aspnet\\api-aspnet.csproj|c:\\users\\mely\\desktop\\full-stack-apps\\triller\\api-aspnet\\src\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52321AB8-E8B9-4B82-ACA0-7E41CD245A65}|api-aspnet\\api-aspnet.csproj|solutionrelative:api-aspnet\\src\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52321AB8-E8B9-4B82-ACA0-7E41CD245A65}|api-aspnet\\api-aspnet.csproj|c:\\users\\mely\\desktop\\full-stack-apps\\triller\\api-aspnet\\api-aspnet.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{52321AB8-E8B9-4B82-ACA0-7E41CD245A65}|api-aspnet\\api-aspnet.csproj|solutionrelative:api-aspnet\\api-aspnet.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52321AB8-E8B9-4B82-ACA0-7E41CD245A65}|api-aspnet\\api-aspnet.csproj|c:\\users\\mely\\desktop\\full-stack-apps\\triller\\api-aspnet\\src\\dtos\\trilldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52321AB8-E8B9-4B82-ACA0-7E41CD245A65}|api-aspnet\\api-aspnet.csproj|solutionrelative:api-aspnet\\src\\dtos\\trilldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +62,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\src\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "api-aspnet\\src\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\src\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "api-aspnet\\src\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAAUwG0AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T20:34:30.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "api-aspnet",
+              "DocumentMoniker": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
+              "RelativeDocumentMoniker": "api-aspnet\\api-aspnet.csproj",
+              "ToolTip": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\api-aspnet.csproj",
+              "RelativeToolTip": "api-aspnet\\api-aspnet.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-05-28T20:34:10.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TrillController.cs",
               "DocumentMoniker": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\src\\Controllers\\TrillController.cs",
               "RelativeDocumentMoniker": "api-aspnet\\src\\Controllers\\TrillController.cs",
@@ -62,11 +96,12 @@
               "RelativeToolTip": "api-aspnet\\src\\Controllers\\TrillController.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAAAQwCgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-16T01:24:01.589Z"
+              "WhenOpened": "2024-04-16T01:24:01.589Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CreateTrillDTO.cs",
               "DocumentMoniker": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\src\\DTOs\\CreateTrillDTO.cs",
               "RelativeDocumentMoniker": "api-aspnet\\src\\DTOs\\CreateTrillDTO.cs",
@@ -74,11 +109,12 @@
               "RelativeToolTip": "api-aspnet\\src\\DTOs\\CreateTrillDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-16T01:21:06.197Z"
+              "WhenOpened": "2024-04-16T01:21:06.197Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "TrillDTO.cs",
               "DocumentMoniker": "C:\\Users\\mely\\Desktop\\Full-Stack-Apps\\Triller\\api-aspnet\\src\\DTOs\\TrillDTO.cs",
               "RelativeDocumentMoniker": "api-aspnet\\src\\DTOs\\TrillDTO.cs",
