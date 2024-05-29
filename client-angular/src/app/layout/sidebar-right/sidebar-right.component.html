@@ -27,23 +27,23 @@
             <span class="text-lg hover:underline" routerLink="/profile/{{member.username}}"
                 >&#64;{{member.username}}</span>
         </div>
-        <div class="row flex justify-center mt-6">
+        <div class="row flex justify-center mt-4">
             <div class="info text-center px-4">
-                <h3 class="text-lg font-semibold">{{ 'sidebar-right.following' | translate }}</h3>
-                <span class="text-xl">{{member.followingCount}}</span>
+                <h3 class="text-base font-semibold">{{ 'sidebar-right.following' | translate }}</h3>
+                <span class="text-base">{{member.followingCount}}</span>
             </div>
             <div class="info text-center px-4">
-                <h3 class="text-lg font-semibold">{{ 'sidebar-right.followers' | translate }}</h3>
-                <span class="text-xl">{{member.followerCount}}</span>
+                <h3 class="text-base font-semibold">{{ 'sidebar-right.followers' | translate }}</h3>
+                <span class="text-base">{{member.followerCount}}</span>
             </div>
             <div class="info text-center px-4">
-                <h3 class="text-lg font-semibold">Trills</h3>
-                <span class="text-xl">{{member.trillCount}}</span>
+                <h3 class="text-base font-semibold">Trills</h3>
+                <span class="text-base">{{member.trillCount}}</span>
             </div>
         </div>
     </div>
 
-    <div class="my-5"></div>
+    <div class="my-4"></div>
 
     <div class="max-w-sm rounded-lg overflow-hidden" style="background-color: #15202b" >
         <h2 class="px-4 py-2 text-xl font-semibold text-white">{{ 'sidebar-right.explore_users' | translate }}</h2>

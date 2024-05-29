@@ -66,9 +66,13 @@ public class AccountController(UserManager<AppUser> userManager, IUnitOfWork uow
 		// Find the user in the database by username
 		var user = await _userManager.Users
 			.SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
-
+		
+		//modern version
+        //var user = await _userManager.Users
+        //    .SingleOrDefaultAsync(x => x.UserName.Equals(loginDto.Username, StringComparison.CurrentCultureIgnoreCase));
+        
 		// If the user does not exist, return Unauthorized
-		if(user == null) return Unauthorized("Invalid Username");
+        if(user == null) return Unauthorized("Invalid Username");
 
 		var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 		if(!result) return Unauthorized("Invalid Password");

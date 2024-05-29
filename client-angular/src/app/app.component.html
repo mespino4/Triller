@@ -1,9 +1,8 @@
 <!-- Set background color for the entire page -->
-<body style="background-color: #15202b;">
+<body class="bg-[#15202b]">
 
   <!--Desktop Version -->
   <div class="flex mx-auto max-w-7xl h-full justify-center" *ngIf="isDesktop">
-
 <!--
   <div class="flex mx-auto max-w-7xl h-full justify-center">
   -->
@@ -34,33 +33,79 @@
     </div>
   </div>
 
-  
   <!--Mobile Version-->
-  <div class="flex flex-col mx-auto h-full justify-center" *ngIf="!isDesktop">
+  
+  <div class="flex flex-col mx-auto h-full" *ngIf="!isDesktop">
     <!-- Navbar -->
-    <header class="fixed top-0 left-0 right-0 bg-black p-2 flex justify-between items-center text-center">
-      <div class="flex items-center justify-start">
+    <header class="fixed top-0 left-0 right-0 p-2 flex justify-between items-center text-center bg-gray-900">
+      <div class="flex items-center justify-center">
         <button id="toggleMenu" class="text-3xl font-bold text-white hover:text-gray-300">
           ☰
         </button>
       </div>
-    
-      <!--Icon -->
-      <div class="flex items-center justify-center flex-grow"> <!-- Added flex-grow -->
+      
+      <!-- Icon -->
+      <div class="flex items-center justify-center flex-grow">
         <a id="home" href="/">
-          <img class="h-8" src="assets\images\logo.png" alt="Triller"/>
+          <img class="h-8" src="assets/images/logo.png" alt="Triller"/>
         </a>
       </div>
     </header>
-
+  
     <!-- Content Section -->
-    <div class="flex-1 overflow-auto px-2">
+    <div class="flex-1 overflow-auto px-2 mt-12">
       <ngx-spinner type="ball-spin-clockwise">
         <h3 class="text-white">Loading...</h3>
       </ngx-spinner>
       
       <router-outlet></router-outlet>
     </div>
-  </div>
 
+    <!-- Navbar -->
+    <nav class="fixed bottom-0 left-0 right-0 p-2 flex h-12 justify-between items-center text-center bg-gray-900">
+
+      <!-- Icon Container-->
+      <div class="flex items-center justify-around flex-grow">
+        
+        <!-- Home -->
+        <a class="group nav-button text-white hover:text-gray-300" routerLink="/home">
+          <svg class="mr-4 h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"></path>
+          </svg>
+        </a>
+
+        <!-- Profile -->
+        <a class="group nav-button text-white hover:text-gray-300" routerLink="/home">
+          <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+        </a>
+
+        <!-- Notification -->
+        <a class="group nav-button text-white hover:text-gray-300" routerLink="/notifications" routerLinkActive="active">
+          <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+              </path>
+          </svg>
+        </a>
+
+        <!-- Messages -->
+        <a class="group nav-button text-white hover:text-gray-300" routerLink="/messages" routerLinkActive="active">
+          <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+              </path>
+          </svg>
+        </a>
+
+        <!-- Logout -->
+        <a class="group nav-button text-white hover:text-gray-300" routerLink="/login" routerLinkActive="active" >
+          <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+    
+  </div>
+  
 </body>
