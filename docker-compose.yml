@@ -1,0 +1,39 @@
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: triller-db
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - db_data:/var/opt/mssql
+
+  api:
+    build:
+      context: .
+      dockerfile: api-aspnet/Dockerfile
+    container_name: triller-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=trillerdb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=true"
+      TokenKey: "A highly confidential and immensely challenging-to-predict cryptographic passphrase of utmost security and complexity."
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  client:
+    build:
+      context: ./client-angular
+      dockerfile: Dockerfile
+    container_name: triller-client
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  db_data:
