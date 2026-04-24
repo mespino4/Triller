@@ -8,7 +8,7 @@ the platform supports user-to-user connections with a follow system. Finally, us
 communicate with each other through a real-time messaging system
 
 ## Live Demo
-https://triller.azurewebsites.net/
+https://triller.social/
 
 ## Table of Contents
 - [Features](#features)
